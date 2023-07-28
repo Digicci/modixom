@@ -1,0 +1,7 @@
+{
+  "name": "modixom",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
