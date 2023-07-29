@@ -1,0 +1,1 @@
+export const isUserConnected = (state) => state.user.connected;
