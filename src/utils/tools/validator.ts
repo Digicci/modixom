@@ -27,9 +27,11 @@ export const validator = (formConfig: any) => {
         return error;
     }
     const validateAll = () => {
+        const errors: Array<string> = []
         Object.keys(formConfig).forEach((name: string) => {
-            validate(name, inscriptionValues[name]);
+            errors.push(validate(name, inscriptionValues[name]));
         });
+        return errors;
     }
     return {
         validate,

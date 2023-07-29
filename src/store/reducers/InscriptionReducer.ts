@@ -2,20 +2,20 @@ import {defaultGender} from "../../pages/UnconnectedRoot/Inscription/Inscription
 import ReduxActionInterface from "../../interface/reduxActionInterface";
 import {SET_INSCRIPTION_ERROR, SET_INSCRIPTION_FIELD} from "../actions/inscriptionActions";
 
-interface UserState {
-    name: string;
-    surname: string;
-    gender: string;
-    mail: string;
-    mailConfirmation: string;
-    phone: string;
-    password: string;
-    passwordConfirmation: string;
-    address: string;
-    city: string;
-    postalCode: string;
-    country: string;
-    cgu: boolean;
+export interface IUserState {
+    name: string | Object;
+    surname: string| Object;
+    gender: string| Object;
+    mail: string| Object;
+    mailConfirmation: string| Object;
+    phone: string| Object;
+    password: string| Object;
+    passwordConfirmation: string| Object;
+    address: string| Object;
+    city: string| Object;
+    postalCode: string| Object;
+    country: string| Object;
+    cgu: boolean| Object;
 }
 
 interface InscriptionErrorState {
@@ -34,7 +34,7 @@ interface InscriptionErrorState {
 }
 
 interface InscriptionState {
-    user: UserState;
+    user: IUserState;
     errors: InscriptionErrorState;
 }
 

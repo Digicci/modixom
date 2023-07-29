@@ -1,6 +1,8 @@
+import {IUserState} from "../../../../store/reducers/InscriptionReducer";
+
 export const defaultGender = "male"
 
-export const FormFields = {
+export const FormFields: IUserState = {
     gender: {
         type: 'radio',
         name: 'gender',
@@ -51,10 +53,10 @@ export const FormFields = {
         required: true,
         pattern: '^[a-zA-Z-]+$'
     },
-    town: {
+    country: {
         type: 'text',
         label: 'Pays',
-        name: 'town',
+        name: 'country',
         required: true,
         pattern: '^[a-zA-Z-]+$'
     },

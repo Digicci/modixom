@@ -5,8 +5,10 @@ import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
 import {setInscriptionField} from "../../../../store/actions/inscriptionActions";
 import validator from "../../../../utils/tools/validator";
+import {useApi} from "../../../../services/ApiService";
 
 const InscriptionForm: React.FC = () => {
+    const api = useApi();
 
     const {validate, validateAll} = validator(FormFields)
 
@@ -17,6 +19,18 @@ const InscriptionForm: React.FC = () => {
         const { name, value } = e.target;
         dispatch(setInscriptionField(name, value));
         validate(name, value);
+        if(name === 'city') {
+            handleCityChange(value);
+        }
+    }
+
+    //Todo: créer une div qui contient les villes et qui s'affiche en dessous de l'input
+    const handleCityChange = async (value: string) => {
+        const name = 'city';
+        if (value.length > 2) {
+            const response = await api.get('/searchCities', {q: value});
+            console.log(response);
+        }
     }
 
     return (
