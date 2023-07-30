@@ -1,9 +1,8 @@
 import React, {FormEventHandler} from "react";
 import {useSelector} from "react-redux";
-import {getInscriptionError} from "../../../../../store/selectors/InscriptionSelectors";
 import "./input.scss";
 
-interface InputProps {
+interface IInputProps {
     type: string;
     fieldset?: any;
     name: string;
@@ -12,12 +11,13 @@ interface InputProps {
     label?: string;
     value?: any;
     error?: string;
+    errorSelector: (state: any) => any;
     handleChange: FormEventHandler;
 }
 
-const Input: React.FC = (props: InputProps) => {
+const Input: React.FC = (props: IInputProps) => {
 
-    const error = useSelector(getInscriptionError)[props.name];
+    const error = useSelector(props.errorSelector)[props.name];
 
     //Si le type est radio, on affiche un fieldset
     if (props.type === 'radio') {

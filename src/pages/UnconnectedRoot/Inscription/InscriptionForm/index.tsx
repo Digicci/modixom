@@ -1,16 +1,17 @@
 import React from "react";
-import Input from "./Input";
+import Input from "../../../../components/Input";
 import { FormFields } from "./FormConfig";
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
 import {setInscriptionField} from "../../../../store/actions/inscriptionActions";
+import { getInscriptionError } from "../../../../store/selectors/InscriptionSelectors";
 import validator from "../../../../utils/tools/validator";
 import {useApi} from "../../../../services/ApiService";
 
 const InscriptionForm: React.FC = () => {
     const api = useApi();
 
-    const {validate, validateAll} = validator(FormFields)
+    const {validate, validateAll} = validator(FormFields, getInscriptionValues)
 
     const dispatch = useDispatch();
     const data = useSelector(getInscriptionValues);
@@ -33,12 +34,23 @@ const InscriptionForm: React.FC = () => {
         }
     }
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        validateAll()
+    }
+
     return (
-        <form className={'form__wrapper'}>
+        <form onSubmit={handleSubmit} className={'form__wrapper'}>
             {
                 Object.keys(FormFields).map((item, index) => {
                     return (
-                        <Input key={index} handleChange={handleChange} value={data[FormFields[item].name]} {...FormFields[item]} />
+                        <Input 
+                            key={index} 
+                            handleChange={handleChange} 
+                            value={data[FormFields[item].name]} 
+                            {...FormFields[item]}
+                            errorSelector={getInscriptionError}
+                        />
                     )
                 })
             }
