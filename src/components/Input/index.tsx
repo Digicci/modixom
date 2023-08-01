@@ -1,11 +1,15 @@
 import React, {FormEventHandler} from "react";
+<<<<<<< HEAD:src/pages/UnconnectedRoot/Inscription/InscriptionForm/Input/index.tsx
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionError} from "../../../../../store/selectors/InscriptionSelectors";
 import {setInscriptionFocus} from "../../../../../store/actions/inscriptionActions";
 import Proposal from '../Proposal';
+=======
+import {useSelector} from "react-redux";
+>>>>>>> 20737768ba54140c1d99cdb6df888e957ded7b3d:src/components/Input/index.tsx
 import "./input.scss";
 
-interface InputProps {
+interface IInputProps {
     type: string;
     fieldset?: any;
     name: string;
@@ -14,11 +18,13 @@ interface InputProps {
     label?: string;
     value?: any;
     error?: string;
+    errorSelector: (state: any) => any;
     handleChange: FormEventHandler;
 }
 
-const Input: React.FC = (props: InputProps) => {
+const Input: React.FC = (props: IInputProps) => {
 
+<<<<<<< HEAD:src/pages/UnconnectedRoot/Inscription/InscriptionForm/Input/index.tsx
     const error = useSelector(getInscriptionError)[props.name];
     const dispatch = useDispatch()
 
@@ -29,6 +35,9 @@ const Input: React.FC = (props: InputProps) => {
         dispatch(setInscriptionFocus(name))
     }
 
+=======
+    const error = useSelector(props.errorSelector)[props.name];
+>>>>>>> 20737768ba54140c1d99cdb6df888e957ded7b3d:src/components/Input/index.tsx
 
     //Si le type est radio, on affiche un fieldset
     if (props.type === 'radio') {
