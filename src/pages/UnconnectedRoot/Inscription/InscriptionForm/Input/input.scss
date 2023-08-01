@@ -99,3 +99,23 @@
     margin-bottom: 10px;
   }
 }
+
+.cityWrapper {
+    position: relative;
+
+    &__container {
+        position: absolute;
+        max-height: 150px;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgb(139,139,139);
+        padding: 0 3px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        &__proposals__item {
+            padding: 10px 0;
+        }
+    }
+}

@@ -43,8 +43,8 @@ export const FormFields: IUserState = {
         type: 'text',
         label: 'Code postal',
         name: 'postalCode',
-        required: true,
-        pattern: '^[0-9]{5}$'
+        pattern: '^[0-9]{5}$',
+        disabled: true
     },
     city: {
         type: 'text',

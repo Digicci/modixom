@@ -1,6 +1,8 @@
 import React, {FormEventHandler} from "react";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionError} from "../../../../../store/selectors/InscriptionSelectors";
+import {setInscriptionFocus} from "../../../../../store/actions/inscriptionActions";
+import Proposal from '../Proposal';
 import "./input.scss";
 
 interface InputProps {
@@ -18,6 +20,15 @@ interface InputProps {
 const Input: React.FC = (props: InputProps) => {
 
     const error = useSelector(getInscriptionError)[props.name];
+    const dispatch = useDispatch()
+
+
+    //controle la popup de proposition de ville.
+    const handleFocus = (e) => {
+        const {name} = e.target
+        dispatch(setInscriptionFocus(name))
+    }
+
 
     //Si le type est radio, on affiche un fieldset
     if (props.type === 'radio') {
@@ -52,10 +63,14 @@ const Input: React.FC = (props: InputProps) => {
         )
     }
 
+    const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
+
     //Sinon on retourne un input classique
     return (
         <div className={'inputGroup'}>
-            <div className={"inputGroup__wrapper"}>
+            <div className={"inputGroup__wrapper"} style={{
+                position: props.name === 'city' && 'relative'
+            }}>
                 <input
                     type={props.type}
                     name={props.name}
@@ -63,9 +78,16 @@ const Input: React.FC = (props: InputProps) => {
                     required={props.required}
                     onChange={props.handleChange}
                     className={"inputGroup__wrapper__input"}
+                    autoComplete={'off'}
+                    onFocus={handleFocus}
+                    disabled={props.disabled || false}
                 />
                 <label className={"inputGroup__wrapper__label"}>{props.label}</label>
             </div>
+            {
+                (props.name === 'city') && <Proposal class={'cityWrapper__container'}/>
+            }
+
             <p className={"inputGroup__error"}>{
                 error && error
             }</p>

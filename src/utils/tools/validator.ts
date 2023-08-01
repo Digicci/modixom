@@ -2,6 +2,8 @@ import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../store/selectors/InscriptionSelectors";
 import {setInscriptionError} from "../../store/actions/inscriptionActions";
 
+
+//ToDo : rendre cet utils plus flexible pour être utilisé avec d'autre formulaires
 export const validator = (formConfig: any) => {
     const dispatch = useDispatch();
     const inscriptionValues = useSelector(getInscriptionValues);

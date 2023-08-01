@@ -2,7 +2,7 @@ import React, {createContext, useContext} from "react";
 import axios from "axios";
 
 const Api = axios.create({
-    baseURL: 'https://modixom.fr/api/',
+    baseURL: 'https://deamonerp.fr/modixom/public/index.php/api/',
 })
 
 // Définition du type pour le contexte
