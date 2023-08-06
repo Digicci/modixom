@@ -1,12 +1,8 @@
 import React, {FormEventHandler} from "react";
-<<<<<<< HEAD:src/pages/UnconnectedRoot/Inscription/InscriptionForm/Input/index.tsx
 import {useSelector, useDispatch} from "react-redux";
-import {getInscriptionError} from "../../../../../store/selectors/InscriptionSelectors";
-import {setInscriptionFocus} from "../../../../../store/actions/inscriptionActions";
+import {getInscriptionError} from "../../store/selectors/InscriptionSelectors";
+import {setInscriptionFocus} from "../../store/actions/inscriptionActions";
 import Proposal from '../Proposal';
-=======
-import {useSelector} from "react-redux";
->>>>>>> 20737768ba54140c1d99cdb6df888e957ded7b3d:src/components/Input/index.tsx
 import "./input.scss";
 
 interface IInputProps {
@@ -18,13 +14,12 @@ interface IInputProps {
     label?: string;
     value?: any;
     error?: string;
+    disabled?: boolean;
     errorSelector: (state: any) => any;
     handleChange: FormEventHandler;
 }
 
 const Input: React.FC = (props: IInputProps) => {
-
-<<<<<<< HEAD:src/pages/UnconnectedRoot/Inscription/InscriptionForm/Input/index.tsx
     const error = useSelector(getInscriptionError)[props.name];
     const dispatch = useDispatch()
 
@@ -34,11 +29,6 @@ const Input: React.FC = (props: IInputProps) => {
         const {name} = e.target
         dispatch(setInscriptionFocus(name))
     }
-
-=======
-    const error = useSelector(props.errorSelector)[props.name];
->>>>>>> 20737768ba54140c1d99cdb6df888e957ded7b3d:src/components/Input/index.tsx
-
     //Si le type est radio, on affiche un fieldset
     if (props.type === 'radio') {
         const fieldset = props.fieldset;
@@ -76,10 +66,8 @@ const Input: React.FC = (props: IInputProps) => {
 
     //Sinon on retourne un input classique
     return (
-        <div className={'inputGroup'}>
-            <div className={"inputGroup__wrapper"} style={{
-                position: props.name === 'city' && 'relative'
-            }}>
+        <div className={className}>
+            <div className={"inputGroup__wrapper"}>
                 <input
                     type={props.type}
                     name={props.name}

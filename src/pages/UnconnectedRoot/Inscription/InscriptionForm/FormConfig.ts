@@ -39,7 +39,7 @@ export const FormFields: IUserState = {
         label: 'Adresse',
         name: 'address',
         required: true,
-        pattern: '^[a-zA-Z0-9]+$'
+        pattern: '^[a-zA-Z0-9 ]+$'
     },
     postalCode: {
         type: 'text',
@@ -47,7 +47,6 @@ export const FormFields: IUserState = {
         name: 'postalCode',
         pattern: '^[0-9]{5}$',
         disabled: true,
-        pattern: '^[0-9]{5}$',
         errorMessage: 'Doit contenir 5 chiffres'
     },
     city: {
@@ -108,6 +107,7 @@ export const FormFields: IUserState = {
         type: 'checkbox',
         label: 'J\'accepte les conditions générales d\'utilisation',
         name: 'cgu',
+        required: true,
         errorMessage: 'Merci d\'accepter les conditions générales d\'utilisation'
     }
 }

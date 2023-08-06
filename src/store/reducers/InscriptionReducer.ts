@@ -22,7 +22,7 @@ export interface IUserState {
     postalCode: string| Object;
     country: string| Object;
     cgu: boolean| Object;
-    cityId: string | number | null;
+    cityId?: string | number | null;
 }
 
 interface InscriptionErrorState {
@@ -38,6 +38,7 @@ interface InscriptionErrorState {
     postalCode: string;
     country: string;
     cgu: string;
+    noCityId: boolean;
 }
 
 export interface ICityProposal {
@@ -87,7 +88,8 @@ const initialState: InscriptionState = {
         country: '',
         password: '',
         passwordConfirmation: '',
-        cgu: ''
+        cgu: '',
+        noCityId: true
     },
     cities: [],
     focus: null
@@ -121,7 +123,11 @@ const inscriptionReducer = (state = initialState, action: ReduxActionInterface) 
         case SET_CITY_PROPOSAL:
             return {
                 ...state,
-                cities: action.payload.cities
+                cities: action.payload.cities,
+                errors: {
+                    ...state.errors,
+                    noCityId: true
+                }
             }
 
         case SET_INSCRIPTION_FOCUS:
@@ -138,6 +144,10 @@ const inscriptionReducer = (state = initialState, action: ReduxActionInterface) 
                     city: action.payload.city.nom,
                     postalCode: action.payload.city.cp,
                     cityId: action.payload.city.id
+                },
+                errors: {
+                    ...state.errors,
+                    noCityId: false
                 }
            }
 

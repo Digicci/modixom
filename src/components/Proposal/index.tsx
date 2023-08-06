@@ -1,8 +1,8 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {getCitiesProposal, getInputFocus} from "../../../../../store/selectors/InscriptionSelectors";
-import {setInscriptionCity, setInscriptionFocus} from "../../../../../store/actions/inscriptionActions"
-import {ICityProposal} from '../../../../../store/reducers/InscriptionReducer'
+import {getCitiesProposal, getInputFocus} from "../../store/selectors/InscriptionSelectors";
+import {setInscriptionCity, setInscriptionFocus} from "../../store/actions/inscriptionActions"
+import {ICityProposal} from '../../store/reducers/InscriptionReducer'
 
 interface IProposalProps {
     class: string;

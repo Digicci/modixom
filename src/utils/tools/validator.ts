@@ -1,5 +1,4 @@
 import {useSelector, useDispatch} from "react-redux";
-import {getInscriptionValues} from "../../store/selectors/InscriptionSelectors";
 import {setInscriptionError} from "../../store/actions/inscriptionActions";
 
 
@@ -30,7 +29,8 @@ export const validator = (formConfig: any, selector: (state:any) => any) => {
     const validateAll = () => {
         const errors: Array<string> = []
         Object.keys(formConfig).forEach((name: string) => {
-            errors.push(validate(name, values[name]));
+            const error = validate(name, values[name]);
+            if (error !== '') errors.push(error);
         });
         return errors;
     }

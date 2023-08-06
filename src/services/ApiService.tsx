@@ -49,7 +49,7 @@ function useProvideApi(): IApiContext{
             const response = await Api.post(url, data);
             return response.data;
         } catch (e) {
-            console.log(e);
+            throw new Error(e.response.data.message)
         }
     }
 
