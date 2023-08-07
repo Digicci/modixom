@@ -1,4 +1,4 @@
-import {ICityProposal} from '../reducers/InscriptionReducer.ts';
+import {ICityProposal} from '../reducers/InscriptionReducer';
 
 export const SET_INSCRIPTION_FIELD = 'SET_INSCRIPTION_FIELD';
 export const setInscriptionField = (name: string, value: string) => ({
@@ -7,6 +7,11 @@ export const setInscriptionField = (name: string, value: string) => ({
         name,
         value
     }
+});
+
+export const RESET_INSCRIPTION_FIELDS = 'RESET_INSCRIPTION_FIELDS';
+export const resetInscriptionFields = () => ({
+    type: RESET_INSCRIPTION_FIELDS
 });
 
 export const SET_INSCRIPTION_ERROR = 'SET_INSCRIPTION_ERROR';
@@ -27,7 +32,7 @@ export const setCityProposal = (values: Array<ICityProposal>) => ({
 })
 
 export const SET_INSCRIPTION_FOCUS = 'SET_INSCRIPTION_FOCUS';
-export const setInscriptionFocus = (on: string) => ({
+export const setInscriptionFocus = (on: string | null) => ({
     type: SET_INSCRIPTION_FOCUS,
     payload: {
         focus: on

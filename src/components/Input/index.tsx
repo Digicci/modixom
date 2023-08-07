@@ -15,17 +15,18 @@ interface IInputProps {
     value?: any;
     error?: string;
     disabled?: boolean;
-    errorSelector: (state: any) => any;
+    errorSelector?: (state: any) => any;
     handleChange: FormEventHandler;
 }
 
+// @ts-ignore
 const Input: React.FC = (props: IInputProps) => {
-    const error = useSelector(getInscriptionError)[props.name];
+    const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
     const dispatch = useDispatch()
 
 
-    //controle la popup de proposition de ville.
-    const handleFocus = (e) => {
+    //control la popup de proposition de ville.
+    const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
         const {name} = e.target
         dispatch(setInscriptionFocus(name))
     }
@@ -64,7 +65,7 @@ const Input: React.FC = (props: IInputProps) => {
 
     const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
 
-    //Sinon on retourne un input classique
+    //Sinon, on retourne un input classique
     return (
         <div className={className}>
             <div className={"inputGroup__wrapper"}>
@@ -82,7 +83,7 @@ const Input: React.FC = (props: IInputProps) => {
                 <label className={"inputGroup__wrapper__label"}>{props.label}</label>
             </div>
             {
-                (props.name === 'city') && <Proposal class={'cityWrapper__container'}/>
+                (props.name === 'city') && <Proposal classFor={'cityWrapper__container'}/>
             }
 
             <p className={"inputGroup__error"}>{

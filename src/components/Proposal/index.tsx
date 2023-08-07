@@ -5,10 +5,11 @@ import {setInscriptionCity, setInscriptionFocus} from "../../store/actions/inscr
 import {ICityProposal} from '../../store/reducers/InscriptionReducer'
 
 interface IProposalProps {
-    class: string;
+    classFor: string;
 }
 
-const Proposal: React.FC = (props: IProposalProps) => {
+// @ts-ignore
+const Proposal: React.FC = (props: IProposalProps): null | React.JSX.Element => {
 
     const cities = useSelector(getCitiesProposal)
     const focusOn = useSelector(getInputFocus)
@@ -24,14 +25,14 @@ const Proposal: React.FC = (props: IProposalProps) => {
     }
 
     return (
-        <div className={props.class}>
-            <div className={`${props.class}__proposals`}>
+        <div className={props.classFor}>
+            <div className={`${props.classFor}__proposals`}>
                 {
-                    cities.map((city, index) => {
+                    cities.map((city: ICityProposal, index: number) => {
                         return (
                             <div
                                 key={index}
-                                className={`${props.class}__proposals__item`}
+                                className={`${props.classFor}__proposals__item`}
                                 onClick={() => handleClick(city)}
                             >
                                 <span>{city.nom} ({city.cp})</span>

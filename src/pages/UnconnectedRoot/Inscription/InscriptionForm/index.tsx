@@ -5,7 +5,7 @@ import {FormFields} from "./FormConfig";
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
 
-import {setInscriptionField, setCityProposal} from "../../../../store/actions/inscriptionActions";
+import {setInscriptionField, setCityProposal, resetInscriptionFields} from "../../../../store/actions/inscriptionActions";
 
 import {getInscriptionError} from "../../../../store/selectors/InscriptionSelectors";
 
@@ -15,7 +15,13 @@ import {useApi} from "../../../../services/ApiService";
 const InscriptionForm: React.FC = () => {
     const api = useApi();
     const [present] = useIonToast();
-    const {navigate} = useIonRouter();
+    // La methode "push" permet de naviguer vers une autre page,
+    // elle s'attend à recevoir un string qui correspond au chemin de la page en premier paramètre
+    // un second string qui correspond au sens de navigation (forward, back, root)
+    // une troisième string qui correspond à l'action à effectuer au niveau de l'historique (replace, push (default))
+    // deux autres paramètres optionnels qui correspondent aux options de navigation et à une transition personnalisée
+
+    const {push} = useIonRouter();
 
     const {validate, validateAll} = validator(FormFields, getInscriptionValues)
 
@@ -24,6 +30,7 @@ const InscriptionForm: React.FC = () => {
     const cityError = useSelector(getInscriptionError).noCityId;
 
     //On handle le changement de valeur d'un input
+    // eslint-disable-next-line no-undef
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         //dispatch de l'action
@@ -46,6 +53,7 @@ const InscriptionForm: React.FC = () => {
         dispatch(setInscriptionField("postalCode", ''))
     }
 
+    // eslint-disable-next-line no-undef
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const errors = validateAll();
@@ -60,7 +68,7 @@ const InscriptionForm: React.FC = () => {
                     color: "success",
                     position: "bottom"
                 }).then(() => {
-                    navigate('/connexion');
+                    push('/connexion', 'root', 'replace');
                 })
             }).catch((err) => {
                 //@ts-ignore
@@ -69,10 +77,15 @@ const InscriptionForm: React.FC = () => {
                     duration: 3000,
                     color: "danger",
                     position: "bottom"
+                }).then(() => {
+                    if (err.message.includes('L\'email existe déjà')) {
+                        dispatch(resetInscriptionFields());
+                        push('/connexion', 'root', 'replace');
+                    }
                 })
             })
         } else {
-            // Ligne suivante ignorer par typescript car le type de present est inconnu
+            // Ligne suivante ignorée par typescript car le type de present est inconnu
             //@ts-ignore
             present({
                 message: "Les champs ne sont pas correctement remplis.",
@@ -87,11 +100,14 @@ const InscriptionForm: React.FC = () => {
         <form onSubmit={handleSubmit} className={'form__wrapper'}>
             {
                 Object.keys(FormFields).map((item, index) => {
+
                     return (
                         <Input
                             key={index}
                             handleChange={handleChange}
+                            // @ts-ignore
                             value={data[FormFields[item].name]}
+                            // @ts-ignore
                             {...FormFields[item]}
                             errorSelector={getInscriptionError}
                         />

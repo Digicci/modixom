@@ -16,5 +16,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-case-declarations': 'off',
+    'allowImportingTsExtensions': 'off',
+    'no-undef': 'off'
   }
 }

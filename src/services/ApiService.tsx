@@ -35,7 +35,7 @@ export function ProvideApi({ children }: IProviderProps) {
 
 //ToDo : Ajouter des fonctions pour chaque requête necesaire, les endpoints doivent être définis dans un fichier à part
 function useProvideApi(): IApiContext{
-    const get = async (url, params = {}) => {
+    const get = async (url: string, params = {}) => {
         try {
             const response = await Api.get(url, {params});
             return response.data;
@@ -44,7 +44,7 @@ function useProvideApi(): IApiContext{
         }
     }
 
-    const post = async (url, data = {}) => {
+    const post = async (url: string, data = {}) => {
         try {
             const response = await Api.post(url, data);
             return response.data;
@@ -53,7 +53,7 @@ function useProvideApi(): IApiContext{
         }
     }
 
-    const put = async (url, data = {}) => {
+    const put = async (url: string, data = {}) => {
         try {
             const response = await Api.put(url, data);
             return response.data;
@@ -62,7 +62,7 @@ function useProvideApi(): IApiContext{
         }
     }
 
-    const remove = async (url) => {
+    const remove = async (url: string) => {
         try {
             const response = await Api.delete(url);
             return response.data;

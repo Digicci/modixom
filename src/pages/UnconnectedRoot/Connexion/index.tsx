@@ -1,6 +1,7 @@
 import React from 'react';
-import './Connexion.css';
-import {IonPage, IonButton, IonRouterLink, IonHeader} from "@ionic/react";
+import './Connexion.scss';
+import {IonPage, IonButton, IonHeader, IonFooter} from "@ionic/react";
+import ConnexionForm from "./ConnexionForm";
 
 const Connexion: React.FC = () => {
     return (
@@ -8,11 +9,12 @@ const Connexion: React.FC = () => {
             <IonHeader className={'header__container'}>
                 <h1>Connexion</h1>
             </IonHeader>
-            <IonRouterLink href={'/inscription'} className={'signinButton__wrapper'}>
-                <IonButton className={'signinButton'} expand={'full'}>
-                    {"S'inscrire"}
-                </IonButton>
-            </IonRouterLink>
+            <ConnexionForm />
+            <IonFooter className={'signinButton__wrapper'}>
+                    <IonButton className={'signinButton'} routerLink={'/inscription'} expand={'full'}>
+                        {"S'inscrire"}
+                    </IonButton>
+            </IonFooter>
         </IonPage>
     );
 };
