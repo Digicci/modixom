@@ -1,0 +1,1 @@
+export const connexionSelector = (state: any) => state.connexion;

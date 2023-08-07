@@ -1,25 +1,30 @@
+:root {
+  --client-primary-bg-color: #C2E79D;
+  --client-text-color: whitesmoke;
+}
+
 .header__container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 50px;
-    background-color: #C2E79D;
-    color: whitesmoke;
-    font-size: 24px;
-    text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50px;
+  background-color: var(--client-primary-bg-color);
+  color: var(--client-text-color);
+  font-size: 24px;
+  text-transform: uppercase;
 }
 
 .form__wrapper {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 10px;
-    margin-bottom: 35px;
-    gap: 10px;
-    grid-template-areas:
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  margin-bottom: 35px;
+  gap: 10px;
+  grid-template-areas:
                     "fieldset fieldset"
                     "input2 input3"
                     "input4 input4"
@@ -31,5 +36,14 @@
                     "input11 input11"
                     "input12 input12"
                     "input13 input13"
+                    "cityError cityError"
                     "input14 input14";
+}
+
+.city__error {
+  grid-area: cityError;
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  height: 25px;
 }

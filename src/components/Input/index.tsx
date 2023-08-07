@@ -1,9 +1,11 @@
 import React, {FormEventHandler} from "react";
-import {useSelector} from "react-redux";
-import {getInscriptionError} from "../../../../../store/selectors/InscriptionSelectors";
+import {useSelector, useDispatch} from "react-redux";
+import {getInscriptionError} from "../../store/selectors/InscriptionSelectors";
+import {setInscriptionFocus} from "../../store/actions/inscriptionActions";
+import Proposal from '../Proposal';
 import "./input.scss";
 
-interface InputProps {
+interface IInputProps {
     type: string;
     fieldset?: any;
     name: string;
@@ -12,13 +14,22 @@ interface InputProps {
     label?: string;
     value?: any;
     error?: string;
+    disabled?: boolean;
+    errorSelector?: (state: any) => any;
     handleChange: FormEventHandler;
 }
 
-const Input: React.FC = (props: InputProps) => {
+// @ts-ignore
+const Input: React.FC = (props: IInputProps) => {
+    const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
+    const dispatch = useDispatch()
 
-    const error = useSelector(getInscriptionError)[props.name];
 
+    //control la popup de proposition de ville.
+    const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+        const {name} = e.target
+        dispatch(setInscriptionFocus(name))
+    }
     //Si le type est radio, on affiche un fieldset
     if (props.type === 'radio') {
         const fieldset = props.fieldset;
@@ -52,9 +63,11 @@ const Input: React.FC = (props: InputProps) => {
         )
     }
 
-    //Sinon on retourne un input classique
+    const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
+
+    //Sinon, on retourne un input classique
     return (
-        <div className={'inputGroup'}>
+        <div className={className}>
             <div className={"inputGroup__wrapper"}>
                 <input
                     type={props.type}
@@ -63,9 +76,16 @@ const Input: React.FC = (props: InputProps) => {
                     required={props.required}
                     onChange={props.handleChange}
                     className={"inputGroup__wrapper__input"}
+                    autoComplete={'off'}
+                    onFocus={handleFocus}
+                    disabled={props.disabled || false}
                 />
                 <label className={"inputGroup__wrapper__label"}>{props.label}</label>
             </div>
+            {
+                (props.name === 'city') && <Proposal classFor={'cityWrapper__container'}/>
+            }
+
             <p className={"inputGroup__error"}>{
                 error && error
             }</p>
