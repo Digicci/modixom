@@ -1,10 +1,13 @@
 import {CONNECT_USER} from "../actions/userActions";
+import {storageKeys} from "../../constants";
 import {resetConnexionForm} from "../actions/connexionActions";
 
 const connexionMiddleware = (store: any) => (next: any) => (action: any) => {
     const nextAction = next(action);
-    if (action.type === CONNECT_USER) {
-        localStorage.setItem('user', JSON.stringify(action.payload));
+    const {userKey} = storageKeys;
+    const user: string | null = localStorage.getItem(userKey);
+    if (action.type === CONNECT_USER && !user) {
+        localStorage.setItem(userKey, JSON.stringify(action.payload));
         store.dispatch(resetConnexionForm())
     }
     return nextAction;

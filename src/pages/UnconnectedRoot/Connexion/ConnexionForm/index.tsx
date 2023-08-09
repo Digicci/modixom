@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './connexionForm.scss';
 import {useSelector, useDispatch} from "react-redux";
 import {useApi} from "../../../../services/ApiService";
 import {useIonToast, useIonRouter} from "@ionic/react";
+import {storageKeys, IStorageUser} from "../../../../constants";
 
 import Input from "../../../../components/Input";
 
@@ -18,6 +19,17 @@ const ConnexionForm: React.FC = () => {
     const api = useApi();
     const [present] = useIonToast();
     const {push} = useIonRouter();
+    const {userKey} = storageKeys;
+
+    // Check if user is already connected
+    useEffect(() => {
+        const user: IStorageUser | null = JSON.parse(localStorage.getItem(userKey) as string);
+        // if user is not null, it means that he is already connected
+        if (user !== null) {
+            dispatch(connectUser(user.idUser, user.token, user.type));
+            push('/home', 'forward', 'replace');
+        }
+    }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -28,7 +40,7 @@ const ConnexionForm: React.FC = () => {
         e.preventDefault();
         const response = await api.post('/login', data);
         if (response.user === null) {
-            present({
+            await present({
                 message: 'Identifiants incorrects',
                 duration: 3000,
                 color: 'danger',
