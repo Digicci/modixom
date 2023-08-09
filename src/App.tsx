@@ -26,7 +26,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 /* Pages import */
-import ConnectedRoot from "./pages/ConnectedRoot";
+import Index from "./pages/ConnectedRoot";
 import UnconnectedRoot from "./pages/UnconnectedRoot";
 
 
@@ -44,7 +44,7 @@ function App() {
         <IonApp>
             <IonReactRouter>
                 {
-                    isConnected ? <ConnectedRoot/> : <UnconnectedRoot/>
+                    isConnected ? <Index/> : <UnconnectedRoot/>
                 }
             </IonReactRouter>
         </IonApp>

@@ -1,5 +1,6 @@
 import {legacy_createStore as createStore, applyMiddleware, combineReducers, Store} from 'redux';
 import thunk from 'redux-thunk';
+import connexionMiddleware from "./middleware/connexionMiddleware";
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 import userReducer from "./reducers/UserReducer";
@@ -12,7 +13,7 @@ const store: Store = createStore(
         inscription: inscriptionReducer,
         connexion: connexionReducer
     }),
-    composeWithDevTools(applyMiddleware(thunk))
+    composeWithDevTools(applyMiddleware(thunk, connexionMiddleware))
 )
 
 export default store;

@@ -23,6 +23,8 @@ export interface IUserState {
     country: string| Object;
     cgu: boolean| Object;
     cityId?: string | number | null;
+    siret?: string | number | null | Object;
+    socialReason?: string | null | Object;
 }
 
 interface InscriptionErrorState {
@@ -74,7 +76,9 @@ const initialState: InscriptionState = {
         password: '',
         passwordConfirmation: '',
         cgu: false,
-        cityId: null
+        cityId: null,
+        siret: '',
+        socialReason: ''
     },
     errors: {
         name: '',
