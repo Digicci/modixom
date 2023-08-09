@@ -1,11 +1,12 @@
 import React from "react";
+import {IonPage} from "@ionic/react";
 
 const Home: React.FC = () => {
 
     return (
-        <div>
+        <IonPage>
             <h1>Home </h1>
-        </div>
+        </IonPage>
     );
 }
 

@@ -6,7 +6,7 @@ import Tab2 from "../Tab2";
 import Tab3 from "../Tab3";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 
-const Index: React.FC = () => {
+const ConnectedRoot: React.FC = () => {
     // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
     // utiliser le store pour afficher les bonnes pages
 
@@ -28,7 +28,7 @@ const Index: React.FC = () => {
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
                 <IonTabButton tab="tab1" href="/home">
-                    <IonIcon icon={home}/>
+                    <IonIcon aria-hidden={true} icon={home}/>
                 </IonTabButton>
                 <IonTabButton tab="tab2" href="/tab2">
                     <IonIcon aria-hidden="true" icon={megaphone}/>
@@ -44,4 +44,4 @@ const Index: React.FC = () => {
     );
 };
 
-export default Index;
+export default ConnectedRoot;
