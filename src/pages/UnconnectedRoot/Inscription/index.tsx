@@ -1,14 +1,15 @@
 import React from 'react';
 import {IonContent, IonHeader, IonPage} from "@ionic/react";
 import InscriptionForm from "./InscriptionForm";
+import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 
 interface InscriptionProps {
     type: string
 }
 
 const Inscription: React.FC<InscriptionProps> = (props: InscriptionProps) => {
-    const headerClass: string = props.type === 'professionnel' ?
-        'header__container blue' : 'header__container';
+    const isPro: boolean = props.type === 'professionnel';
+    const headerClass: string = generateHeaderClassName(isPro);
 
     return (
         <IonPage>

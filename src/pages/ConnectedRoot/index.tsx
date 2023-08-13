@@ -4,6 +4,7 @@ import {Redirect, Route} from "react-router-dom";
 import Home from "./Home";
 import Tab2 from "../Tab2";
 import Tab3 from "../Tab3";
+import User from "./User";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 
 const ConnectedRoot: React.FC = () => {
@@ -15,6 +16,9 @@ const ConnectedRoot: React.FC = () => {
             <IonRouterOutlet>
                 <Route exact path="/home">
                     <Home/>
+                    <Route exact path="/home/:id">
+                        <div>Detail</div>
+                    </Route>
                 </Route>
                 <Route exact path="/tab2">
                     <Tab2/>
@@ -22,12 +26,18 @@ const ConnectedRoot: React.FC = () => {
                 <Route path="/tab3">
                     <Tab3/>
                 </Route>
+                <Route exact path="/user">
+                    <User/>
+                </Route>
                 <Route exact path="/">
+                    <Redirect to="/home"/>
+                </Route>
+                <Route>
                     <Redirect to="/home"/>
                 </Route>
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
-                <IonTabButton tab="tab1" href="/home">
+                <IonTabButton tab="home" href="/home">
                     <IonIcon aria-hidden={true} icon={home}/>
                 </IonTabButton>
                 <IonTabButton tab="tab2" href="/tab2">
@@ -36,7 +46,7 @@ const ConnectedRoot: React.FC = () => {
                 <IonTabButton tab="tab3" href="/tab3">
                     <IonIcon aria-hidden="true" icon={at}/>
                 </IonTabButton>
-                <IonTabButton tab="tab3" href="/tab3">
+                <IonTabButton tab="user" href="/user">
                     <IonIcon aria-hidden="true" icon={personOutline}/>
                 </IonTabButton>
             </IonTabBar>

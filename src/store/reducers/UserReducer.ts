@@ -20,21 +20,23 @@ interface UserReducerInterface {
     user: UserState;
 }
 
+const initialUser: UserState = {
+    name: '',
+    surname: '',
+    gender: '',
+    mail: '',
+    phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    id: null,
+    token: ''
+}
+
 const initialState: UserReducerInterface = {
     connected: false,
-    user: {
-        name: '',
-        surname: '',
-        gender: '',
-        mail: '',
-        phone: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        country: '',
-        id: null,
-        token: ''
-    }
+    user: initialUser
 }
 
 const userReducer = (state: UserReducerInterface = initialState, action: ReduxActionInterface): UserReducerInterface => {
@@ -53,6 +55,7 @@ const userReducer = (state: UserReducerInterface = initialState, action: ReduxAc
         case DISCONNECT_USER:
             return {
                 ...state,
+                user: initialUser,
                 connected: false
             };
 

@@ -1,0 +1,24 @@
+.home {
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 0;
+
+    &__filters {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1px solid #C2C2C2;
+
+      &__category .button, &__button .button {
+        --background: transparent;
+        background: transparent;
+      }
+    }
+  }
+}

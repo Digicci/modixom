@@ -1,0 +1,37 @@
+.list__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .list {
+    width: 100%;
+    background: transparent;
+    --background: transparent;
+
+    &__item, &__item__label {
+      --background: transparent;
+    }
+  }
+}
+
+.user {
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .disconnect {
+      --background: transparent;
+      color: red;
+      width: calc(100vw - 40px);
+      margin: 20px;
+      font-size: 24px;
+      text-transform: uppercase;
+      font-weight: 700;
+      border: 1px solid red;
+    }
+  }
+}
