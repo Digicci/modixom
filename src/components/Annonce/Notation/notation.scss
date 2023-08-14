@@ -16,7 +16,7 @@
     &__title {
       font-size: 0.9rem;
       text-decoration: underline;
-      padding-left: 3px;
+      padding: 1px 3px;
     }
 
     &__stars {
@@ -28,7 +28,7 @@
       height: 100%;
 
       &__star {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
     }
   }
@@ -43,7 +43,7 @@
     &__title {
       font-size: 0.9rem;
       text-decoration: underline;
-      padding-left: 3px;
+      padding: 1px 3px;
     }
 
     &__bar {
@@ -67,10 +67,19 @@
 
       &__progress {
         height: 10px;
-        background: linear-gradient(90deg, rgba(249,0,0,1) 12%, rgba(175,191,10,1) 48%, rgba(69,255,0,1) 100%);
-        background-size: 120px;
-        width: 100%;
+        background: linear-gradient(90deg, rgba(249, 0, 0, 1) 10%, rgba(175, 191, 10, 1) 40%, rgba(69, 255, 0, 1) 100%) no-repeat fixed left;
+        background-size: 100%;
         margin: 0;
+        width: 100%;
+        position: relative;
+
+        &__fill {
+          height: 100%;
+          background: #fff;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
       }
     }
   }

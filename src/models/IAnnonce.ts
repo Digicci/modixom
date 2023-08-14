@@ -1,11 +1,11 @@
 export interface IAnnonce {
     id: number;
-    title: string;
-    imgPath: string | null;
+    titre: string;
+    images: string | null;
     description: string;
-    oldPrice: string | number | null;
-    newPrice: string | number;
-    logoPath: string | null;
-    priceEval: number;
-    vendorEval: number;
+    prix: string | number | null;
+    newPrix?: string | number;
+    logoPath?: string | null;
+    moyAnnonce: number;
+    moyEnseigne: number;
 }

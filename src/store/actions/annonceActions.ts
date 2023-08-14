@@ -4,6 +4,8 @@ export const ADD_ANNONCE = 'ADD_ANNONCE';
 export const REMOVE_ANNONCE = 'REMOVE_ANNONCE';
 export const SET_ANNONCE = 'SET_ANNONCE';
 
+export const IS_LOADING = 'IS_LOADING';
+
 export const addAnnonce = (annonce: IAnnonce) => {
     return {
         type: ADD_ANNONCE,
@@ -22,5 +24,12 @@ export const setAnnonce = (annonces: IAnnonce[]) => {
     return {
         type: SET_ANNONCE,
         payload: annonces
+    }
+}
+
+export const setIsLoadingAnnonces = (isLoading: boolean) => {
+    return {
+        type: IS_LOADING,
+        payload: isLoading
     }
 }

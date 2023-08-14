@@ -13,15 +13,15 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                 <div className={'annonce__top'}>
                     <div className={'annonce__top__img'}>
                         {
-                            props.imgPath ?
-                                <IonImg className={'img'} src={props.imgPath} alt={'Image produit'}/>
+                            props.images ?
+                                <IonImg className={'img'} src={props.images} alt={'Image produit'}/>
                                 :
                                 'Aucune image à charger'
                         }
                     </div>
                     <div className={'annonce__top__description'}>
                         <h1 className={'annonce__top__description__title'}>
-                            {props.title || 'pas de titre'}
+                            {props.titre || 'pas de titre'}
                         </h1>
                         <div className={'annonce__top__description__text'}>
                             {props.description || 'pas de déscription'}
@@ -30,28 +30,32 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                     <div className={'annonce__top__price'}>
                         <div className={'price'}>
                             {
-                                props.oldPrice && (
-                                    <div className={'price__old'}>
-                                        {props.oldPrice + ' €'}
+                                props.newPrix ? (
+                                    <>
+                                        <div className={'price__old'}>
+                                            {props.prix + ' €'}
+                                        </div>
+                                        <div className={'price__new'}>
+                                            {props.newPrix + ' €' || (Math.random() * 100) + ' €'}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className={'price__new'}>
+                                        {props.prix + ' €' || (Math.random() * 100) + ' €'}
                                     </div>
                                 )
                             }
-                            <div className={'price__new'}>
-                                {props.newPrice + ' €' || (Math.random() * 100) + ' €'}
-                            </div>
                         </div>
                         <div className={'vendor'}>
                             {
-                                props.logoPath ?
+                                props.logoPath &&
                                     <IonImg className={'vendor__img'} src={props.logoPath} alt={'logo de l\'enseigne'}/>
-                                    :
-                                    'Aucun logo'
                             }
                         </div>
                     </div>
                 </div>
                 <div className={'annonce__bottom'}>
-                    <Notation priceNote={props.priceEval} vendorNote={props.vendorEval} />
+                    <Notation priceNote={props.moyAnnonce} vendorNote={props.moyEnseigne} />
                 </div>
             </div>
         </IonItem>

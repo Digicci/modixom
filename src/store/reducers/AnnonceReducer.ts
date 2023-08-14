@@ -1,19 +1,42 @@
 import {IAnnonce} from "../../models/IAnnonce";
-import {SET_ANNONCE, ADD_ANNONCE, REMOVE_ANNONCE} from "../actions/annonceActions";
+import {SET_ANNONCE, ADD_ANNONCE, REMOVE_ANNONCE, IS_LOADING} from "../actions/annonceActions";
 
-const initialState: IAnnonce[] = [];
+interface IAnnonceState {
+    items: IAnnonce[];
+    isLoading: boolean;
+}
+
+const initialState: IAnnonceState = {
+    items: [],
+    isLoading: false
+}
 
 const AnnonceReducer = (state = initialState, action: any) => {
     switch(action.type) {
 
         case SET_ANNONCE:
-            return action.payload;
+            return {
+                isLoading: false,
+                items: action.payload
+            }
 
         case ADD_ANNONCE:
-            return [...state, action.payload];
+            return {
+                ...state,
+                items: [
+                    ...state.items,
+                    action.payload
+                ]
+            };
 
         case REMOVE_ANNONCE:
-            return state.filter(annonce => annonce.title !== action.payload.title);
+            return state.items.filter(annonce => annonce.id !== action.payload.id);
+
+        case IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload
+            }
 
         default:
             return state;
