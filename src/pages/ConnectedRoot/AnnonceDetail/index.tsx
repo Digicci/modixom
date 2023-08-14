@@ -8,6 +8,7 @@ import {useApi} from "../../../services/ApiService";
 import Loader from "../../../components/Loader";
 import {useSelector} from "react-redux";
 import {isUserPro} from "../../../store/selectors/UserSelectors";
+import {endpoints} from "../../../constants";
 
 import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 
@@ -21,7 +22,7 @@ const AnnonceDetail: React.FC = () => {
     const headerClass: string = generateHeaderClassName(isPro);
 
     useEffect(() => {
-        api.get('annonceDetail', {id: params.id}).then((res: IAnnonce) => {
+        api.get(endpoints.annonceDetail, {id: params.id}).then((res: IAnnonce) => {
             console.log(res);
             setAnnonce(res);
             setIsLoading(false);

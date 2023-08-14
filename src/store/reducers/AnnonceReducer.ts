@@ -40,6 +40,7 @@ const AnnonceReducer = (state = initialState, action: any) => {
 
         case SET_ANNONCE:
             return {
+                ...state,
                 isLoading: false,
                 items: action.payload
             }

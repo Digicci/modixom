@@ -12,3 +12,8 @@ export interface IStorageUser {
     token: string;
     type: string;
 }
+
+export const endpoints = {
+    annonces: 'searchAnnonces',
+    annonceDetail: 'annonceDetail',
+}

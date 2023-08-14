@@ -13,6 +13,7 @@ import {IAnnonce} from "../../../models/IAnnonce";
 import Loader from "../../../components/Loader";
 import {getAnnonces, isLoadingAnnonces} from "../../../store/selectors/AnnonceSelectors";
 import {setAnnonce, setIsLoadingAnnonces} from "../../../store/actions/annonceActions";
+import {endpoints} from "../../../constants";
 
 const Home: React.FC = () => {
 
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         dispatch(setIsLoadingAnnonces(true));
-        api.get('searchAnnonces').then((res: IAnnonce[]) => {
+        api.get(endpoints.annonces).then((res: IAnnonce[]) => {
             dispatch(setAnnonce(res));
         });
     }, []);
