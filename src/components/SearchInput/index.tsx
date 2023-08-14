@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import {useDispatch} from "react-redux";
-import {setAnnonce, setIsLoadingAnnonces} from "../../store/actions/annonceActions";
+import {useDispatch, useSelector} from "react-redux";
+import {setAnnonce, setIsLoadingAnnonces, setWhere} from "../../store/actions/annonceActions";
+import {getWhereClause} from "../../store/selectors/AnnonceSelectors";
 
 import {IonIcon, IonInput, IonItem} from "@ionic/react";
 import {useApi} from "../../services/ApiService";
@@ -9,18 +10,23 @@ import {search} from "ionicons/icons";
 const SearchInput: FC = () => {
     const api = useApi();
     const dispatch = useDispatch();
+    const where = useSelector(getWhereClause);
 
     const handleChange = (e: any) => {
         const {value} = e.target;
-        if (value.length < 3) {
+        dispatch(setWhere({motscles: value}))
+        if (value.length === 0) {
             dispatch(setIsLoadingAnnonces(true));
             api.get('searchAnnonces').then((res: any) => {
                 dispatch(setAnnonce(res));
             });
             return;
         }
+        if (value.length < 3) {
+            return;
+        }
         dispatch(setIsLoadingAnnonces(true));
-        api.get('searchAnnonces', {motscles: value}).then((res: any) => {
+        api.get('searchAnnonces', where).then((res: any) => {
             dispatch(setAnnonce(res));
         });
     }

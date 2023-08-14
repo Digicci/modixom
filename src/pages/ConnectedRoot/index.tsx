@@ -6,6 +6,7 @@ import Tab2 from "../Tab2";
 import Tab3 from "../Tab3";
 import User from "./User";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
+import AnnonceDetail from "./AnnonceDetail";
 
 const ConnectedRoot: React.FC = () => {
     // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
@@ -14,10 +15,12 @@ const ConnectedRoot: React.FC = () => {
     return (
         <IonTabs>
             <IonRouterOutlet>
-                <Route exact path="/home">
-                    <Home/>
+                <Route path="/home">
                     <Route exact path="/home/:id">
-                        <div>Detail</div>
+                        <AnnonceDetail />
+                    </Route>
+                    <Route exact path={'/home'}>
+                        <Home/>
                     </Route>
                 </Route>
                 <Route exact path="/tab2">

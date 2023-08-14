@@ -6,6 +6,10 @@ export const SET_ANNONCE = 'SET_ANNONCE';
 
 export const IS_LOADING = 'IS_LOADING';
 
+export const SET_WHERE = 'SET_WHERE';
+
+export const RESET_WHERE = "RESET_WHERE";
+
 export const addAnnonce = (annonce: IAnnonce) => {
     return {
         type: ADD_ANNONCE,
@@ -31,5 +35,18 @@ export const setIsLoadingAnnonces = (isLoading: boolean) => {
     return {
         type: IS_LOADING,
         payload: isLoading
+    }
+}
+
+export const setWhere = (where: any) => {
+    return {
+        type: SET_WHERE,
+        payload: where
+    }
+}
+
+export const resetWhere = () => {
+    return {
+        type: RESET_WHERE
     }
 }

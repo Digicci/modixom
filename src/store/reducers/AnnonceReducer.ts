@@ -1,14 +1,38 @@
 import {IAnnonce} from "../../models/IAnnonce";
-import {SET_ANNONCE, ADD_ANNONCE, REMOVE_ANNONCE, IS_LOADING} from "../actions/annonceActions";
+import {
+    SET_ANNONCE,
+    ADD_ANNONCE,
+    REMOVE_ANNONCE,
+    IS_LOADING,
+    SET_WHERE, RESET_WHERE
+} from "../actions/annonceActions";
+
+interface IWhere {
+    motscles?: string;
+    categories?: Array<number>;
+    ville?: number | null;
+    rayon?: number | null;
+    order?: "ASC" | "DESC";
+}
 
 interface IAnnonceState {
     items: IAnnonce[];
     isLoading: boolean;
+    where: IWhere;
+}
+
+const initialWhere: IWhere = {
+    motscles: "",
+    categories: [],
+    ville: null,
+    rayon: null,
+    order: "ASC"
 }
 
 const initialState: IAnnonceState = {
     items: [],
-    isLoading: false
+    isLoading: false,
+    where: initialWhere
 }
 
 const AnnonceReducer = (state = initialState, action: any) => {
@@ -36,6 +60,21 @@ const AnnonceReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 isLoading: action.payload
+            }
+
+        case SET_WHERE:
+            return {
+                ...state,
+                where: {
+                    ...state.where,
+                    ...action.payload
+                }
+            }
+
+        case RESET_WHERE:
+            return {
+                ...state,
+                where: initialWhere
             }
 
         default:

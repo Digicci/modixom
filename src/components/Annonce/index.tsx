@@ -30,18 +30,18 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                     <div className={'annonce__top__price'}>
                         <div className={'price'}>
                             {
-                                props.newPrix ? (
+                                props.newprix ? (
                                     <>
                                         <div className={'price__old'}>
-                                            {props.prix + ' €'}
+                                            {props.prix.toFixed(2) + ' €'}
                                         </div>
                                         <div className={'price__new'}>
-                                            {props.newPrix + ' €' || (Math.random() * 100) + ' €'}
+                                            {props.newprix.toFixed(2) + ' €'}
                                         </div>
                                     </>
                                 ) : (
                                     <div className={'price__new'}>
-                                        {props.prix + ' €' || (Math.random() * 100) + ' €'}
+                                        {props.prix + ' €'}
                                     </div>
                                 )
                             }

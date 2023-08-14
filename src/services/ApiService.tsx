@@ -48,7 +48,7 @@ function useProvideApi(): IApiContext{
         try {
             const response = await Api.post(url, data);
             return response.data;
-        } catch (e) {
+        } catch (e: any) {
             throw new Error(e.response.data.message)
         }
     }
