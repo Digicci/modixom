@@ -4,7 +4,9 @@ import {
     ADD_ANNONCE,
     REMOVE_ANNONCE,
     IS_LOADING,
-    SET_WHERE, RESET_WHERE
+    SET_WHERE,
+    RESET_WHERE,
+    TOGGLE_CATEGORY
 } from "../actions/annonceActions";
 
 interface IWhere {
@@ -12,7 +14,7 @@ interface IWhere {
     categories?: Array<number>;
     ville?: number | null;
     rayon?: number | null;
-    order?: "ASC" | "DESC";
+    tri?: "ASC" | "DESC";
 }
 
 interface IAnnonceState {
@@ -26,7 +28,7 @@ const initialWhere: IWhere = {
     categories: [],
     ville: null,
     rayon: null,
-    order: "ASC"
+    tri: "ASC"
 }
 
 const initialState: IAnnonceState = {
@@ -76,6 +78,22 @@ const AnnonceReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 where: initialWhere
+            }
+
+        case TOGGLE_CATEGORY:
+            const categories = state.where.categories || [];
+            const index = categories.indexOf(action.payload);
+            if(index === -1) {
+                categories.push(action.payload);
+            } else {
+                categories.splice(index, 1);
+            }
+            return {
+                ...state,
+                where: {
+                    ...state.where,
+                    categories
+                }
             }
 
         default:

@@ -10,6 +10,7 @@ export const SET_WHERE = 'SET_WHERE';
 
 export const RESET_WHERE = "RESET_WHERE";
 
+export const TOGGLE_CATEGORY = "TOGGLE_CATEGORY";
 export const addAnnonce = (annonce: IAnnonce) => {
     return {
         type: ADD_ANNONCE,
@@ -48,5 +49,12 @@ export const setWhere = (where: any) => {
 export const resetWhere = () => {
     return {
         type: RESET_WHERE
+    }
+}
+
+export const toggleCategoryFilter = (category: number) => {
+    return {
+        type: TOGGLE_CATEGORY,
+        payload: category
     }
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {useApi} from "../../../services/ApiService";
 import {useSelector, useDispatch} from "react-redux";
 
@@ -11,7 +11,7 @@ import SearchInput from "../../../components/SearchInput";
 
 import {IAnnonce} from "../../../models/IAnnonce";
 import Loader from "../../../components/Loader";
-import {getAnnonces, isLoadingAnnonces} from "../../../store/selectors/AnnonceSelectors";
+import {getAnnonces, getWhereClause, isLoadingAnnonces} from "../../../store/selectors/AnnonceSelectors";
 import {setAnnonce, setIsLoadingAnnonces} from "../../../store/actions/annonceActions";
 import {endpoints} from "../../../constants";
 
@@ -21,13 +21,22 @@ const Home: React.FC = () => {
     const dispatch = useDispatch();
     const annonces = useSelector(getAnnonces)
     const isLoading = useSelector(isLoadingAnnonces)
+    const where = useSelector(getWhereClause);
 
     useEffect(() => {
         dispatch(setIsLoadingAnnonces(true));
-        api.get(endpoints.annonces).then((res: IAnnonce[]) => {
+        let data = {};
+        if(where.motscles.length < 3) {
+            const {motscles, ...rest} = where;
+            data = {...rest};
+        } else {
+            data = {...where};
+        }
+
+        api.get(endpoints.annonces, data).then((res: IAnnonce[]) => {
             dispatch(setAnnonce(res));
         });
-    }, []);
+    }, [where]);
 
 
     return (
@@ -39,12 +48,12 @@ const Home: React.FC = () => {
                 <div className={'home__content'}>
                     <div className={'home__content__filters'}>
                         <div className={'home__content__filters__category'}>
-                            <IonButton className={'button'}>
+                            <IonButton className={'button'} routerLink={"/home/filter/category"} routerDirection={"forward"}>
                                 Catégories
                             </IonButton>
                         </div>
                         <div className={'home__content__filters__button'}>
-                            <IonButton className={'button'}>
+                            <IonButton className={'button'} routerLink={"/home/filter/filters"} routerDirection={"forward"}>
                                 Filtres
                                 <IonIcon icon={optionsOutline} slot={'end'}/>
                             </IonButton>

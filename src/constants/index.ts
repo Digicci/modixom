@@ -16,4 +16,5 @@ export interface IStorageUser {
 export const endpoints = {
     annonces: 'searchAnnonces',
     annonceDetail: 'annonceDetail',
+    categories: 'categories'
 }

@@ -1,6 +1,6 @@
 import {IUserState} from "../../../../store/reducers/InscriptionReducer";
 
-export const defaultGender = "male"
+export const defaultGender = "M"
 
 export const FormFields: IUserState = {
     gender: {
@@ -12,7 +12,7 @@ export const FormFields: IUserState = {
                 label: 'Mr'
             },
             {
-                value: 'female',
+                value: 'F',
                 label: 'Mme'
             }
         ],

@@ -1,6 +1,5 @@
 import React, {FormEventHandler} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {getInscriptionError} from "../../store/selectors/InscriptionSelectors";
 import {setInscriptionFocus} from "../../store/actions/inscriptionActions";
 import Proposal from '../Proposal';
 import "./input.scss";
@@ -26,7 +25,7 @@ const Input: React.FC = (props: IInputProps) => {
 
 
     //control la popup de proposition de ville.
-    const handleFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+    const handleFocus = (e: any) => {
         const {name} = e.target
         dispatch(setInscriptionFocus(name))
     }
@@ -83,6 +82,7 @@ const Input: React.FC = (props: IInputProps) => {
                 <label className={"inputGroup__wrapper__label"}>{props.label}</label>
             </div>
             {
+                // @ts-ignore
                 (props.name === 'city') && <Proposal classFor={'cityWrapper__container'}/>
             }
 

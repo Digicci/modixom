@@ -7,6 +7,8 @@ import Tab3 from "../Tab3";
 import User from "./User";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 import AnnonceDetail from "./AnnonceDetail";
+import Category from "./Filter/Category";
+import Filters from "./Filter/Filters";
 
 const ConnectedRoot: React.FC = () => {
     // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
@@ -18,6 +20,12 @@ const ConnectedRoot: React.FC = () => {
                 <Route path="/home">
                     <Route exact path="/home/:id">
                         <AnnonceDetail />
+                    </Route>
+                    <Route exact path="/home/filter/category">
+                        <Category />
+                    </Route>
+                    <Route exact path="/home/filter/filters">
+                        <Filters />
                     </Route>
                     <Route exact path={'/home'}>
                         <Home/>
