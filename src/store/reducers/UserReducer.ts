@@ -13,6 +13,7 @@ interface UserState {
     country: string;
     id?: number | null;
     token: string;
+    isPro: boolean;
 }
 
 interface UserReducerInterface {
@@ -31,7 +32,8 @@ const initialUser: UserState = {
     postalCode: '',
     country: '',
     id: null,
-    token: ''
+    token: '',
+    isPro: false
 }
 
 const initialState: UserReducerInterface = {

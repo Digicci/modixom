@@ -1,6 +1,6 @@
 export const CONNECT_USER: string = 'CONNECT_USER';
-export const connectUser = (id: number | string, token: string, type: string) => {
-    const isPro: boolean = type !== 'part';
+export const connectUser = (id: number | string, token: string, type: string | boolean) => {
+    const isPro: boolean = typeof type === 'string' ? type === 'professionnel' : type;
     return {
         type: CONNECT_USER,
         payload: {

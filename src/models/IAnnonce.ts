@@ -5,7 +5,7 @@ export interface IAnnonce {
     description: string;
     prix: number;
     newprix?: number;
-    logoPath?: string | null;
+    logo?: string;
     moyAnnonce: number;
     moyEnseigne: number;
     adresse?: string;

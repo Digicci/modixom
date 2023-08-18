@@ -10,11 +10,12 @@ export const storageKeys: IStorageKeys = {
 export interface IStorageUser {
     idUser: string;
     token: string;
-    type: string;
+    isPro: boolean;
 }
 
 export const endpoints = {
     annonces: 'searchAnnonces',
     annonceDetail: 'annonceDetail',
-    categories: 'categories'
+    categories: 'categories',
+    city: 'searchCities'
 }

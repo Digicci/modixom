@@ -48,6 +48,10 @@
       }
     }
 
+    &__suppress {
+      border-color: transparent;
+    }
+
     &__validate {
       color: var(--ion-color-dark);
       border: 1px solid var(--ion-color-dark);

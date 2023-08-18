@@ -26,7 +26,8 @@ const ConnexionForm: React.FC = () => {
         const user: IStorageUser | null = JSON.parse(localStorage.getItem(userKey) as string);
         // if user is not null, it means that he is already connected
         if (user !== null) {
-            dispatch(connectUser(user.idUser, user.token, user.type));
+            console.log({user})
+            dispatch(connectUser(user.idUser, user.token, user.isPro));
             push('/home', 'forward', 'replace');
         }
     }, [])

@@ -13,8 +13,10 @@ interface IWhere {
     motscles?: string;
     categories?: Array<number>;
     ville?: number | null;
-    rayon?: number | null;
+    rayon?: number | null | undefined;
     tri?: "ASC" | "DESC";
+    lat?: number | null;
+    lng?: number | null;
 }
 
 interface IAnnonceState {
@@ -28,7 +30,9 @@ const initialWhere: IWhere = {
     categories: [],
     ville: null,
     rayon: null,
-    tri: "ASC"
+    tri: "ASC",
+    lat: null,
+    lng: null
 }
 
 const initialState: IAnnonceState = {

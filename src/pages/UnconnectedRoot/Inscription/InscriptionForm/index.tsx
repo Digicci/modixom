@@ -5,6 +5,7 @@ import Input from "../../../../components/Input";
 import {FormFields} from "./FormConfig";
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
+import {endpoints} from "../../../../constants";
 
 import {setInscriptionField, setCityProposal, resetInscriptionFields} from "../../../../store/actions/inscriptionActions";
 
@@ -50,7 +51,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
 
     const handleCityChange = async (value: string) => {
         if (value.length > 2) {
-            const response = await api.get('/searchCities', {q: value});
+            const response = await api.get(endpoints.city, {q: value});
             dispatch(setCityProposal(response));
         } else {
             dispatch(setCityProposal([]))
@@ -65,7 +66,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
         if (Object.keys(errors).length === 0) {
             // eslint-disable-next-line no-unused-vars
             const {passwordConfirmation, mailConfirmation, city, ...rest} = data;
-            api.post('/inscription', {...rest}).then((res) => {
+            api.post('/inscription', {...rest, type: props.type}).then((res) => {
                 //@ts-ignore
                 present({
                     message: res.message,

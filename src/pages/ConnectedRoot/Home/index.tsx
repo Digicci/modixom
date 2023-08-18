@@ -63,7 +63,7 @@ const Home: React.FC = () => {
                         isLoading ? (
                             <Loader />
                         ) : (
-                            annonces.length > 0 ? (
+                            annonces?.length > 0 ? (
                                 <IonList>
                                     {
                                         annonces.map((product: IAnnonce, index: number) => (

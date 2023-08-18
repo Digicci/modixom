@@ -48,8 +48,8 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                         </div>
                         <div className={'vendor'}>
                             {
-                                props.logoPath &&
-                                    <IonImg className={'vendor__img'} src={props.logoPath} alt={'logo de l\'enseigne'}/>
+                                props.logo &&
+                                    <IonImg className={'vendor__img'} src={props.logo} alt={'logo de l\'enseigne'}/>
                             }
                         </div>
                     </div>

@@ -44,7 +44,7 @@ const AnnonceDetail: React.FC = () => {
                             <div className={'annonceDetail'}>
                                 <div className={'annonceDetail__part1'}>
                                     <div className={'annonceDetail__part1__img'}>
-                                        <img src={'https://placehold.it/200'} alt={'image annonce'}/>
+                                        <img src={annonce?.images!} alt={'image annonce'}/>
                                     </div>
                                     <div className={'annonceDetail__part1__description'}>
                                         {annonce?.description}
@@ -72,7 +72,7 @@ const AnnonceDetail: React.FC = () => {
                                 </div>
                                 <div className={'annonceDetail__part3'}>
                                     <div className={'annonceDetail__part3__logo'}>
-                                        <img src={'https://placehold.it/100'} alt={'logo enseigne'}/>
+                                        <img src={annonce?.logo} alt={'logo enseigne'}/>
                                     </div>
                                     <div className={'annonceDetail__part3__info'}>
                                         <div className={'annonceDetail__part3__info__name'}>

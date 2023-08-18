@@ -12,6 +12,7 @@ import {resetWhere} from "../../../../store/actions/annonceActions";
 
 //style imports
 import './filters.scss';
+import RayonFilter from "../../../../components/RayonFilter";
 const Filters: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
     const headerClass: string = generateHeaderClassName(isPro);
@@ -62,10 +63,7 @@ const Filters: React.FC = () => {
                             <h2>périmètre</h2>
                         </div>
                         <div className={'filters__section__content'}>
-                            {
-                                // TODO: add perimetre filter component
-                            }
-                            <OrderFilter />
+                            <RayonFilter />
                         </div>
                     </div>
                     <div className={'filters__section'}>
