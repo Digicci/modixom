@@ -1,0 +1,70 @@
+.orderFilter {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding: 0;
+  width: 100%;
+  flex-direction: column;
+  border: none;
+
+  &__item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+
+    &__label {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    &__checkbox {
+      & label {
+        font-family: system-ui, sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1.1;
+        display: grid;
+        grid-template-columns: 1em auto;
+        gap: 0.5em;
+
+        & input {
+          appearance: none;
+          background-color: transparent;
+          margin: 0;
+          font: inherit;
+          color: currentColor;
+          width: 0.9em;
+          height: 0.9em;
+          border: 1px solid currentColor;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+
+          &::before {
+            content: '';
+            width: 0.4em;
+            height: 0.4em;
+            border-radius: 50%;
+            background-color: currentColor;
+            transform: scale(0);
+            transition: transform 0.1s ease-in-out;
+          }
+
+          &:checked {
+            &::before {
+              transform: scale(1);
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

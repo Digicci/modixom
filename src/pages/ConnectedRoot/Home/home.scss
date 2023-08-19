@@ -1,0 +1,36 @@
+.home {
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 0;
+
+    &__empty {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.5rem;
+      color: red;
+      font-weight: 600;
+    }
+
+    &__filters {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1px solid #C2C2C2;
+
+      &__category .button, &__button .button {
+        --background: transparent;
+        background: transparent;
+      }
+    }
+  }
+}

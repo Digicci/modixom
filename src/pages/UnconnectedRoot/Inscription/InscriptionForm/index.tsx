@@ -1,9 +1,11 @@
 import React from "react";
+import './inscriptionForm.scss';
 import {useIonToast, useIonRouter} from "@ionic/react";
 import Input from "../../../../components/Input";
 import {FormFields} from "./FormConfig";
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
+import {endpoints} from "../../../../constants";
 
 import {setInscriptionField, setCityProposal, resetInscriptionFields} from "../../../../store/actions/inscriptionActions";
 
@@ -12,7 +14,11 @@ import {getInscriptionError} from "../../../../store/selectors/InscriptionSelect
 import validator from "../../../../utils/tools/validator";
 import {useApi} from "../../../../services/ApiService";
 
-const InscriptionForm: React.FC = () => {
+interface InscriptionFormProps {
+    type: string
+}
+
+const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormProps) => {
     const api = useApi();
     const [present] = useIonToast();
     // La methode "push" permet de naviguer vers une autre page,
@@ -45,7 +51,7 @@ const InscriptionForm: React.FC = () => {
 
     const handleCityChange = async (value: string) => {
         if (value.length > 2) {
-            const response = await api.get('/searchCities', {q: value});
+            const response = await api.get(endpoints.city, {q: value});
             dispatch(setCityProposal(response));
         } else {
             dispatch(setCityProposal([]))
@@ -60,7 +66,7 @@ const InscriptionForm: React.FC = () => {
         if (Object.keys(errors).length === 0) {
             // eslint-disable-next-line no-unused-vars
             const {passwordConfirmation, mailConfirmation, city, ...rest} = data;
-            api.post('/inscription', {...rest}).then((res) => {
+            api.post('/inscription', {...rest, type: props.type}).then((res) => {
                 //@ts-ignore
                 present({
                     message: res.message,
@@ -96,37 +102,90 @@ const InscriptionForm: React.FC = () => {
         }
     }
 
-    return (
-        <form onSubmit={handleSubmit} className={'form__wrapper'}>
-            {
-                Object.keys(FormFields).map((item, index) => {
+    if (props.type === 'professionnel') {
+        FormFields.siret = {
+            name: 'siret',
+            label: 'Siret',
+            type: 'text',
+            placeholder: 'Siret',
+            required: true,
+            errorMessages: 'Le siret est obligatoire',
+            pattern: "^[0-9]{14}$"
+        }
 
-                    return (
+        FormFields.socialReason = {
+            name: 'socialReason',
+            label: 'Raison sociale',
+            type: 'text',
+            placeholder: 'Raison sociale',
+            required: true,
+            errorMessages: 'La raison sociale est obligatoire',
+            pattern: "^[a-zA-Z0-9]{2,}$"
+        }
+    } else {
+        delete FormFields.siret;
+        delete FormFields.socialReason;
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            {
+                props.type === 'professionnel' && (
+                    <div className={'inscriptionPro__container'}>
                         <Input
-                            key={index}
                             handleChange={handleChange}
                             // @ts-ignore
-                            value={data[FormFields[item].name]}
+                            value={data.siret}
                             // @ts-ignore
-                            {...FormFields[item]}
+                            {...FormFields.siret}
+                            // @ts-ignore
                             errorSelector={getInscriptionError}
                         />
-                    )
-                })
+                        <Input
+                            handleChange={handleChange}
+                            // @ts-ignore
+                            value={data.socialReason}
+                            // @ts-ignore
+                            {...FormFields.socialReason}
+                            // @ts-ignore
+                            errorSelector={getInscriptionError}
+                        />
+                    </div>
+                )
             }
-            <div className={'inputGroup'}>
-                <div className={"inputGroup__wrapper"}>
-                    <input
-                        type="submit"
-                        value={"Je valide"}
-                        className={"inputGroup__wrapper__input"}
-                    />
+            <div className={'form__wrapper'}>
+                {
+                    Object.keys(FormFields).map((item: string, index: number) => {
+                        if (item === 'siret' || item === 'socialReason') {
+                            return null;
+                        }
+                        return (
+                            <Input
+                                key={index}
+                                handleChange={handleChange}
+                                // @ts-ignore
+                                value={data[FormFields[item].name]}
+                                // @ts-ignore
+                                {...FormFields[item]}
+                                errorSelector={getInscriptionError}
+                            />
+                        )
+                    })
+                }
+                <div className={'inputGroup'}>
+                    <div className={"inputGroup__wrapper"}>
+                        <input
+                            type="submit"
+                            value={"Je valide"}
+                            className={"inputGroup__wrapper__input"}
+                        />
+                    </div>
                 </div>
+                {
+                    cityError &&
+                    <p className={'city__error'}>Merci de sélectionner une ville dans la liste des propositions.</p>
+                }
             </div>
-            {
-                cityError &&
-                <p className={'city__error'}>Merci de sélectionner une ville dans la liste des propositions.</p>
-            }
         </form>
     );
 }

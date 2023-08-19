@@ -1,5 +1,5 @@
 import ReduxActionInterface from "../../interface/reduxActionInterface";
-import {CONNECT_USER, DISCONNECT_USER, SET_USER } from "../actions/UserActions";
+import {CONNECT_USER, DISCONNECT_USER, SET_USER } from "../actions/userActions";
 
 interface UserState {
     name: string;
@@ -11,42 +11,53 @@ interface UserState {
     city: string;
     postalCode: string;
     country: string;
+    id?: number | null;
+    token: string;
+    isPro: boolean;
 }
 
 interface UserReducerInterface {
     connected: boolean;
     user: UserState;
-    isPro: boolean;
+}
+
+const initialUser: UserState = {
+    name: '',
+    surname: '',
+    gender: '',
+    mail: '',
+    phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    id: null,
+    token: '',
+    isPro: false
 }
 
 const initialState: UserReducerInterface = {
     connected: false,
-    user: {
-        name: '',
-        surname: '',
-        gender: '',
-        mail: '',
-        phone: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        country: ''
-    },
-    isPro: false
+    user: initialUser
 }
 
-const userReducer = (state = initialState, action: ReduxActionInterface) => {
+const userReducer = (state: UserReducerInterface = initialState, action: ReduxActionInterface): UserReducerInterface => {
     switch (action.type) {
 
         case CONNECT_USER:
             return {
                 ...state,
+                user: {
+                    ...state.user,
+                    ...action.payload
+                },
                 connected: true
             };
 
         case DISCONNECT_USER:
             return {
                 ...state,
+                user: initialUser,
                 connected: false
             };
 
