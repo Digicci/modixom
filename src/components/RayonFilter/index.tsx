@@ -5,15 +5,19 @@ import {endpoints} from "../../constants";
 import {IonButton, IonIcon} from "@ionic/react";
 import {locationOutline} from "ionicons/icons";
 import {useSelector, useDispatch} from "react-redux";
-import {setWhere} from "../../store/actions/annonceActions";
-import {getRayon, getWhereClause} from "../../store/selectors/AnnonceSelectors";
 import {getLocation} from "../../services/LocationService";
 
 import Loader from "../Loader";
 import CityProposal from "./CityProposal";
+interface IRayonFilterProps {
+    storageKey: string;
+    reducerSelector: (state: any) => any;
+    rayonSelector: (state: any) => any;
+    dispatchFn: (value: any) => any;
+}
 
-const RayonFilter: React.FC = () => {
-    const [ville, setVille] = useState<string>(localStorage.getItem('villeFilter') ?? '');
+const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, reducerSelector, dispatchFn}: IRayonFilterProps) => {
+    const [ville, setVille] = useState<string>(localStorage.getItem(storageKey) ?? '');
     const [villes, setVilles] = useState<Array<any>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [showSuggest, setShowSuggest] = useState<boolean>(false);
@@ -23,15 +27,15 @@ const RayonFilter: React.FC = () => {
         'rayonFilter__inputGroup__suggest';
     const api = useApi();
     const dispatch = useDispatch();
-    const rayon = useSelector(getRayon);
-    const where = useSelector(getWhereClause);
+    const rayon = useSelector(rayonSelector);
+    const where = useSelector(reducerSelector);
     const whereVille = where.ville;
     const position = {lng: where.lng, lat: where.lat};
     const positionLabel: string = 'Ma position';
 
     const changeVille = (ville: string) => {
         setVille(ville);
-        localStorage.setItem('villeFilter', ville);
+        localStorage.setItem(storageKey, ville);
     }
 
     useEffect(() => {
@@ -49,7 +53,7 @@ const RayonFilter: React.FC = () => {
             changeVille('');
             setIsLoading(false);
             setShowSuggest(false);
-            dispatch(setWhere({ville: null, rayon: null, lat: null, lng: null}));
+            dispatch(dispatchFn({ville: null, rayon: null, lat: null, lng: null}));
             return;
         }
         setIsLoading(true)
@@ -81,26 +85,26 @@ const RayonFilter: React.FC = () => {
             setShowSuggest(false);
             setVilles([])
             setIsLoading(false)
-            dispatch(setWhere({ville: null, rayon: null}));
+            dispatch(dispatchFn({ville: null, rayon: null}));
             return;
         }
         changeVille(ville.nom);
         setShowSuggest(false);
         setVilles([])
         setIsLoading(false)
-        dispatch(setWhere({ville: ville.id, rayon: rayon ?? 50}));
+        dispatch(dispatchFn({ville: ville.id, rayon: rayon ?? 50}));
     }
 
     const handleRayonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = e.target;
         value.length > 0 ?
-        dispatch(setWhere({rayon: parseInt(value)})) : dispatch(setWhere({rayon: null})) ;
+        dispatch(dispatchFn({rayon: parseInt(value)})) : dispatch(dispatchFn({rayon: null})) ;
     }
 
     const handleLocationClick = () => {
         getLocation().then((res: any) => {
             console.log(res)
-            dispatch(setWhere({lat: res.coords.latitude, lng: res.coords.longitude, rayon: rayon ?? 50}));
+            dispatch(dispatchFn({lat: res.coords.latitude, lng: res.coords.longitude, rayon: rayon ?? 50, ville: null}));
             changeVille(positionLabel);
         })
     }

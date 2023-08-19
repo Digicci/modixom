@@ -8,13 +8,17 @@ import inscriptionReducer from "./reducers/InscriptionReducer";
 import connexionReducer from "./reducers/ConnexionReducer";
 import AnnonceReducer from "./reducers/AnnonceReducer";
 import disconnectMiddleware from "./middleware/disconnectMiddleware";
+import categoryReducer from "./reducers/CategoryReducer";
+import AlerteCreatorReducer from "./reducers/AlerteCreatorReducer";
 
 const store: Store = createStore(
     combineReducers({
         user: userReducer,
         inscription: inscriptionReducer,
         connexion: connexionReducer,
-        annonces: AnnonceReducer
+        annonces: AnnonceReducer,
+        category: categoryReducer,
+        alerte: AlerteCreatorReducer
     }),
     composeWithDevTools(applyMiddleware(
         thunk,

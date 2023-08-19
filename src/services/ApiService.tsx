@@ -5,6 +5,7 @@ const Api = axios.create({
     baseURL: 'https://deamonerp.fr/modixom/public/index.php/api/',
 })
 
+// ToDo : Ajouter une methode qui permet de modifier le token d'authentification
 // Définition du type pour le contexte
 interface IApiContext {
     get: (url: string, params?: any) => Promise<any>;

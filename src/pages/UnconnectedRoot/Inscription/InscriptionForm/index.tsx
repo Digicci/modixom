@@ -1,18 +1,23 @@
 import React from "react";
 import './inscriptionForm.scss';
-import {useIonToast, useIonRouter} from "@ionic/react";
+import {useIonToast, useIonRouter, IonButton, IonActionSheet} from "@ionic/react";
 import Input from "../../../../components/Input";
 import {FormFields} from "./FormConfig";
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
 import {endpoints} from "../../../../constants";
 
-import {setInscriptionField, setCityProposal, resetInscriptionFields} from "../../../../store/actions/inscriptionActions";
+import {
+    setInscriptionField,
+    setCityProposal,
+    resetInscriptionFields
+} from "../../../../store/actions/inscriptionActions";
 
 import {getInscriptionError} from "../../../../store/selectors/InscriptionSelectors";
 
 import validator from "../../../../utils/tools/validator";
 import {useApi} from "../../../../services/ApiService";
+import {useImageService} from "../../../../services/ImageService";
 
 interface InscriptionFormProps {
     type: string
@@ -21,6 +26,8 @@ interface InscriptionFormProps {
 const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormProps) => {
     const api = useApi();
     const [present] = useIonToast();
+    const [showActionSheet, setShowActionSheet] = React.useState(false);
+    const imgService = useImageService();
     // La methode "push" permet de naviguer vers une autre page,
     // elle s'attend à recevoir un string qui correspond au chemin de la page en premier paramètre
     // un second string qui correspond au sens de navigation (forward, back, root)
@@ -58,6 +65,16 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
         }
         dispatch(setInscriptionField("postalCode", ''))
     }
+    const imgActionSheetButtons = [
+        {
+            text: 'Ouvrir la galerie',
+            handler: () => {
+                imgService.pickImage().then((res) => {
+                    console.log(res);
+                })
+            }
+        }
+    ]
 
     // eslint-disable-next-line no-undef
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -131,26 +148,32 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
         <form onSubmit={handleSubmit}>
             {
                 props.type === 'professionnel' && (
-                    <div className={'inscriptionPro__container'}>
-                        <Input
-                            handleChange={handleChange}
-                            // @ts-ignore
-                            value={data.siret}
-                            // @ts-ignore
-                            {...FormFields.siret}
-                            // @ts-ignore
-                            errorSelector={getInscriptionError}
-                        />
-                        <Input
-                            handleChange={handleChange}
-                            // @ts-ignore
-                            value={data.socialReason}
-                            // @ts-ignore
-                            {...FormFields.socialReason}
-                            // @ts-ignore
-                            errorSelector={getInscriptionError}
-                        />
-                    </div>
+                    <>
+                        <div className={'inscriptionPro__container'}>
+                            <Input
+                                handleChange={handleChange}
+                                // @ts-ignore
+                                value={data.siret}
+                                // @ts-ignore
+                                {...FormFields.siret}
+                                // @ts-ignore
+                                errorSelector={getInscriptionError}
+                            />
+                            <Input
+                                handleChange={handleChange}
+                                // @ts-ignore
+                                value={data.socialReason}
+                                // @ts-ignore
+                                {...FormFields.socialReason}
+                                // @ts-ignore
+                                errorSelector={getInscriptionError}
+                            />
+                        </div>
+                        <div className={'logo__wrapper'}>
+                            <label htmlFor="logo">Logo</label>
+                            <IonButton onClick={() => setShowActionSheet(true)}>importer un logo</IonButton>
+                        </div>
+                    </>
                 )
             }
             <div className={'form__wrapper'}>
@@ -186,6 +209,12 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                     <p className={'city__error'}>Merci de sélectionner une ville dans la liste des propositions.</p>
                 }
             </div>
+            <IonActionSheet
+                isOpen={showActionSheet}
+                onDidDismiss={() => setShowActionSheet(false)}
+                header={'Ajouter un logo'}
+                buttons={imgActionSheetButtons}
+            />
         </form>
     );
 }

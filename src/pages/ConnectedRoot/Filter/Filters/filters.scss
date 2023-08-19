@@ -52,18 +52,23 @@
       border-color: transparent;
     }
 
+    &.validateButtonContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+      position: sticky;
+      bottom: 0;
+    }
+
     &__validate {
       color: var(--ion-color-dark);
       border: 1px solid var(--ion-color-dark);
-      position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 2rem);
       border-radius: 0;
-      --background: transparent;
-      background: transparent;
-
+      width: 100%;
+      align-self: unset;
     }
   }
 }

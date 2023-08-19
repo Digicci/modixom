@@ -8,12 +8,14 @@ import OrderFilter from "../../../../components/OrderFilter";
 import {generateHeaderClassName} from "../../../../utils/tools/classNameGenerator";
 import {useSelector, useDispatch} from "react-redux";
 import {isUserPro} from "../../../../store/selectors/UserSelectors";
-import {resetWhere} from "../../../../store/actions/annonceActions";
+import {resetWhere, setWhere} from "../../../../store/actions/annonceActions";
 
 //style imports
 import './filters.scss';
 import RayonFilter from "../../../../components/RayonFilter";
 import AnnonceTypeFilter from "../../../../components/AnnonceTypeFilter";
+import {getRayon, getWhereClause} from "../../../../store/selectors/AnnonceSelectors";
+import {storageKeys} from "../../../../constants";
 const Filters: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
     const headerClass: string = generateHeaderClassName(isPro);
@@ -64,7 +66,12 @@ const Filters: React.FC = () => {
                             <h2>périmètre</h2>
                         </div>
                         <div className={'filters__section__content'}>
-                            <RayonFilter />
+                            <RayonFilter
+                                dispatchFn={setWhere}
+                                rayonSelector={getRayon}
+                                reducerSelector={getWhereClause}
+                                storageKey={storageKeys.filterVille}
+                            />
                         </div>
                     </div>
                     <div className={'filters__section'}>
@@ -72,8 +79,8 @@ const Filters: React.FC = () => {
                             <h2>supprimer les filtres</h2>
                         </button>
                     </div>
-                    <div className={'filters__section'}>
-                        <IonButton routerLink={"/home"} routerDirection={"back"} className={'filters__section__validate'}>
+                    <div className={'filters__section validateButtonContainer'}>
+                        <IonButton routerLink={"/home"} routerDirection={"back"} className={'filters__section__validate validateButton'}>
                             <h2>Valider</h2>
                         </IonButton>
                     </div>
