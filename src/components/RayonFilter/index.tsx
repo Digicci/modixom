@@ -45,7 +45,13 @@ const RayonFilter: React.FC = () => {
 
     const handleVilleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = e.target;
-        if (ville === positionLabel && value.length === ville.length - 1) changeVille('');
+        if (ville === positionLabel && value.length === ville.length - 1) {
+            changeVille('');
+            setIsLoading(false);
+            setShowSuggest(false);
+            dispatch(setWhere({ville: null, rayon: null, lat: null, lng: null}));
+            return;
+        }
         setIsLoading(true)
         changeVille(value);
         if(value.length > 0) {

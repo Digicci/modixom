@@ -78,11 +78,10 @@ const AnnonceReducer = (state = initialState, action: any) => {
                 }
             }
 
-            // ToDo : il y a un potentiel bug ici qui fait que les catégories ne sont pas reset
         case RESET_WHERE:
             return {
                 ...state,
-                where: initialWhere
+                where: {...initialWhere, categories : []}
             }
 
         case TOGGLE_CATEGORY:
