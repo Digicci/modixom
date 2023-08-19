@@ -13,11 +13,12 @@ import {chevronForwardOutline} from "ionicons/icons";
 
 //utils import
 import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 
 interface IUserRoute {
     route: string;
     label: string;
+    color?: string;
 }
 const User: React.FC = () => {
     //On cherche à savoir si l'utilisateur est un pro
@@ -41,10 +42,6 @@ const User: React.FC = () => {
         {
             route: "confidentialite",
             label: "politique de confidentialité"
-        },
-        {
-            route: "delete",
-            label: "supprimer mon compte"
         }
     ];
     // On ajoute les routes dont seuls les pro peuvent avoir access
@@ -53,10 +50,30 @@ const User: React.FC = () => {
         availableRoutes.push(
             {
                 route: 'facture',
-                label: "mes factures"
+                label: "factures"
+            },
+            {
+                route: 'buyCredit',
+                label: "acheter du crédit"
+            },
+            {
+                route: 'myAnnonces',
+                label: "annonces diffusées"
+            },
+            {
+                route: 'contactus',
+                label: "nous contacter"
             }
         )
     }
+
+    availableRoutes.push(
+        {
+            route: "delete",
+            label: "supprimer mon compte",
+            color: "red"
+        }
+    );
 
     return (
         <IonPage className={'user'}>
@@ -67,8 +84,26 @@ const User: React.FC = () => {
                 <div className={'list__container'}>
                     <IonList inset={false} lines={'none'} className={'list'}>
                         {
+                            // On affiche le crédit seulement si l'utilisateur est un pro
+                            isPro &&
+                            <IonItem className={'list__item'}>
+                                <IonLabel className={'list__item__label'}>
+                                    {'Mon crédit'.toUpperCase()}
+                                </IonLabel>
+                                <IonItem slot={'end'} className={'list__item__label__credit'}>
+                                    000
+                                </IonItem>
+                            </IonItem>
+                        }
+                        {
                             availableRoutes.map((item: IUserRoute, index: number): ReactNode => (
-                                <IonItem key={index} className={'list__item'}>
+                                <IonItem
+                                    key={index}
+                                    className={'list__item'}
+                                    style={
+                                        item.color ? {color: item.color} : {}
+                                    }
+                                >
                                     <IonLabel className={'list__item__label'}>
                                         {item.label.toUpperCase()}
                                     </IonLabel>

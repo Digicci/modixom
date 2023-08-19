@@ -2,13 +2,13 @@ import React from "react";
 import {IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic/react";
 import {Redirect, Route} from "react-router-dom";
 import Home from "./Home";
-import Tab2 from "../Tab2";
-import Tab3 from "../Tab3";
 import User from "./User";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 import AnnonceDetail from "./AnnonceDetail";
 import Category from "./Filter/Category";
 import Filters from "./Filter/Filters";
+import Alerte from "./Alerte";
+import ContactUs from "./ContactUs";
 
 const ConnectedRoot: React.FC = () => {
     // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
@@ -16,6 +16,10 @@ const ConnectedRoot: React.FC = () => {
 
     return (
         <IonTabs>
+
+            {
+                // Router outlet with all pages as tabs
+            }
             <IonRouterOutlet>
                 <Route path="/home">
                     <Route exact path="/home/:id">
@@ -31,11 +35,11 @@ const ConnectedRoot: React.FC = () => {
                         <Home/>
                     </Route>
                 </Route>
-                <Route exact path="/tab2">
-                    <Tab2/>
+                <Route exact path="/alerte">
+                    <Alerte/>
                 </Route>
-                <Route path="/tab3">
-                    <Tab3/>
+                <Route path="/contact">
+                    <ContactUs/>
                 </Route>
                 <Route exact path="/user">
                     <User/>
@@ -47,14 +51,19 @@ const ConnectedRoot: React.FC = () => {
                     <Redirect to="/home"/>
                 </Route>
             </IonRouterOutlet>
+
+            {
+                // End of router outlet /////////////////////////////////////////////////////
+                // Bottom tab bar navigation
+            }
             <IonTabBar slot="bottom">
                 <IonTabButton tab="home" href="/home">
                     <IonIcon aria-hidden={true} icon={home}/>
                 </IonTabButton>
-                <IonTabButton tab="tab2" href="/tab2">
+                <IonTabButton tab="alerte" href="/alerte">
                     <IonIcon aria-hidden="true" icon={megaphone}/>
                 </IonTabButton>
-                <IonTabButton tab="tab3" href="/tab3">
+                <IonTabButton tab="contact" href="/contact">
                     <IonIcon aria-hidden="true" icon={at}/>
                 </IonTabButton>
                 <IonTabButton tab="user" href="/user">
