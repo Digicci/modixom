@@ -11,3 +11,5 @@ export const isSelectedCategory = (category: number) => {
 }
 
 export const getWhereOrder = (state: any) => state.annonces.where.tri;
+
+export const getWherePro = (state: any) => state.annonces.where.pro;
