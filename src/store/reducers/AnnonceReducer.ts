@@ -17,6 +17,7 @@ interface IWhere {
     tri?: "ASC" | "DESC";
     lat?: number | null;
     lng?: number | null;
+    pro?: boolean;
 }
 
 interface IAnnonceState {
@@ -32,7 +33,8 @@ const initialWhere: IWhere = {
     rayon: null,
     tri: "ASC",
     lat: null,
-    lng: null
+    lng: null,
+    pro: false
 }
 
 const initialState: IAnnonceState = {

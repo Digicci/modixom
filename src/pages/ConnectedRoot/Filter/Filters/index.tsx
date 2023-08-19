@@ -13,6 +13,7 @@ import {resetWhere} from "../../../../store/actions/annonceActions";
 //style imports
 import './filters.scss';
 import RayonFilter from "../../../../components/RayonFilter";
+import AnnonceTypeFilter from "../../../../components/AnnonceTypeFilter";
 const Filters: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
     const headerClass: string = generateHeaderClassName(isPro);
@@ -53,7 +54,7 @@ const Filters: React.FC = () => {
                                     {
                                         // TODO: add annonces filter component
                                     }
-                                    <OrderFilter />
+                                    <AnnonceTypeFilter />
                                 </div>
                             </div>
                         )
