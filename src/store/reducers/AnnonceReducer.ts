@@ -6,7 +6,7 @@ import {
     IS_LOADING,
     SET_WHERE,
     RESET_WHERE,
-    TOGGLE_CATEGORY
+    TOGGLE_CATEGORY_FILTER
 } from "../actions/annonceActions";
 
 interface IWhere {
@@ -86,7 +86,7 @@ const AnnonceReducer = (state = initialState, action: any) => {
                 where: {...initialWhere, categories : []}
             }
 
-        case TOGGLE_CATEGORY:
+        case TOGGLE_CATEGORY_FILTER:
             const categories = state.where.categories || [];
             const index = categories.indexOf(action.payload);
             if(index === -1) {
