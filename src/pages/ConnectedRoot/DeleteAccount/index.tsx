@@ -7,18 +7,18 @@ import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 
 const DeleteAccount: React.FC = () => {
 
-    const isPro:boolean = useSelector(isUserPro);
+    const isPro: boolean = useSelector(isUserPro);
     const headerClass: string = generateHeaderClassName(isPro);
-    const [checked,setChecked]=useState<boolean>(false);
-    const [error,setError]=useState<boolean>(false);
+    const [checked, setChecked] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
 
-    const handleChange = ():void=>{
+    const handleChange = (): void => {
         setChecked(!checked);
     }
-    const deleteUser:()=>void = ():void =>{
-        if(checked !=true){
+    const deleteUser: () => void = (): void => {
+        if (!checked) {
             setError(true);
-        }else{
+        } else {
             setError(false);
             //TODO ajouter la requete vers l'api pour supprimer l'utilisateur
             console.log("ok")
@@ -27,33 +27,34 @@ const DeleteAccount: React.FC = () => {
     }
     return (
         <IonPage className={"deleteAccount"}>
-            <IonContent>
             <IonHeader className={headerClass}>
-                <IonBackButton defaultHref={'/user'} className={'header__back__button'}/>
+                <IonBackButton defaultHref={'/user'} className={'header__back__button'} text={'Retour'} />
                 <h1>SUPPRIMER MON COMPTE</h1>
             </IonHeader>
+            <IonContent>
                 <div className={"deleteAccount__container"}>
                     <div className={"deleteAccount__container__textContainer"}>
                         <h2>VOUS ALLEZ COMMENCER LE PROCESSUS DE SUPPRESSION DE VOTRE COMPTE</h2>
                         <p>
-                            Vous êtes sur le point de nous demander de fermer de maniére définitive
-                            votre compte est de supprimer vos données. Une fois votre compte fermé,
+                            Vous êtes sur le point de nous demander de fermer définitivement
+                            votre compte et de supprimer vos données. Une fois votre compte fermé,
                             tous les services auxquels vous accédez par le biais de votre compte
                             ne seront plus disponibles.
                         </p>
                         <div className={"deleteAccount__container__textContainer__checkbox"}>
                             <input type={"checkbox"} id={"deleteAccountButton"} onChange={handleChange}/>
-                            <label htmlFor={"deleteAccountButton"}>OUI,JE SOUHAITE FERMER DEFINITEVEMENT MON COMPTE ET SUPPRIMER MES DONNÉES</label>
+                            <label htmlFor={"deleteAccountButton"}>OUI,JE SOUHAITE FERMER DÉFINITIVEMENT MON COMPTE ET
+                                SUPPRIMER MES DONNÉES</label>
                             {error && <p>* Veuillez cocher la case</p>}
                         </div>
                     </div>
                 </div>
-            <IonFooter className={'deleteAccount__footer'}>
-                <IonButton expand={'full'} className={'deleteAccount__footer__button'} onClick={deleteUser}>
-                    FERMER MON COMPTE
-                </IonButton>
-            </IonFooter>
-        </IonContent>
+                <IonFooter className={'deleteAccount__footer'}>
+                    <IonButton expand={'full'} className={'validateButton'} onClick={deleteUser}>
+                        FERMER MON COMPTE
+                    </IonButton>
+                </IonFooter>
+            </IonContent>
         </IonPage>
     )
 }

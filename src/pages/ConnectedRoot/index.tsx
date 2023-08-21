@@ -1,16 +1,11 @@
 import React from "react";
-import {IonIcon, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic/react";
+import {IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic/react";
 import {Redirect, Route} from "react-router-dom";
-import Home from "./Home";
-import User from "./User";
-import DeleteAccount from "./DeleteAccount"
 import {megaphone, at, home, personOutline} from "ionicons/icons";
-import AnnonceDetail from "./AnnonceDetail";
-import Category from "./Filter/Category";
-import Filters from "./Filter/Filters";
 import Alerte from "./Alerte";
 import ContactUs from "./ContactUs";
-import animationBuilder from "../../utils/tools/animationBuilder";
+import UserRouterOutlet from "./Outlets/UserRouterOutlet";
+import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
 
 
 const ConnectedRoot: React.FC = () => {
@@ -25,22 +20,7 @@ const ConnectedRoot: React.FC = () => {
             }
             <IonRouterOutlet>
                 <Route path={'/home'}>
-                    <IonPage>
-                        <IonRouterOutlet animation={animationBuilder}>
-                            <Route exact path="/home/:id">
-                                <AnnonceDetail/>
-                            </Route>
-                            <Route exact path="/home/filter/category">
-                                <Category/>
-                            </Route>
-                            <Route exact path="/home/filter/filters">
-                                <Filters/>
-                            </Route>
-                            <Route exact path={'/home'}>
-                                <Home/>
-                            </Route>
-                        </IonRouterOutlet>
-                    </IonPage>
+                   <HomeRouterOutlet />
                 </Route>
                 <Route exact path="/alerte">
                     <Alerte/>
@@ -48,18 +28,7 @@ const ConnectedRoot: React.FC = () => {
                 <Route path="/contact">
                     <ContactUs/>
                 </Route>
-                <Route path={'/user'}>
-                    <IonPage>
-                        <IonRouterOutlet animation={animationBuilder}>
-                            <Route exact path="/user/delete">
-                                <DeleteAccount/>
-                            </Route>
-                            <Route exact path="/user">
-                                <User/>
-                            </Route>
-                        </IonRouterOutlet>
-                    </IonPage>
-                </Route>
+                <Route path={'/user'} render={() => <UserRouterOutlet />}/>
                 <Route exact path="/">
                     <Redirect to="/home"/>
                 </Route>
