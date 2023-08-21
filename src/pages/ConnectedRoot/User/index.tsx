@@ -103,11 +103,13 @@ const User: React.FC = () => {
                                     style={
                                         item.color ? {color: item.color} : {}
                                     }
+                                    routerLink={`/user/${item.route}`}
+                                    routerDirection={"forward"}
                                 >
                                     <IonLabel className={'list__item__label'}>
                                         {item.label.toUpperCase()}
                                     </IonLabel>
-                                    <IonIcon slot={'end'} icon={chevronForwardOutline}/>
+
                                 </IonItem>
                             ))
                         }

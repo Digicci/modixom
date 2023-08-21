@@ -1,14 +1,17 @@
 import React from "react";
-import {IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic/react";
+import {IonIcon, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic/react";
 import {Redirect, Route} from "react-router-dom";
 import Home from "./Home";
 import User from "./User";
+import DeleteAccount from "./DeleteAccount"
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 import AnnonceDetail from "./AnnonceDetail";
 import Category from "./Filter/Category";
 import Filters from "./Filter/Filters";
 import Alerte from "./Alerte";
 import ContactUs from "./ContactUs";
+import animationBuilder from "../../utils/tools/animationBuilder";
+
 
 const ConnectedRoot: React.FC = () => {
     // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
@@ -20,26 +23,27 @@ const ConnectedRoot: React.FC = () => {
             {
                 // Router outlet with all pages as tabs
             }
-            <IonRouterOutlet>
-                <Route path="/home">
-                    <Route exact path="/home/:id">
-                        <AnnonceDetail />
-                    </Route>
-                    <Route exact path="/home/filter/category">
-                        <Category />
-                    </Route>
-                    <Route exact path="/home/filter/filters">
-                        <Filters />
-                    </Route>
-                    <Route exact path={'/home'}>
-                        <Home/>
-                    </Route>
+            <IonRouterOutlet animation={animationBuilder}>
+                <Route exact path="/home/:id">
+                    <AnnonceDetail/>
+                </Route>
+                <Route exact path="/home/filter/category">
+                    <Category/>
+                </Route>
+                <Route exact path="/home/filter/filters">
+                    <Filters/>
+                </Route>
+                <Route exact path={'/home'}>
+                    <Home/>
                 </Route>
                 <Route exact path="/alerte">
                     <Alerte/>
                 </Route>
                 <Route path="/contact">
                     <ContactUs/>
+                </Route>
+                <Route exact path="/user/delete">
+                    <DeleteAccount/>
                 </Route>
                 <Route exact path="/user">
                     <User/>
