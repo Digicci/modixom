@@ -34,6 +34,7 @@ const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, re
     const positionLabel: string = 'Ma position';
 
     const changeVille = (ville: string) => {
+        //Change uniquement la chaine de caractère affichée, n'a aucun effet sur le store
         setVille(ville);
         localStorage.setItem(storageKey, ville);
     }
@@ -92,7 +93,7 @@ const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, re
         setShowSuggest(false);
         setVilles([])
         setIsLoading(false)
-        dispatch(dispatchFn({ville: ville.id, rayon: rayon ?? 50}));
+        dispatch(dispatchFn({ville: ville.id, rayon: rayon ?? 50, lat: null, lng: null}));
     }
 
     const handleRayonChange = (e: React.ChangeEvent<HTMLInputElement>) => {

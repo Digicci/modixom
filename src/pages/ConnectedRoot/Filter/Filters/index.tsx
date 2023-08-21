@@ -53,9 +53,6 @@ const Filters: React.FC = () => {
                                     <h2>annonces</h2>
                                 </div>
                                 <div className={'filters__section__content'}>
-                                    {
-                                        // TODO: add annonces filter component
-                                    }
                                     <AnnonceTypeFilter />
                                 </div>
                             </div>

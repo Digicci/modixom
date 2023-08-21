@@ -40,7 +40,9 @@ const alerteCreatorReducer = (state = initialState, action: any) => {
         case SET_ALERTE_VILLE:
             return {
                 ...state,
-                ville: action.payload
+                ville: action.payload,
+                lat: null,
+                lng: null
             }
 
         case SET_ALERTE_FIELDS:

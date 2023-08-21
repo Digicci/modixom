@@ -5,25 +5,16 @@ import {Camera, CameraResultType, CameraSource} from "@capacitor/camera";
 
 export const useImageService = () => {
 
-
-    const takePicture = async () => {
-        return await Camera.getPhoto({
-            resultType: CameraResultType.Uri,
-            source: CameraSource.Camera,
-            quality: 100
-        })
-    }
-
+    // Todo : On aimerait récupérer plus d'infos sur l'image, comme sa taille, son nom, etc...
     const pickImage = async () => {
         return await Camera.getPhoto({
-            resultType: CameraResultType.Uri,
+            resultType: CameraResultType.DataUrl,
             source: CameraSource.Photos,
             quality: 100
         })
     }
 
     return {
-        takePicture,
         pickImage
     }
 }

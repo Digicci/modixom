@@ -21,7 +21,7 @@ interface IInputProps {
 // @ts-ignore
 const Input: React.FC = (props: IInputProps) => {
     const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
 
     //control la popup de proposition de ville.
