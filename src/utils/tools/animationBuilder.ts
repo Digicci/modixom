@@ -1,32 +1,34 @@
 import {createAnimation} from "@ionic/react";
 
-const animationBuilder = (baseEl, opts) => {
+const animationBuilder = (baseEl: any, opts: any) => {
 
-    const leavingAnimation = createAnimation()
-        .addElement(opts.leavingEl);
-    const enteringAnimation = createAnimation()
-        .addElement(opts.enteringEl);
+    const leavingAnimation = createAnimation('leaving-animation')
+    const enteringAnimation = createAnimation('entering-animation');
 
     if (opts.direction === "forward") {
         enteringAnimation
-            .fromTo("transform", "translateX(-100%)", "translateX(0%)")
-
-            .duration(100);
+            .addElement(opts.enteringEl)
+            .beforeRemoveClass('ion-page-invisible')
+            .fromTo("transform", "translateX(100%)", "translateX(0%)")
         leavingAnimation
+            .addElement(opts.leavingEl)
             .fromTo("transform", "translateX(0%)", "translateX(-100%)")
-            .duration(250);
     } else {
         enteringAnimation
-            .fromTo("opacity", 0, 1)
-            .duration(250);
+            .addElement(opts.enteringEl)
+            .beforeRemoveClass('ion-page-invisible')
+            .fromTo("transform", "translateX(-100%)", "translateX(0%)")
+
         leavingAnimation
-            .fromTo("opacity", 1, 0)
-            .duration(250);
+            .addElement(opts.leavingEl)
+            .fromTo("transform", "translateX(0%)", "translateX(100%)")
     }
-    console.log(leavingAnimation,enteringAnimation)
-    const animation = createAnimation()
-        .addAnimation(leavingAnimation)
-        .addAnimation(enteringAnimation);
+
+    const animation = createAnimation('group-animation')
+        .addAnimation([enteringAnimation, leavingAnimation])
+        .easing('ease-in-out')
+        .duration(150)
+        .fill('both');
 
     return animation;
 }

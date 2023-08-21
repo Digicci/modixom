@@ -27,11 +27,11 @@ const DeleteAccount: React.FC = () => {
     }
     return (
         <IonPage className={"deleteAccount"}>
+            <IonContent>
             <IonHeader className={headerClass}>
                 <IonBackButton defaultHref={'/user'} className={'header__back__button'}/>
                 <h1>SUPPRIMER MON COMPTE</h1>
             </IonHeader>
-            <IonContent>
                 <div className={"deleteAccount__container"}>
                     <div className={"deleteAccount__container__textContainer"}>
                         <h2>VOUS ALLEZ COMMENCER LE PROCESSUS DE SUPPRESSION DE VOTRE COMPTE</h2>
@@ -48,12 +48,12 @@ const DeleteAccount: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </IonContent>
             <IonFooter className={'deleteAccount__footer'}>
                 <IonButton expand={'full'} className={'deleteAccount__footer__button'} onClick={deleteUser}>
                     FERMER MON COMPTE
                 </IonButton>
             </IonFooter>
+        </IonContent>
         </IonPage>
     )
 }

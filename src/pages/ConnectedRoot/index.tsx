@@ -23,18 +23,24 @@ const ConnectedRoot: React.FC = () => {
             {
                 // Router outlet with all pages as tabs
             }
-            <IonRouterOutlet animation={animationBuilder}>
-                <Route exact path="/home/:id">
-                    <AnnonceDetail/>
-                </Route>
-                <Route exact path="/home/filter/category">
-                    <Category/>
-                </Route>
-                <Route exact path="/home/filter/filters">
-                    <Filters/>
-                </Route>
-                <Route exact path={'/home'}>
-                    <Home/>
+            <IonRouterOutlet>
+                <Route path={'/home'}>
+                    <IonPage>
+                        <IonRouterOutlet animation={animationBuilder}>
+                            <Route exact path="/home/:id">
+                                <AnnonceDetail/>
+                            </Route>
+                            <Route exact path="/home/filter/category">
+                                <Category/>
+                            </Route>
+                            <Route exact path="/home/filter/filters">
+                                <Filters/>
+                            </Route>
+                            <Route exact path={'/home'}>
+                                <Home/>
+                            </Route>
+                        </IonRouterOutlet>
+                    </IonPage>
                 </Route>
                 <Route exact path="/alerte">
                     <Alerte/>
@@ -42,11 +48,17 @@ const ConnectedRoot: React.FC = () => {
                 <Route path="/contact">
                     <ContactUs/>
                 </Route>
-                <Route exact path="/user/delete">
-                    <DeleteAccount/>
-                </Route>
-                <Route exact path="/user">
-                    <User/>
+                <Route path={'/user'}>
+                    <IonPage>
+                        <IonRouterOutlet animation={animationBuilder}>
+                            <Route exact path="/user/delete">
+                                <DeleteAccount/>
+                            </Route>
+                            <Route exact path="/user">
+                                <User/>
+                            </Route>
+                        </IonRouterOutlet>
+                    </IonPage>
                 </Route>
                 <Route exact path="/">
                     <Redirect to="/home"/>
