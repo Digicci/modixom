@@ -19,5 +19,6 @@ export const endpoints = {
     annonces: 'searchAnnonces',
     annonceDetail: 'annonceDetail',
     categories: 'categories',
-    city: 'searchCities'
+    city: 'searchCities',
+    profilDetail: 'profil'
 }

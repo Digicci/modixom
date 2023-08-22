@@ -22,15 +22,26 @@
   text-transform: uppercase;
   position: relative;
 
+  & .title {
+    font-size: 24px;
+    text-transform: uppercase;
+  }
+
+  & .toolBar {
+    --background: transparent;
+    --border-color: transparent;
+  }
+
+
   & .header__back__button {
-    position: absolute;
+    position: static;
     left: 0;
     top: 50%;
-    transform: translateY(-50%);
     color: #fff;
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
     line-height: 30px;
+    text-transform: uppercase;
     padding: 0.1rem;
   }
 }

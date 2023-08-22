@@ -1,9 +1,19 @@
 import React, {useState} from "react";
 import "./deleteAccount.scss"
-import {IonBackButton, IonButton, IonContent, IonFooter, IonHeader, IonPage} from "@ionic/react";
+import {
+    IonBackButton,
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonPage, IonTitle,
+    IonToolbar
+} from "@ionic/react";
 import {useSelector} from "react-redux";
 import {isUserPro} from "../../../store/selectors/UserSelectors";
 import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
+import Header from "../../../components/Header";
 
 const DeleteAccount: React.FC = () => {
 
@@ -27,10 +37,7 @@ const DeleteAccount: React.FC = () => {
     }
     return (
         <IonPage className={"deleteAccount"}>
-            <IonHeader className={headerClass}>
-                <IonBackButton defaultHref={'/user'} className={'header__back__button'} text={'Retour'} />
-                <h1>SUPPRIMER MON COMPTE</h1>
-            </IonHeader>
+            <Header text={'supprimer mon compte'} canGoBack={true} defaultHref={'/user'} />
             <IonContent>
                 <div className={"deleteAccount__container"}>
                     <div className={"deleteAccount__container__textContainer"}>

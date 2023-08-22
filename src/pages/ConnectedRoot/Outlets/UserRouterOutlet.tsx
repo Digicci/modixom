@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route, RouteComponentProps} from "react-router";
+import { Route } from "react-router";
 import { IonRouterOutlet } from '@ionic/react';
 import animationBuilder from "../../../utils/tools/animationBuilder";
 import DeleteAccount from "../DeleteAccount";
 import User from "../User";
+import Account from "../Account";
 
 const UserRouterOutlet: React.FC = () => {
     return (
@@ -13,6 +14,9 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/delete`}>
                 <DeleteAccount/>
+            </Route>
+            <Route exact={true} path={`/user/coordonnes`}>
+                <Account/>
             </Route>
         </IonRouterOutlet>
     )

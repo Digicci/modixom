@@ -1,8 +1,13 @@
 import React, {createContext, useContext} from "react";
 import axios from "axios";
+import {storageKeys} from "../constants";
+
 
 const Api = axios.create({
     baseURL: 'https://deamonerp.fr/modixom/public/index.php/api/',
+    headers: {
+        'Authorization': JSON.parse(localStorage.getItem(storageKeys.userKey)! as string).token || '',
+    }
 })
 
 // ToDo : Ajouter une methode qui permet de modifier le token d'authentification
@@ -12,6 +17,7 @@ interface IApiContext {
     post: (url: string, data?: any) => Promise<any>;
     put: (url: string, data?: any) => Promise<any>;
     remove: (url: string) => Promise<any>;
+    setHeader: (key: string, value: string) => void;
 }
 
 const ApiContext = createContext<IApiContext | null>(null);
@@ -72,11 +78,16 @@ function useProvideApi(): IApiContext{
         }
     }
 
+    const setHeader = (key: string, value: string) => {
+        Api.defaults.headers.common[key] = value;
+    }
+
     return {
         get,
         post,
         put,
-        remove
+        remove,
+        setHeader
     }
 }
 
