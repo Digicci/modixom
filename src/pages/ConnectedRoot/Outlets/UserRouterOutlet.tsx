@@ -5,6 +5,7 @@ import animationBuilder from "../../../utils/tools/animationBuilder";
 import DeleteAccount from "../DeleteAccount";
 import User from "../User";
 import Account from "../Account";
+import AccountModif from "../AccountModif";
 
 const UserRouterOutlet: React.FC = () => {
     return (
@@ -17,6 +18,9 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/coordonnes`}>
                 <Account/>
+            </Route>
+            <Route exact={true} path={`/user/coordonnes/modifier`}>
+                <AccountModif/>
             </Route>
         </IonRouterOutlet>
     )
