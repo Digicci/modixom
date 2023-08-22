@@ -1,13 +1,10 @@
 import React, {createContext, useContext} from "react";
 import axios from "axios";
-import {storageKeys} from "../constants";
+
 
 
 const Api = axios.create({
     baseURL: 'https://deamonerp.fr/modixom/public/index.php/api/',
-    headers: {
-        'Authorization': JSON.parse(localStorage.getItem(storageKeys.userKey)! as string).token || '',
-    }
 })
 
 // ToDo : Ajouter une methode qui permet de modifier le token d'authentification

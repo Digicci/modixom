@@ -70,7 +70,8 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
             text: 'Ouvrir la galerie',
             handler: () => {
                 imgService.pickImage().then((res) => {
-                    console.log(res);
+                    if(typeof res.dataUrl==="string") dispatch(setInscriptionField("logo",res.dataUrl!));
+
                 })
             }
         }
@@ -170,7 +171,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                             />
                         </div>
                         <div className={'logo__wrapper'}>
-                            <label htmlFor="logo">Logo</label>
+
                             <IonButton onClick={() => setShowActionSheet(true)}>importer un logo</IonButton>
                         </div>
                     </>

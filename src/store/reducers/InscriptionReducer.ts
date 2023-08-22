@@ -9,6 +9,7 @@ import {
 } from "../actions/inscriptionActions";
 
 export interface IUserState {
+    logo?: string;
     name: string | Object;
     surname: string| Object;
     gender: string| Object;
@@ -77,7 +78,7 @@ const initialState: InscriptionState = {
         passwordConfirmation: '',
         cgu: false,
         cityId: null,
-        siret: null,
+        siret: "",
         socialReason: ''
     },
     errors: {

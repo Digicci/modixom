@@ -19,7 +19,7 @@ const Account: React.FC = () => {
     const token = useSelector(getUserToken);
 
     useEffect(() => {
-        api.get(endpoints.profilDetail).then((res) => {
+        api.get(endpoints.profilDetail,{token}).then((res) => {
             console.log(res);
         })
     }, []);
