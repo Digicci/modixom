@@ -8,11 +8,11 @@ import {ProvideApi} from "./services/ApiService";
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
-  <React.StrictMode>
+  <>
     <ProvideApi>
         <Provider store={store}>
             <App />
         </Provider>
     </ProvideApi>
-  </React.StrictMode>
+  </>
 );

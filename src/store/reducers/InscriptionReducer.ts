@@ -77,7 +77,7 @@ const initialState: InscriptionState = {
         passwordConfirmation: '',
         cgu: false,
         cityId: null,
-        siret: '',
+        siret: null,
         socialReason: ''
     },
     errors: {
