@@ -9,8 +9,25 @@
 
 
 }
-.logo__wrapper{
-     display: flex;
-     justify-content: end;
-  width: 94%;
-   }
+
+.logo__wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  align-items: center;
+  gap: 10px;
+
+  &__text {
+    font-size: 18px;
+    font-weight: 700;
+
+    &.error {
+      color: red;
+    }
+
+    &.success {
+      color: green;
+    }
+  }
+}

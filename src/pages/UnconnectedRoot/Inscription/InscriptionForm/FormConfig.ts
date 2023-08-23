@@ -39,7 +39,7 @@ export const FormFields: IUserState = {
         label: 'Adresse',
         name: 'address',
         required: true,
-        pattern: '^[a-zA-Z0-9 ]+$'
+        pattern: '^[a-zA-Z0-9éèêàâù- ]+$'
     },
     postalCode: {
         type: 'text',
@@ -54,7 +54,7 @@ export const FormFields: IUserState = {
         label: 'Ville',
         name: 'city',
         required: true,
-        pattern: '^[a-zA-Z-]+$'
+        pattern: '^[a-zA-Z-éèêàâù ]+$'
     },
     country: {
         type: 'text',
