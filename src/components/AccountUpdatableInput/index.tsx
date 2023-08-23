@@ -45,7 +45,7 @@ const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAcc
                         // @ts-ignore
                         type={props.type}
                         placeholder={props.actualValue}
-                        name={props.name || props.label}
+                        name={props.name ? props.name : props.label}
                     />
                 ) : (
                     <span>{props.actualValue}</span>

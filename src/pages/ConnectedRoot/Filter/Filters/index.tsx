@@ -16,6 +16,7 @@ import RayonFilter from "../../../../components/RayonFilter";
 import AnnonceTypeFilter from "../../../../components/AnnonceTypeFilter";
 import {getRayon, getWhereClause} from "../../../../store/selectors/AnnonceSelectors";
 import {storageKeys} from "../../../../constants";
+import topToBottomAnimation from "../../../../utils/tools/topToBottomAnimation";
 const Filters: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
     const headerClass: string = generateHeaderClassName(isPro);
@@ -77,7 +78,12 @@ const Filters: React.FC = () => {
                         </button>
                     </div>
                     <div className={'filters__section validateButtonContainer'}>
-                        <IonButton routerLink={"/home"} routerDirection={"back"} className={'filters__section__validate validateButton'}>
+                        <IonButton
+                            routerLink={"/home"}
+                            routerDirection={"back"}
+                            className={'filters__section__validate validateButton'}
+                            routerAnimation={topToBottomAnimation}
+                        >
                             <h2>Valider</h2>
                         </IonButton>
                     </div>

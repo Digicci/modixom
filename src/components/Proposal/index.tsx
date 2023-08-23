@@ -6,17 +6,20 @@ import {ICityProposal} from '../../store/reducers/InscriptionReducer'
 
 interface IProposalProps {
     classPrefix: string;
+    propositionSelector?: (state: any) => any;
+    citySetter?: (city: ICityProposal) => { type: string, payload: any };
 }
 
 // @ts-ignore
-const Proposal: React.FC = ({classPrefix: classFor}: IProposalProps): null | React.JSX.Element => {
+const Proposal: React.FC = ({classPrefix: classFor, propositionSelector, citySetter}: IProposalProps): null | React.JSX.Element => {
 
-    const cities = useSelector(getCitiesProposal)
+    const cities = useSelector(propositionSelector || getCitiesProposal)
     const focusOn = useSelector(getInputFocus)
     const dispatch = useDispatch()
 
     const handleClick = (city: ICityProposal) => {
-        dispatch(setInscriptionCity(city))
+        const action = citySetter ? citySetter(city) : setInscriptionCity(city)
+        dispatch(action)
         dispatch(setInscriptionFocus(null))
     }
 

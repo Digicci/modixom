@@ -15,7 +15,7 @@ interface IInputProps {
     error?: string;
     disabled?: boolean;
     errorSelector?: (state: any) => any;
-    handleChange: FormEventHandler;
+    handleChange?: FormEventHandler;
 }
 
 // @ts-ignore
@@ -63,7 +63,6 @@ const Input: React.FC = (props: IInputProps) => {
     }
 
     const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
-
     //Sinon, on retourne un input classique
     return (
         <div className={className}>
@@ -81,7 +80,7 @@ const Input: React.FC = (props: IInputProps) => {
             </div>
             {
                 // @ts-ignore
-                (props.name === 'city') && <Proposal classPrefix={'cityWrapper__container'}/>
+                props.name === "city" && <Proposal classPrefix={'cityWrapper__container'}/>
             }
 
             <p className={"inputGroup__error"}>{

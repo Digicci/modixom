@@ -14,6 +14,7 @@ import Loader from "../../../../components/Loader";
 import Item from "../../../../components/Category/Item";
 import {isSelectedCategory} from "../../../../store/selectors/AnnonceSelectors";
 import {toggleCategoryFilter} from "../../../../store/actions/annonceActions";
+import topToBottomAnimation from "../../../../utils/tools/topToBottomAnimation";
 
 const Category: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
@@ -63,7 +64,12 @@ const Category: React.FC = () => {
                         )
                     }
                     <div className={'category__validation'}>
-                        <IonButton className={'button validateButton'} routerLink={"/home"} routerDirection={"back"}>
+                        <IonButton
+                            className={'button validateButton'}
+                            routerLink={"/home"}
+                            routerDirection={"back"}
+                            routerAnimation={topToBottomAnimation}
+                        >
                             Valider
                         </IonButton>
                     </div>
