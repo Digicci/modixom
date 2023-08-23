@@ -6,6 +6,7 @@ import DeleteAccount from "../DeleteAccount";
 import User from "../User";
 import Account from "../Account";
 import AccountModif from "../AccountModif";
+import Contact from "../Contact";
 
 const UserRouterOutlet: React.FC = () => {
     return (
@@ -21,6 +22,9 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/coordonnes/modifier`}>
                 <AccountModif/>
+            </Route>
+            <Route exact={true} path={`/user/contact`}>
+                <Contact/>
             </Route>
         </IonRouterOutlet>
     )

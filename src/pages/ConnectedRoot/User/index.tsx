@@ -41,6 +41,10 @@ const User: React.FC = () => {
             label: "mes coordonnées"
         },
         {
+          route:"contact",
+          label:"nous contacter"
+        },
+        {
             route: "confidentialite",
             label: "politique de confidentialité"
         }
