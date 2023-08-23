@@ -41,10 +41,6 @@ const User: React.FC = () => {
             label: "mes coordonnées"
         },
         {
-          route:"contact",
-          label:"nous contacter"
-        },
-        {
             route: "confidentialite",
             label: "politique de confidentialité"
         }
@@ -66,7 +62,7 @@ const User: React.FC = () => {
                 label: "annonces diffusées"
             },
             {
-                route: 'contactus',
+                route: 'contact',
                 label: "nous contacter"
             }
         )
