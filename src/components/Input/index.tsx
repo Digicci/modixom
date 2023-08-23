@@ -81,7 +81,7 @@ const Input: React.FC = (props: IInputProps) => {
             </div>
             {
                 // @ts-ignore
-                (props.name === 'city') && <Proposal classFor={'cityWrapper__container'}/>
+                (props.name === 'city') && <Proposal classPrefix={'cityWrapper__container'}/>
             }
 
             <p className={"inputGroup__error"}>{
