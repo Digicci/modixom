@@ -1,15 +1,20 @@
-import React from "react";
+import React, {FormEventHandler} from "react";
 import {IonButton, IonImg} from "@ionic/react";
 import Input from "../Input";
+import ICityProposal from "../../models/ICityProposal";
 
 
 interface IAccountUpdatableInputProps {
     actualValue: string;
+    newValue?: string | number | null | undefined;
     label: string;
     type: string;
     classPrefix?: string;
     isUpdating: boolean;
     name?: string;
+    propositionSelector?: (state: any) => any;
+    citySetter?: (city: ICityProposal) => { type: string, payload: typeof city };
+    handleChange?: FormEventHandler;
 }
 const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAccountUpdatableInputProps) => {
 
@@ -46,6 +51,10 @@ const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAcc
                         type={props.type}
                         placeholder={props.actualValue}
                         name={props.name ? props.name : props.label}
+                        propositionSelector={props.propositionSelector || null}
+                        citySetter={props.citySetter || null}
+                        handleChange={props.handleChange || null}
+                        value={props.newValue}
                     />
                 ) : (
                     <span>{props.actualValue}</span>

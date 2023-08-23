@@ -1,5 +1,6 @@
 import {defaultGender} from "../../pages/UnconnectedRoot/Inscription/InscriptionForm/FormConfig";
 import ReduxActionInterface from "../../interface/reduxActionInterface";
+import ICityProposal from "../../models/ICityProposal";
 import {
     SET_INSCRIPTION_ERROR,
     SET_INSCRIPTION_FIELD,
@@ -44,11 +45,6 @@ interface InscriptionErrorState {
     noCityId: boolean;
 }
 
-export interface ICityProposal {
-    id: number;
-    nom: string;
-    cp: string;
-}
 
 interface InscriptionState {
     user: IUserState;

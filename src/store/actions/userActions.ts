@@ -1,5 +1,6 @@
 import {UserState} from "../reducers/UserReducer";
 import {clientTypes} from "../../constants";
+import ICityProposal from "../../models/ICityProposal";
 
 export const CONNECT_USER: string = 'CONNECT_USER';
 export const connectUser = (id: number | string, token: string, type: string | boolean) => {
@@ -25,5 +26,32 @@ export const setUer = (user: UserState) => {
     return {
         type: SET_USER,
         payload: user
+    }
+}
+
+export const SET_NEW_USER_CITY: string = 'SET_NEW_USER_CITY';
+export const setNewUserCity = (cities: ICityProposal) => {
+    return {
+        type: SET_NEW_USER_CITY,
+        payload: cities
+    }
+}
+
+export const SET_NEW_USER_FIELD: string = 'SET_NEW_USER_FIELD';
+export const setNewUserField = (name: string, value: string) => {
+    return {
+        type: SET_NEW_USER_FIELD,
+        payload: {
+            name,
+            value
+        }
+    }
+}
+
+export const SET_NEW_USER_CITIES: string = 'SET_NEW_USER_CITIES';
+export const setNewUserCities = (cities: Array<ICityProposal>) => {
+    return {
+        type: SET_NEW_USER_CITIES,
+        payload: cities
     }
 }

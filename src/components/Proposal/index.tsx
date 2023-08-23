@@ -2,12 +2,12 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {getCitiesProposal, getInputFocus} from "../../store/selectors/InscriptionSelectors";
 import {setInscriptionCity, setInscriptionFocus} from "../../store/actions/inscriptionActions"
-import {ICityProposal} from '../../store/reducers/InscriptionReducer'
+import ICityProposal from '../../models/ICityProposal'
 
 interface IProposalProps {
     classPrefix: string;
     propositionSelector?: (state: any) => any;
-    citySetter?: (city: ICityProposal) => { type: string, payload: any };
+    citySetter?: (city: ICityProposal) => { type: string, payload: typeof city };
 }
 
 // @ts-ignore
