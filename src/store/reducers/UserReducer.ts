@@ -1,7 +1,7 @@
 import ReduxActionInterface from "../../interface/reduxActionInterface";
 import {CONNECT_USER, DISCONNECT_USER, SET_USER } from "../actions/userActions";
 
-interface UserState {
+export interface UserState {
     name: string;
     surname: string;
     gender: string;
@@ -12,8 +12,13 @@ interface UserState {
     postalCode: string;
     country: string;
     id?: number | null;
-    token: string;
+    token?: string;
     isPro: boolean;
+    credit?: number;
+    logo?: string;
+    socialReason?: string | null;
+    siret?: string | null;
+    tva?: string | null;
 }
 
 interface UserReducerInterface {
@@ -62,7 +67,13 @@ const userReducer = (state: UserReducerInterface = initialState, action: ReduxAc
             };
 
         case SET_USER:
-            return state;
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
+            };
 
         default:
             return state;

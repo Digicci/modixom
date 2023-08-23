@@ -14,6 +14,7 @@ import {chevronForwardOutline} from "ionicons/icons";
 //utils import
 import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 import {Dispatch} from "redux";
+import Header from "../../../components/Header";
 
 interface IUserRoute {
     route: string;
@@ -36,7 +37,7 @@ const User: React.FC = () => {
     //On crée la liste des routes communes aux particulier et pro
     const availableRoutes: IUserRoute[] = [
         {
-            route: "coordonees",
+            route: "coordonnes",
             label: "mes coordonnées"
         },
         {
@@ -77,9 +78,7 @@ const User: React.FC = () => {
 
     return (
         <IonPage className={'user'}>
-            <IonHeader className={classN}>
-                <h1>Mon compte</h1>
-            </IonHeader>
+            <Header text={'mon compte'} />
             <IonContent>
                 <div className={'list__container'}>
                     <IonList inset={false} lines={'none'} className={'list'}>

@@ -21,7 +21,7 @@ interface IInputProps {
 // @ts-ignore
 const Input: React.FC = (props: IInputProps) => {
     const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
 
     //control la popup de proposition de ville.
@@ -69,15 +69,13 @@ const Input: React.FC = (props: IInputProps) => {
         <div className={className}>
             <div className={"inputGroup__wrapper"}>
                 <input
-                    type={props.type}
-                    name={props.name}
                     value={props.value}
-                    required={props.required}
                     onChange={props.handleChange}
                     className={"inputGroup__wrapper__input"}
                     autoComplete={'off'}
                     onFocus={handleFocus}
                     disabled={props.disabled || false}
+                    {...props}
                 />
                 <label className={"inputGroup__wrapper__label"}>{props.label}</label>
             </div>

@@ -23,11 +23,19 @@ interface InscriptionFormProps {
     type: string
 }
 
+interface IImgMessage {
+    message: string;
+    errored: boolean;
+}
 const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormProps) => {
     const api = useApi();
     const [present] = useIonToast();
     const [showActionSheet, setShowActionSheet] = React.useState(false);
     const imgService = useImageService();
+    const [imgMessage, setImgMessage] = React.useState<IImgMessage>({
+        message: "Aucune image sélectionnée",
+        errored: true
+    });
     // La methode "push" permet de naviguer vers une autre page,
     // elle s'attend à recevoir un string qui correspond au chemin de la page en premier paramètre
     // un second string qui correspond au sens de navigation (forward, back, root)
@@ -70,7 +78,13 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
             text: 'Ouvrir la galerie',
             handler: () => {
                 imgService.pickImage().then((res) => {
-                    console.log(res);
+                    if(typeof res.dataUrl==="string") {
+                        dispatch(setInscriptionField("logo", res.dataUrl!))
+                        setImgMessage({
+                            message: "Image sélectionnée",
+                            errored: false
+                        })
+                    }
                 })
             }
         }
@@ -127,7 +141,8 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
             placeholder: 'Siret',
             required: true,
             errorMessages: 'Le siret est obligatoire',
-            pattern: "^[0-9]{14}$"
+            pattern: "^[0-9]{14}$",
+            maxLength: 14
         }
 
         FormFields.socialReason = {
@@ -137,7 +152,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
             placeholder: 'Raison sociale',
             required: true,
             errorMessages: 'La raison sociale est obligatoire',
-            pattern: "^[a-zA-Z0-9]{2,}$"
+            pattern: "^[a-zA-Z0-9 ]{2,}$"
         }
     } else {
         delete FormFields.siret;
@@ -170,7 +185,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                             />
                         </div>
                         <div className={'logo__wrapper'}>
-                            <label htmlFor="logo">Logo</label>
+                            <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
                             <IonButton onClick={() => setShowActionSheet(true)}>importer un logo</IonButton>
                         </div>
                     </>

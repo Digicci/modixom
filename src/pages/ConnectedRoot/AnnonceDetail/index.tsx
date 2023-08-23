@@ -11,6 +11,7 @@ import {isUserPro} from "../../../store/selectors/UserSelectors";
 import {endpoints} from "../../../constants";
 
 import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
+import Header from "../../../components/Header";
 
 
 const AnnonceDetail: React.FC = () => {
@@ -36,10 +37,7 @@ const AnnonceDetail: React.FC = () => {
                     <Loader/>
                 ) : (
                     <>
-                        <IonHeader className={headerClass}>
-                            <IonBackButton defaultHref={'/home'} className={'header__back__button'}/>
-                            <h1>{annonce?.titre}</h1>
-                        </IonHeader>
+                        <Header text={annonce!.titre} canGoBack={true} defaultHref={'/home'}/>
                         <IonContent>
                             <div className={'annonceDetail'}>
                                 <div className={'annonceDetail__part1'}>

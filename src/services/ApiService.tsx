@@ -1,6 +1,8 @@
 import React, {createContext, useContext} from "react";
 import axios from "axios";
 
+
+
 const Api = axios.create({
     baseURL: 'https://deamonerp.fr/modixom/public/index.php/api/',
 })
@@ -12,6 +14,7 @@ interface IApiContext {
     post: (url: string, data?: any) => Promise<any>;
     put: (url: string, data?: any) => Promise<any>;
     remove: (url: string) => Promise<any>;
+    setHeader: (key: string, value: string) => void;
 }
 
 const ApiContext = createContext<IApiContext | null>(null);
@@ -72,11 +75,16 @@ function useProvideApi(): IApiContext{
         }
     }
 
+    const setHeader = (key: string, value: string) => {
+        Api.defaults.headers.common[key] = value;
+    }
+
     return {
         get,
         post,
         put,
-        remove
+        remove,
+        setHeader
     }
 }
 

@@ -1,0 +1,72 @@
+.account {
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 60%;
+    padding: 1rem;
+    font-size: 0.9rem;
+
+    ion-item{
+      position: absolute;
+      right: 0;
+      top:30px;
+      --min-height: 0px;
+      text-decoration: underline;
+    }
+
+    p {
+      text-transform: uppercase;
+      margin-right: 5px;
+    }
+
+    &__containerPro{
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      height: 35%;
+
+
+
+      &__infoWrapperPro{
+        width: 50%;
+
+        &__logoContainer{
+          width: 100%;
+
+          &__logo {
+            height: 90px;
+            justify-content: flex-start;
+            display: flex;
+          }
+        }
+      }
+    }
+
+    &__infoWrapper {
+      display: flex;
+
+
+      &__name{
+        flex-direction: column;
+      }
+
+      div {
+
+        width: 90%;
+        display: flex;
+        font-weight: bold;
+
+      }
+
+
+      &__infoWrapperAdresse {
+        flex-direction: column;
+      }
+    }
+  }
+
+
+}

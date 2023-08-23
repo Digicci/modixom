@@ -1,3 +1,5 @@
+import {UserState} from "../reducers/UserReducer";
+
 export const CONNECT_USER: string = 'CONNECT_USER';
 export const connectUser = (id: number | string, token: string, type: string | boolean) => {
     const isPro: boolean = typeof type === 'string' ? type === 'professionnel' : type;
@@ -17,3 +19,10 @@ export const disconnectUser = () => {
     }
 }
 export const SET_USER: string = 'SET_USER';
+
+export const setUer = (user: UserState) => {
+    return {
+        type: SET_USER,
+        payload: user
+    }
+}

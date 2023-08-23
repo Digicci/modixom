@@ -8,11 +8,9 @@ import './alerte.scss';
 import Loader from "../../../components/Loader";
 
 // utils import
-import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 
 // store import
 import {useDispatch, useSelector} from "react-redux";
-import {isUserPro} from "../../../store/selectors/UserSelectors";
 import {getCategoryCollection} from "../../../store/selectors/CategorySelectors";
 import {setCategoryCollection} from "../../../store/actions/categoryActions";
 import {getAlerte, getAlerteRayon, isSelectedAlerteCategory} from "../../../store/selectors/AlerteSelectors";
@@ -22,11 +20,10 @@ import {endpoints, storageKeys} from "../../../constants";
 import ICategory from "../../../models/ICategory";
 import Item from "../../../components/Category/Item";
 import RayonFilter from "../../../components/RayonFilter";
+import Header from "../../../components/Header";
 
 const Alerte: React.FC = () => {
 
-    const isPro: boolean = useSelector(isUserPro);
-    const classN: string = generateHeaderClassName(isPro);
     const categoryCollection = useSelector(getCategoryCollection)
     const alerte = useSelector(getAlerte)
     const dispatch = useDispatch();
@@ -47,9 +44,7 @@ const Alerte: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader className={classN}>
-                <h1>je crée une alerte</h1>
-            </IonHeader>
+            <Header text={'je créer une alerte'} />
             <IonContent>
                 <div className={'alerte'}>
                     <div className={'alerte__category'}>
