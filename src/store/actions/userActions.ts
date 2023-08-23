@@ -1,8 +1,9 @@
 import {UserState} from "../reducers/UserReducer";
+import {clientTypes} from "../../constants";
 
 export const CONNECT_USER: string = 'CONNECT_USER';
 export const connectUser = (id: number | string, token: string, type: string | boolean) => {
-    const isPro: boolean = typeof type === 'string' ? type === 'professionnel' : type;
+    const isPro: boolean = typeof type === 'string' ? type === clientTypes.pro : type;
     return {
         type: CONNECT_USER,
         payload: {
