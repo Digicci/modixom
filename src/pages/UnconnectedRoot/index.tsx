@@ -5,6 +5,7 @@ import { Redirect, Route } from "react-router-dom";
 import Connexion from "./Connexion";
 import Inscription from "./Inscription";
 import ChooseType from "./ChooseType";
+import {clientTypes} from "../../constants";
 
 
 const UnconnectedRoot: React.FC = () => {
@@ -17,7 +18,7 @@ const UnconnectedRoot: React.FC = () => {
                 <Inscription type={'professionnel'} />
             </Route>
             <Route exact path={'/inscription/particulier'}>
-                <Inscription type={'particulier'} />
+                <Inscription type={clientTypes.part} />
             </Route>
             <Route exact path={'/inscription'}>
                 <ChooseType />
