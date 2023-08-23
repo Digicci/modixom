@@ -22,3 +22,8 @@ export const endpoints = {
     city: 'searchCities',
     profilDetail: 'profil'
 }
+
+export const clientTypes = {
+    part: "particulier",
+    pro: "professionnel"
+}
