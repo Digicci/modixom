@@ -1,5 +1,6 @@
 import { UserState } from '../../store/reducers/UserReducer';
 import User from "../../pages/ConnectedRoot/User";
+import {clientTypes} from "../../constants";
 
 export interface IApiUserData {
     adresse: string;
@@ -20,7 +21,7 @@ export interface IApiUserData {
 }
 
 export const apiUserDataAdapter = (data: IApiUserData): UserState => {
-    const isPro: boolean = data.type !== 'part';
+    const isPro: boolean = data.type === clientTypes.pro;
     const storeUser: UserState = {
         name: data.nom,
         surname: data.prenom,
