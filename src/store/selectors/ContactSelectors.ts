@@ -1,2 +1,2 @@
-// export const getContactFormValues = (state: any) => state.contact.;
-// export const getContactFormError = (state: any) => state.inscription.errors;
+export const getContactFormValues = (state: any) => state.contact.contact;
+export const getContactFormError = (state: any) => state.contact.errors;

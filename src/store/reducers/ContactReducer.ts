@@ -1,8 +1,9 @@
 import ReduxActionInterface from "../../interface/reduxActionInterface";
-import {SET_CONTACTFORM_FIELD} from "../actions/contactAction";
-import exp from "constants";
+import {SET_CONTACTFORM_ERROR, SET_CONTACTFORM_FIELD} from "../actions/contactAction";
+import {SET_INSCRIPTION_ERROR} from "../actions/inscriptionActions";
 
-interface IContactForm {
+
+export interface IContactForm {
     name: string | Object;
     surname: string | Object;
     mail: string | Object;
@@ -58,7 +59,19 @@ const ContactFormReducer=(state=initialState,action:ReduxActionInterface)=>{
             };
         default:
             return state
+        case SET_CONTACTFORM_ERROR:
+            const {name: errorName, value: errorValue} = action.payload;
+
+            const newErrors = {
+                ...state.errors,
+                [errorName]: errorValue
+            }
+            return {
+                ...state,
+                errors: newErrors
+            }
     }
+
 }
 
 export default ContactFormReducer;

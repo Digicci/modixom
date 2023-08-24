@@ -1,8 +1,8 @@
 import {useSelector, useDispatch} from "react-redux";
-import {setInscriptionError} from "../../store/actions/inscriptionActions";
 
 
-export const validator = (formConfig: any, selector: (state:any) => any) => {
+
+export const validator = (formConfig: any, selector: (state:any) => any,setAction:any) => {
     const dispatch = useDispatch();
     const values = useSelector(selector);
 
@@ -11,6 +11,10 @@ export const validator = (formConfig: any, selector: (state:any) => any) => {
         let error = '';
         if (field.required && (!value || value === '' || value === false)) {
             error = 'Ce champ est requis';
+        }
+
+        if(name==="description" &&(value.length<5)){
+            error=field.errorMessage
         }
         if (value !== ''  && !new RegExp(field.pattern).test(value)) {
             error = field.errorMessage || 'Ce champ est invalide';
@@ -23,7 +27,7 @@ export const validator = (formConfig: any, selector: (state:any) => any) => {
             error = 'Les mots de passe ne correspondent pas';
         }
 
-        dispatch(setInscriptionError(name, error));
+        dispatch(setAction(name, error));
         return error;
     }
     const validateAll = () => {

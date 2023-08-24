@@ -7,3 +7,14 @@ export  const setContactFormField=(name:string,value:string)=>({
         value
     }
 });
+
+export const SET_CONTACTFORM_ERROR="SET_CONTACTFORM_ERROR";
+export const setContactFormError=(name:string,value:string)=>({
+
+    type:SET_CONTACTFORM_ERROR,
+    payload:{
+        name,
+        value
+    }
+
+})

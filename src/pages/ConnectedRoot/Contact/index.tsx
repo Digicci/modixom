@@ -1,31 +1,56 @@
 import React from "react";
 import "./contact.scss"
 import Header from "../../../components/Header";
-import {IonContent, IonPage} from "@ionic/react";
+import {IonContent, IonFooter, IonPage} from "@ionic/react";
 import ContactFormInput from "../../../components/ContactFormInput";
-import {useDispatch} from "react-redux";
-import {setContactFormField} from "../../../store/actions/contactAction";
+import {useDispatch, useSelector} from "react-redux";
+import {setContactFormError, setContactFormField} from "../../../store/actions/contactAction";
+import {FormFields} from "./formConfig";
+import {getContactFormError, getContactFormValues} from "../../../store/selectors/ContactSelectors";
+import validator from "../../../utils/tools/validator";
 
-const Contact : React.FC  = ()=>{
-    const dispatch=useDispatch()
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-        const {name,value}=e.target
-        dispatch(setContactFormField(name,value))
-        console.log(name,value);
+const Contact: React.FC = () => {
+    const dispatch = useDispatch()
+    const data = useSelector(getContactFormValues);
+    const {validate, validateAll} = validator(FormFields, getContactFormValues, setContactFormError)
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target
+        dispatch(setContactFormField(name, value))
+        validate(name, value)
     }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const errors =validateAll()
+        if (errors.length ===0) {
+            console.log(data)
+            //TODO: appelle a l'api pour envoyer le form contact
+        }
 
-    return(
+    }
+    return (
         <IonPage>
             <Header text={"Contact"} canGoBack={true} defaultHref={"/user"}/>
             <IonContent>
-                <div>
+                <div className={"contact"}>
                     <h2>nous contacter</h2>
-                    <ContactFormInput label={"nom"} type={"text"} handleChange={handleChange}/>
-                    <ContactFormInput label={"prénom"} type={"text"} handleChange={handleChange}/>
-                    <ContactFormInput label={"adresse email"} type={"email"} handleChange={handleChange}/>
-                    <ContactFormInput label={"téléphone"} type={"tel"} handleChange={handleChange}/>
-                    <ContactFormInput label={"motif de contact"} type={"text"} handleChange={handleChange}/>
-                    <ContactFormInput label={"description"} type={"textarea"} handleChange={handleChange}/>
+                    <form onSubmit={handleSubmit} className={"contact__container"}>
+                        {
+                            Object.keys(FormFields).map((item: any, index: number) => {
+                                return (
+
+                                    <ContactFormInput key={index}
+                                        //@ts-ignore
+                                         {...FormFields[item]}
+                                         handleChange={handleChange}
+                                         errorSelector={getContactFormError}/>
+                                )
+                            })
+                        }
+
+                        <IonFooter className={'contactButtonContainer'}>
+                            <input type={"submit"} value={"envoyer"} className={"contactButton"}/>
+                        </IonFooter>
+                    </form>
                 </div>
             </IonContent>
         </IonPage>
