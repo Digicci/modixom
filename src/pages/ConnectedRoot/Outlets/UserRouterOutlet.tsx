@@ -6,7 +6,7 @@ import DeleteAccount from "../DeleteAccount";
 import User from "../User";
 import Account from "../Account";
 import AccountModif from "../AccountModif";
-import Contact from "../Contact";
+import Contact from "../ContactClient";
 
 const UserRouterOutlet: React.FC = () => {
     return (

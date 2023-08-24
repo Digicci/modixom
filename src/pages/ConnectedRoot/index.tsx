@@ -3,7 +3,7 @@ import {IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic
 import {Redirect, Route} from "react-router-dom";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 import Alerte from "./Alerte";
-import Contact from "./Contact";
+import Contact from "./ContactClient";
 import UserRouterOutlet from "./Outlets/UserRouterOutlet";
 import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
 

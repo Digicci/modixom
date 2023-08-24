@@ -1,10 +1,10 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setContactFormError, setContactFormField} from "../../../../store/actions/contactAction";
-import {getContactFormError, getContactFormValues} from "../../../../store/selectors/ContactSelectors";
+import {setContactFormError, setContactFormField} from "../../../store/actions/contactAction";
+import {getContactFormError, getContactFormValues} from "../../../store/selectors/ContactSelectors";
 import {FormFields} from "./formConfig";
-import validator from "../../../../utils/tools/validator";
-import ContactFormInput from "../../../../components/ContactFormInput";
+import validator from "../../../utils/tools/validator";
+import ContactFormInput from "../../ContactFormInput";
 
 import "./contactForm.scss"
 
