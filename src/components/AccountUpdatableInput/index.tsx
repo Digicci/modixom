@@ -5,7 +5,7 @@ import ICityProposal from "../../models/ICityProposal";
 
 
 interface IAccountUpdatableInputProps {
-    actualValue: string;
+    actualValue?: string;
     newValue?: string | number | null | undefined;
     label: string;
     type: string;
@@ -16,6 +16,7 @@ interface IAccountUpdatableInputProps {
     citySetter?: (city: ICityProposal) => { type: string, payload: typeof city };
     handleChange?: FormEventHandler;
     imgHandler?: () => void;
+    errorSelector?: (state: any) => any;
 }
 const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAccountUpdatableInputProps) => {
 
@@ -59,6 +60,7 @@ const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAcc
                         citySetter={props.citySetter || null}
                         handleChange={props.handleChange || null}
                         value={props.newValue}
+                        errorSelector={props.errorSelector || null}
                     />
                 ) : (
                     <span>{props.actualValue}</span>

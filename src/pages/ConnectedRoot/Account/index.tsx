@@ -10,15 +10,30 @@ import "./account.scss";
 
 // store import
 import {useSelector, useDispatch} from "react-redux";
-import {getUserToken, getUser, isUserPro, getCitiesProposal, getNewUser} from "../../../store/selectors/UserSelectors";
+import {
+    getUserToken,
+    getUser,
+    isUserPro,
+    getCitiesProposal,
+    getNewUser,
+    getNewUserError
+} from "../../../store/selectors/UserSelectors";
 import {apiUserDataAdapter} from "../../../utils/tools/apiDataAdapter";
 import {UserState, NewUserState} from "../../../store/reducers/UserReducer";
-import {setUer, setNewUserCity, setNewUserField, setNewUserCities} from "../../../store/actions/userActions";
+import {
+    setUer,
+    setNewUserCity,
+    setNewUserField,
+    setNewUserCities,
+    setNewUserError,
+    resetNewUser
+} from "../../../store/actions/userActions";
 import Loader from "../../../components/Loader";
 
 
 // component import
 import AccountUpdatableInput from "../../../components/AccountUpdatableInput";
+import {validateNewPassword} from "../../../utils/tools/validator";
 
 const Account: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
@@ -32,11 +47,12 @@ const Account: React.FC = () => {
     const user: UserState = useSelector(getUser);
     const newUser: NewUserState = useSelector(getNewUser);
     const imgService = useImageService();
+    const {validate} = validateNewPassword(newUser.newPassword!, newUser.confirmNewPassword!, setNewUserError)
 
     useEffect(() => {
         if (user.name === "") {
             setIsLoading(true);
-            api.get(endpoints.profilDetail,{token}).then((res) => {
+            api.get(endpoints.profilDetail, {token}).then((res) => {
                 console.log(res);
                 const apiUser: UserState = apiUserDataAdapter(res);
                 console.log(apiUser);
@@ -47,6 +63,10 @@ const Account: React.FC = () => {
             })
         }
     }, []);
+
+    useEffect(() => {
+        validate()
+    }, [newUser.confirmNewPassword, newUser.newPassword])
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -62,6 +82,7 @@ const Account: React.FC = () => {
         }
     }
     const toggleModif = () => {
+        dispatch(resetNewUser());
         setModif(!modif);
     }
 
@@ -83,10 +104,11 @@ const Account: React.FC = () => {
 
     return (
         <IonPage className={"account"}>
-            <Header text={ modif ? 'modifier mes coordonnées' : 'mes coordonnées'} canGoBack={true} defaultHref={'/user'}/>
+            <Header text={modif ? 'modifier mes coordonnées' : 'mes coordonnées'} canGoBack={true}
+                    defaultHref={'/user'}/>
             <IonContent>
                 {
-                    isLoading ? <Loader /> : (
+                    isLoading ? <Loader/> : (
                         <div className={"account__container"}>
                             <IonItem detail={false} lines={"none"} onClick={toggleModif}>
                                 <IonLabel slot={"end"}>
@@ -116,7 +138,7 @@ const Account: React.FC = () => {
                                     newValue={newUser.socialReason}
                                 />
                                 <AccountUpdatableInput
-                                    actualValue={user.logo!}
+                                    actualValue={newUser.logo || user.logo!}
                                     label={"logo actuel"}
                                     type={'img'}
                                     classPrefix={'account__container__containerPro__infoWrapperPro'}
@@ -212,18 +234,60 @@ const Account: React.FC = () => {
                                 handleChange={handleChange}
                                 newValue={newUser.address}
                             />
+                            {
+                                modif && (
+                                    <>
+
+                                        <AccountUpdatableInput
+                                            label={'nouveau mot de passe :'}
+                                            name={'newPassword'}
+                                            type={'password'}
+                                            isUpdating={true}
+                                            classPrefix={"account__container__infoWrapper__name"}
+                                            handleChange={handleChange}
+                                            errorSelector={getNewUserError}
+                                            newValue={newUser.newPassword}
+                                        />
+                                        <AccountUpdatableInput
+                                            label={'confirmez nouveau mot de passe :'}
+                                            name={'confirmNewPassword'}
+                                            type={'password'}
+                                            isUpdating={true}
+                                            classPrefix={"account__container__infoWrapper__name"}
+                                            handleChange={handleChange}
+                                            errorSelector={getNewUserError}
+                                            newValue={newUser.confirmNewPassword}
+                                        />
+                                        <AccountUpdatableInput
+                                            label={'mot de passe :'}
+                                            name={'password'}
+                                            type={'password'}
+                                            isUpdating={true}
+                                            classPrefix={"account__container__infoWrapper__name"}
+                                            handleChange={handleChange}
+                                            newValue={newUser.password}
+                                        />
+                                    </>
+                                )
+                            }
                         </div>
                     )
                 }
                 <IonActionSheet
                     isOpen={actionSheet}
-                    onDidDismiss={() => {setActionSheet(false)}}
+                    onDidDismiss={() => {
+                        setActionSheet(false)
+                    }}
                     header={'Changer de logo'}
                     buttons={[actionSheetButton]}
                 />
-                <IonFooter className={'validateButtonContainer'}>
-                    <IonButton className={'validateButton'}>Valider</IonButton>
-                </IonFooter>
+                {
+                    modif && (
+                        <IonFooter className={'validateButtonContainer'}>
+                            <IonButton className={'validateButton'}>Valider</IonButton>
+                        </IonFooter>
+                    )
+                }
             </IonContent>
         </IonPage>
     )

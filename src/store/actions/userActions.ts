@@ -55,3 +55,21 @@ export const setNewUserCities = (cities: Array<ICityProposal>) => {
         payload: cities
     }
 }
+
+export const SET_NEW_USER_ERROR: string = 'SET_NEW_USER_ERROR';
+export const setNewUserError = (name: string, value: string) => {
+    return {
+        type: SET_NEW_USER_ERROR,
+        payload: {
+            name,
+            value
+        }
+    }
+}
+
+export const RESET_NEW_USER: string = 'RESET_NEW_USER';
+export const resetNewUser = () => {
+    return {
+        type: RESET_NEW_USER
+    }
+}

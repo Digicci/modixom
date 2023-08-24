@@ -6,3 +6,5 @@ export const getNewUser = (state: any) => state.user.newUser;
 export const getNewUserByName = (name: string) => (state: any) => state.user.newUser[name];
 
 export const getCitiesProposal = (state: any) => state.user.cities;
+
+export const getNewUserError = (state: any) => state.user.newUserError;

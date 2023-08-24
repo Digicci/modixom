@@ -10,12 +10,25 @@ export const validateNewPassword = (
     }) => {
     const dispatch = useDispatch();
 
-    if (password !== passwordConfirmation) {
-        dispatch(errorSetter('passwordConfirmation', 'Les mots de passe ne correspondent pas'));
-        return false;
-
+    const validate = () => {
+        if (password !== passwordConfirmation && passwordConfirmation !== "") {
+            dispatch(errorSetter('confirmNewPassword', 'Les mots de passe ne correspondent pas'));
+            return false;
+        } else {
+            dispatch(errorSetter('confirmNewPassword', ''));
+        }
+        if(password?.length < 8 && password !== ""){
+            dispatch(errorSetter('newPassword', 'Le mot de passe doit contenir au moins 8 caractères'));
+            return false;
+        } else {
+            dispatch(errorSetter('newPassword', ''));
+        }
+        return true;
     }
-    return true;
+
+    return {
+        validate
+    }
 }
 
 export const validator = (

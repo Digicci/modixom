@@ -1,9 +1,9 @@
 import ReduxActionInterface from "../../interface/reduxActionInterface";
 import {
     CONNECT_USER,
-    DISCONNECT_USER,
+    DISCONNECT_USER, RESET_NEW_USER,
     SET_NEW_USER_CITIES,
-    SET_NEW_USER_CITY,
+    SET_NEW_USER_CITY, SET_NEW_USER_ERROR,
     SET_NEW_USER_FIELD,
     SET_USER
 } from "../actions/userActions";
@@ -31,6 +31,9 @@ export interface UserState {
 
 export interface NewUserState extends UserState {
     cityId?: number | null;
+    newPassword?: string;
+    confirmNewPassword?: string;
+    password?: string;
 }
 
 interface UserReducerInterface {
@@ -38,7 +41,10 @@ interface UserReducerInterface {
     user: UserState;
     cities?: Array<ICityProposal>;
     newUser: NewUserState;
+    newUserError: INewUserError;
 }
+
+interface INewUserError extends NewUserState {}
 
 const initialUser: UserState = {
     name: '',
@@ -57,16 +63,20 @@ const initialUser: UserState = {
 const initialNewUser: NewUserState = {
     ...initialUser,
     cityId: null,
+    password: '',
+    newPassword: '',
+    confirmNewPassword: ''
 }
 
 const initialState: UserReducerInterface = {
     connected: false,
     user: initialUser,
     newUser: initialNewUser,
-    cities: []
+    cities: [],
+    newUserError: initialNewUser
 }
 
-const userReducer = (state: UserReducerInterface = initialState, action: ReduxActionInterface): UserReducerInterface => {
+const userReducer = (state: UserReducerInterface = initialState, action: any): UserReducerInterface => {
     switch (action.type) {
 
         case CONNECT_USER:
@@ -105,6 +115,26 @@ const userReducer = (state: UserReducerInterface = initialState, action: ReduxAc
                     ...state.newUser,
                     [name]: value,
                 }
+            }
+
+        case SET_NEW_USER_ERROR:
+            const {name: errorName, value: errorValue} = action.payload;
+            return {
+                ...state,
+                newUserError: {
+                    ...state.newUserError,
+                    [errorName!]: errorValue!
+                }
+            }
+
+        case RESET_NEW_USER:
+            return {
+                ...state,
+                newUser: {
+                    ...initialNewUser,
+                    id: state.newUser.id,
+                    isPro: state.newUser.isPro,
+                },
             }
 
         case SET_NEW_USER_CITIES:

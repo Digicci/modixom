@@ -9,10 +9,10 @@
     padding: 1rem;
     font-size: 0.9rem;
 
-    ion-item{
+    ion-item {
       position: absolute;
       right: 0;
-      top:30px;
+      top: 30px;
       --min-height: 0px;
       text-decoration: underline;
     }
@@ -22,24 +22,23 @@
       margin-right: 5px;
     }
 
-    &__containerPro{
+    &__containerPro {
       display: flex;
       flex-wrap: wrap;
       width: 90%;
       height: 35%;
 
 
-
-      &__infoWrapperPro{
+      &__infoWrapperPro {
         width: 50%;
 
-        &__logoContainer{
+        &__logoContainer {
           width: 100%;
           position: relative;
           margin-top: 20px;
           display: flex;
           justify-content: space-between;
-            align-items: flex-start;
+          align-items: flex-start;
           flex-direction: column;
           gap: 10px;
 
@@ -60,26 +59,33 @@
 
     &__infoWrapper {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
+      margin-top: 20px;
 
-
-      &__name{
+      &__name {
+        display: flex;
         flex-direction: column;
+        gap: 5px;
       }
 
       div {
-
         width: 90%;
         display: flex;
         font-weight: bold;
-
       }
 
-
-      &__infoWrapperAdresse {
-        flex-direction: column;
+      & > span {
+        align-self: end;
       }
+    }
+
+
+    &__infoWrapperAdresse {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      gap: 5px;
     }
 
     & .inputGroup__wrapper {
