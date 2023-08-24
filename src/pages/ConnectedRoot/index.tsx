@@ -6,11 +6,15 @@ import Alerte from "./Alerte";
 import Contact from "./ContactClient";
 import UserRouterOutlet from "./Outlets/UserRouterOutlet";
 import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
+import {useSelector} from "react-redux";
+import {isUserPro} from "../../store/selectors/UserSelectors";
 
 
 const ConnectedRoot: React.FC = () => {
     // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
     // utiliser le store pour afficher les bonnes pages
+
+    const isPro = useSelector(isUserPro)
 
     return (
         <IonTabs>
@@ -25,9 +29,17 @@ const ConnectedRoot: React.FC = () => {
                 <Route exact path="/alerte">
                     <Alerte/>
                 </Route>
-                <Route path="/contact">
-                    <Contact/>
-                </Route>
+                {
+                    isPro ? (
+                        <Route path={'/addAnnonce'}>
+                            <div>addAnnonce</div>
+                        </Route>
+                    ) : (
+                        <Route path="/contact">
+                            <Contact/>
+                        </Route>
+                    )
+                }
                 <Route path={'/user'} render={() => <UserRouterOutlet />}/>
                 <Route exact path="/">
                     <Redirect to="/home"/>
@@ -48,9 +60,17 @@ const ConnectedRoot: React.FC = () => {
                 <IonTabButton tab="alerte" href="/alerte">
                     <IonIcon aria-hidden="true" icon={megaphone}/>
                 </IonTabButton>
-                <IonTabButton tab="contact" href="/contact">
-                    <IonIcon aria-hidden="true" icon={at}/>
-                </IonTabButton>
+                {
+                    isPro ? (
+                        <IonTabButton tab="addAnnonce" href="/addAnnonce">
+                            déposer une annonce
+                        </IonTabButton>
+                    ) : (
+                        <IonTabButton tab="contact" href="/contact">
+                            <IonIcon aria-hidden="true" icon={at}/>
+                        </IonTabButton>
+                    )
+                }
                 <IonTabButton tab="user" href="/user">
                     <IonIcon aria-hidden="true" icon={personOutline}/>
                 </IonTabButton>

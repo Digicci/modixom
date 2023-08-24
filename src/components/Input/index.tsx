@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {setInscriptionFocus} from "../../store/actions/inscriptionActions";
 import Proposal from '../Proposal';
 import "./input.scss";
+import ICityProposal from "../../models/ICityProposal";
 
 interface IInputProps {
     type: string;
@@ -15,7 +16,9 @@ interface IInputProps {
     error?: string;
     disabled?: boolean;
     errorSelector?: (state: any) => any;
-    handleChange: FormEventHandler;
+    handleChange?: FormEventHandler;
+    propositionSelector?: (state: any) => any;
+    citySetter?: (city: ICityProposal) => { type: string, payload: typeof city };
 }
 
 // @ts-ignore
@@ -63,7 +66,6 @@ const Input: React.FC = (props: IInputProps) => {
     }
 
     const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
-
     //Sinon, on retourne un input classique
     return (
         <div className={className}>
@@ -81,7 +83,7 @@ const Input: React.FC = (props: IInputProps) => {
             </div>
             {
                 // @ts-ignore
-                (props.name === 'city') && <Proposal classFor={'cityWrapper__container'}/>
+                props.name === "city" && <Proposal propositionSelector={props.propositionSelector || null} citySetter={props.citySetter || null} classPrefix={'cityWrapper__container'}/>
             }
 
             <p className={"inputGroup__error"}>{

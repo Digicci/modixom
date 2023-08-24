@@ -14,6 +14,7 @@ import Loader from "../../../components/Loader";
 import {getAnnonces, getWhereClause, isLoadingAnnonces} from "../../../store/selectors/AnnonceSelectors";
 import {setAnnonce, setIsLoadingAnnonces} from "../../../store/actions/annonceActions";
 import {endpoints} from "../../../constants";
+import topToBottomAnimation from "../../../utils/tools/topToBottomAnimation";
 
 const Home: React.FC = () => {
 
@@ -48,12 +49,22 @@ const Home: React.FC = () => {
                 <div className={'home__content'}>
                     <div className={'home__content__filters'}>
                         <div className={'home__content__filters__category'}>
-                            <IonButton className={'button'} routerLink={"/home/filter/category"} routerDirection={"forward"}>
+                            <IonButton
+                                className={'button'}
+                                routerLink={"/home/filter/category"}
+                                routerDirection={"forward"}
+                                routerAnimation={topToBottomAnimation}
+                            >
                                 Catégories
                             </IonButton>
                         </div>
                         <div className={'home__content__filters__button'}>
-                            <IonButton className={'button'} routerLink={"/home/filter/filters"} routerDirection={"forward"}>
+                            <IonButton
+                                className={'button'}
+                                routerLink={"/home/filter/filters"}
+                                routerDirection={"forward"}
+                                routerAnimation={topToBottomAnimation}
+                            >
                                 Filtres
                                 <IonIcon icon={optionsOutline} slot={'end'}/>
                             </IonButton>

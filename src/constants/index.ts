@@ -20,7 +20,8 @@ export const endpoints = {
     annonceDetail: 'annonceDetail',
     categories: 'categories',
     city: 'searchCities',
-    profilDetail: 'profil'
+    profilDetail: 'profil',
+    profilUpdate: 'profilUpdate',
 }
 
 export const clientTypes = {
