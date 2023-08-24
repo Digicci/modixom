@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './inscriptionForm.scss';
 import {useIonToast, useIonRouter, IonButton, IonActionSheet} from "@ionic/react";
 import Input from "../../../../components/Input";
@@ -49,6 +49,12 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
     const dispatch = useDispatch();
     const data = useSelector(getInscriptionValues);
     const cityError = useSelector(getInscriptionError).noCityId;
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetInscriptionFields());
+        }
+    }, [])
 
     //On handle le changement de valeur d'un input
     // eslint-disable-next-line no-undef

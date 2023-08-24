@@ -6,7 +6,7 @@ import {
     SET_INSCRIPTION_FIELD,
     SET_CITY_PROPOSAL,
     SET_INSCRIPTION_FOCUS,
-    SET_INSCRIPTION_CITY
+    SET_INSCRIPTION_CITY, RESET_INSCRIPTION_FIELDS
 } from "../actions/inscriptionActions";
 
 export interface IUserState {
@@ -25,7 +25,7 @@ export interface IUserState {
     country: string| Object;
     cgu: boolean| Object;
     cityId?: string | number | null;
-    siret?: string | number | null | Object;
+    siret?:  number | null | Object;
     socialReason?: string | null | Object;
 }
 
@@ -57,25 +57,26 @@ interface InscriptionState {
 //La valeur par défaut pour "gender" se trouve dans le fichier src\pages\UnconnectedRoot\Inscription\InscriptionForm\FormConfig.ts
 //Il est donc inutile de la définir ici
 
+const initialUser: IUserState = {
+    name: '',
+    surname: '',
+    gender: defaultGender,
+    mail: '',
+    mailConfirmation: '',
+    phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    password: '',
+    passwordConfirmation: '',
+    cgu: false,
+    cityId: null,
+}
 
 const initialState: InscriptionState = {
     user: {
-        name: '',
-        surname: '',
-        gender: defaultGender,
-        mail: '',
-        mailConfirmation: '',
-        phone: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        country: '',
-        password: '',
-        passwordConfirmation: '',
-        cgu: false,
-        cityId: null,
-        siret: "",
-        socialReason: ''
+        ...initialUser
     },
     errors: {
         name: '',
@@ -151,6 +152,14 @@ const inscriptionReducer = (state = initialState, action: ReduxActionInterface) 
                     noCityId: false
                 }
            }
+
+        case RESET_INSCRIPTION_FIELDS:
+            return {
+                ...state,
+                user: {
+                    ...initialUser
+                }
+            }
 
         default:
             return state;

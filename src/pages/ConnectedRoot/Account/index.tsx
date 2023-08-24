@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import Header from "../../../components/Header";
-import {IonButton, IonContent, IonFooter, IonItem, IonLabel, IonPage} from "@ionic/react";
+import {IonButton, IonContent, IonFooter, IonItem, IonLabel, IonPage, IonActionSheet} from "@ionic/react";
 import {useApi} from "../../../services/ApiService";
 import {endpoints} from "../../../constants";
+import {useImageService} from "../../../services/ImageService";
 
 import "./account.scss";
 
@@ -24,11 +25,13 @@ const Account: React.FC = () => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [modif, setModif] = useState<boolean>(false);
+    const [actionSheet, setActionSheet] = useState<boolean>(false);
 
     const api = useApi();
     const token: string = useSelector(getUserToken);
     const user: UserState = useSelector(getUser);
     const newUser: NewUserState = useSelector(getNewUser);
+    const imgService = useImageService();
 
     useEffect(() => {
         if (user.name === "") {
@@ -38,6 +41,8 @@ const Account: React.FC = () => {
                 const apiUser: UserState = apiUserDataAdapter(res);
                 console.log(apiUser);
                 dispatch(setUer(apiUser));
+                dispatch(setNewUserField("id", apiUser.id!));
+                dispatch(setNewUserField('isPro', apiUser.isPro!));
                 setIsLoading(false);
             })
         }
@@ -56,9 +61,24 @@ const Account: React.FC = () => {
             }
         }
     }
-
     const toggleModif = () => {
         setModif(!modif);
+    }
+
+    const handleImgChange = () => {
+        setActionSheet(true)
+    }
+
+    const actionSheetButton = {
+        text: 'Ouvrir la galerie',
+        handler: () => {
+            setActionSheet(false);
+            imgService.pickImage().then((res) => {
+                if (typeof res.dataUrl === "string") {
+                    dispatch(setNewUserField("logo", res.dataUrl!))
+                }
+            })
+        }
     }
 
     return (
@@ -68,8 +88,12 @@ const Account: React.FC = () => {
                 {
                     isLoading ? <Loader /> : (
                         <div className={"account__container"}>
-                            <IonItem detail={false} onClick={toggleModif}>
-                                <IonLabel slot={"end"}>Modifier</IonLabel>
+                            <IonItem detail={false} lines={"none"} onClick={toggleModif}>
+                                <IonLabel slot={"end"}>
+                                    {
+                                        modif ? "Annuler" : "Modifier"
+                                    }
+                                </IonLabel>
                             </IonItem>
                             {isPro && <div className={"account__container__containerPro"}>
                                 <AccountUpdatableInput
@@ -91,7 +115,14 @@ const Account: React.FC = () => {
                                     handleChange={handleChange}
                                     newValue={newUser.socialReason}
                                 />
-                                <AccountUpdatableInput actualValue={user.logo!} label={"logo actuel"} type={'img'} classPrefix={'account__container__containerPro__infoWrapperPro'} isUpdating={modif} />
+                                <AccountUpdatableInput
+                                    actualValue={user.logo!}
+                                    label={"logo actuel"}
+                                    type={'img'}
+                                    classPrefix={'account__container__containerPro__infoWrapperPro'}
+                                    isUpdating={modif}
+                                    imgHandler={handleImgChange}
+                                />
                             </div>
                             }
                             <div className={"account__container__infoWrapper"}>
@@ -121,7 +152,7 @@ const Account: React.FC = () => {
                                 label={'adresse mail :'}
                                 type={'email'}
                                 name={'mail'}
-                                isUpdating={modif}
+                                isUpdating={false}
                                 classPrefix={"account__container__infoWrapper"}
                                 handleChange={handleChange}
                                 newValue={newUser.mail}
@@ -148,9 +179,6 @@ const Account: React.FC = () => {
                                     handleChange={handleChange}
                                     newValue={newUser.postalCode}
                                 />
-                                {
-                                    //Todo: refactor or create a Input component to handle the particularity of the city input
-                                }
                                 <AccountUpdatableInput
                                     actualValue={user.city}
                                     name={'city'}
@@ -187,6 +215,12 @@ const Account: React.FC = () => {
                         </div>
                     )
                 }
+                <IonActionSheet
+                    isOpen={actionSheet}
+                    onDidDismiss={() => {setActionSheet(false)}}
+                    header={'Changer de logo'}
+                    buttons={[actionSheetButton]}
+                />
                 <IonFooter className={'validateButtonContainer'}>
                     <IonButton className={'validateButton'}>Valider</IonButton>
                 </IonFooter>

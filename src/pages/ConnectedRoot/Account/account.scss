@@ -36,6 +36,12 @@
         &__logoContainer{
           width: 100%;
           position: relative;
+          margin-top: 20px;
+          display: flex;
+          justify-content: space-between;
+            align-items: flex-start;
+          flex-direction: column;
+          gap: 10px;
 
           &__logo {
             height: 90px;

@@ -38,7 +38,7 @@ export const setNewUserCity = (cities: ICityProposal) => {
 }
 
 export const SET_NEW_USER_FIELD: string = 'SET_NEW_USER_FIELD';
-export const setNewUserField = (name: string, value: string) => {
+export const setNewUserField = (name: string, value: any) => {
     return {
         type: SET_NEW_USER_FIELD,
         payload: {

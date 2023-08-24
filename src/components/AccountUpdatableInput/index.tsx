@@ -15,6 +15,7 @@ interface IAccountUpdatableInputProps {
     propositionSelector?: (state: any) => any;
     citySetter?: (city: ICityProposal) => { type: string, payload: typeof city };
     handleChange?: FormEventHandler;
+    imgHandler?: () => void;
 }
 const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAccountUpdatableInputProps) => {
 
@@ -25,7 +26,10 @@ const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAcc
             }}>
                 {
                     props.isUpdating ? (
-                        <IonButton className={`${props.classPrefix}__logoContainer__button`}>Changer le {props.label}</IonButton>
+                        <IonButton
+                            className={`${props.classPrefix}__logoContainer__button`}
+                            onClick={props.imgHandler}
+                        >Changer le {props.label}</IonButton>
                     ) : (
                         <p>{props.label}</p>
                     )
@@ -49,7 +53,7 @@ const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAcc
                     <Input
                         // @ts-ignore
                         type={props.type}
-                        placeholder={props.actualValue}
+                        placeholder={props.actualValue || ''}
                         name={props.name ? props.name : props.label}
                         propositionSelector={props.propositionSelector || null}
                         citySetter={props.citySetter || null}
