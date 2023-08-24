@@ -3,7 +3,7 @@ import {IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic
 import {Redirect, Route} from "react-router-dom";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 import Alerte from "./Alerte";
-import ContactUs from "./ContactUs";
+import Contact from "./Contact";
 import UserRouterOutlet from "./Outlets/UserRouterOutlet";
 import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
 
@@ -26,7 +26,7 @@ const ConnectedRoot: React.FC = () => {
                     <Alerte/>
                 </Route>
                 <Route path="/contact">
-                    <ContactUs/>
+                    <Contact/>
                 </Route>
                 <Route path={'/user'} render={() => <UserRouterOutlet />}/>
                 <Route exact path="/">

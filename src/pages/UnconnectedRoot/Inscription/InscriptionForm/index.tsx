@@ -10,7 +10,7 @@ import {endpoints} from "../../../../constants";
 import {
     setInscriptionField,
     setCityProposal,
-    resetInscriptionFields
+    resetInscriptionFields, setInscriptionError
 } from "../../../../store/actions/inscriptionActions";
 
 import {getInscriptionError} from "../../../../store/selectors/InscriptionSelectors";
@@ -44,7 +44,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
 
     const {push} = useIonRouter();
 
-    const {validate, validateAll} = validator(FormFields, getInscriptionValues)
+    const {validate, validateAll} = validator(FormFields, getInscriptionValues,setInscriptionError)
 
     const dispatch = useDispatch();
     const data = useSelector(getInscriptionValues);
