@@ -22,7 +22,7 @@ export const disconnectUser = () => {
 }
 export const SET_USER: string = 'SET_USER';
 
-export const setUer = (user: UserState) => {
+export const setUser = (user: UserState) => {
     return {
         type: SET_USER,
         payload: user

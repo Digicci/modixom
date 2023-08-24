@@ -17,8 +17,12 @@ const Proposal: React.FC = ({classPrefix: classFor, propositionSelector, citySet
     const focusOn = useSelector(getInputFocus)
     const dispatch = useDispatch()
 
-    const handleClick = (city: ICityProposal) => {
-        const action = citySetter ? citySetter(city) : setInscriptionCity(city)
+    const handleClick = (city: ICityProposal, cp: string) => {
+        const newCity = {
+            ...city,
+            cp
+        }
+        const action = citySetter ? citySetter(newCity) : setInscriptionCity(newCity)
         dispatch(action)
         dispatch(setInscriptionFocus(null))
     }
@@ -32,15 +36,17 @@ const Proposal: React.FC = ({classPrefix: classFor, propositionSelector, citySet
             <div className={`${classFor}__proposals`}>
                 {
                     cities.map((city: ICityProposal, index: number) => {
-                        return (
-                            <div
-                                key={index}
-                                className={`${classFor}__proposals__item`}
-                                onClick={() => handleClick(city)}
-                            >
-                                <span>{city.nom} ({city.cp})</span>
-                            </div>
-                        )
+                        return city.cp.split('-').map((cp: string, key :number) => {
+                            return (
+                                <div
+                                    key={`${index}-${key}`}
+                                    className={`${classFor}__proposals__item`}
+                                    onClick={() => handleClick(city, cp)}
+                                >
+                                    <span>{city.nom} ({cp})</span>
+                                </div>
+                            )
+                        })
                     })
                 }
             </div>

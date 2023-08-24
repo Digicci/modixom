@@ -97,6 +97,10 @@
         }
       }
     }
+
+    & .cityWrapper__container__proposals {
+      flex-direction: column;
+    }
   }
 
 }

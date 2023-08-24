@@ -135,6 +135,8 @@ const userReducer = (state: UserReducerInterface = initialState, action: any): U
                     id: state.newUser.id,
                     isPro: state.newUser.isPro,
                 },
+                newUserError: initialNewUser,
+                cities: []
             }
 
         case SET_NEW_USER_CITIES:

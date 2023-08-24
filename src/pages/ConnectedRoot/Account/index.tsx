@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Header from "../../../components/Header";
-import {IonButton, IonContent, IonFooter, IonItem, IonLabel, IonPage, IonActionSheet} from "@ionic/react";
+import {IonButton, IonContent, IonFooter, IonItem, IonLabel, IonPage, IonActionSheet, useIonToast} from "@ionic/react";
 import {useApi} from "../../../services/ApiService";
 import {endpoints} from "../../../constants";
 import {useImageService} from "../../../services/ImageService";
@@ -18,10 +18,10 @@ import {
     getNewUser,
     getNewUserError
 } from "../../../store/selectors/UserSelectors";
-import {apiUserDataAdapter} from "../../../utils/tools/apiDataAdapter";
+import {apiUserDataAdapter, reverseApiUserDataAdapter} from "../../../utils/tools/apiDataAdapter";
 import {UserState, NewUserState} from "../../../store/reducers/UserReducer";
 import {
-    setUer,
+    setUser,
     setNewUserCity,
     setNewUserField,
     setNewUserCities,
@@ -41,6 +41,7 @@ const Account: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [modif, setModif] = useState<boolean>(false);
     const [actionSheet, setActionSheet] = useState<boolean>(false);
+    const [present] = useIonToast();
 
     const api = useApi();
     const token: string = useSelector(getUserToken);
@@ -49,24 +50,31 @@ const Account: React.FC = () => {
     const imgService = useImageService();
     const {validate} = validateNewPassword(newUser.newPassword!, newUser.confirmNewPassword!, setNewUserError)
 
+    const fetchUser = () =>{
+        setIsLoading(true);
+        api.get(endpoints.profilDetail, {token}).then((res) => {
+            console.log(res);
+            const apiUser: UserState = apiUserDataAdapter(res);
+            dispatch(setUser(apiUser));
+            dispatch(setNewUserField("id", apiUser.id!));
+            dispatch(setNewUserField('isPro', apiUser.isPro!));
+            setIsLoading(false);
+        })
+    }
+
     useEffect(() => {
-        if (user.name === "") {
-            setIsLoading(true);
-            api.get(endpoints.profilDetail, {token}).then((res) => {
-                console.log(res);
-                const apiUser: UserState = apiUserDataAdapter(res);
-                console.log(apiUser);
-                dispatch(setUer(apiUser));
-                dispatch(setNewUserField("id", apiUser.id!));
-                dispatch(setNewUserField('isPro', apiUser.isPro!));
-                setIsLoading(false);
-            })
+        fetchUser();
+
+        return () => {
+            dispatch(resetNewUser());
+            setModif(false);
         }
     }, []);
 
     useEffect(() => {
         validate()
     }, [newUser.confirmNewPassword, newUser.newPassword])
+
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -98,6 +106,28 @@ const Account: React.FC = () => {
                 if (typeof res.dataUrl === "string") {
                     dispatch(setNewUserField("logo", res.dataUrl!))
                 }
+            })
+        }
+    }
+
+    const handleSubmit = () => {
+        if (validate() && newUser.password) {
+            api.post(endpoints.profilUpdate, reverseApiUserDataAdapter(newUser), {token: user.token}).then((res) => {
+                present({
+                    message: "Vos informations ont bien été modifiées",
+                    duration: 1500,
+                    color: "success"
+                }).then(() => {
+                    setModif(false);
+                    fetchUser();
+                })
+            })
+        }
+        if (!newUser.password) {
+            present({
+                message: "Veuillez renseigner votre mot de passe",
+                duration: 1500,
+                color: "danger"
             })
         }
     }
@@ -284,7 +314,7 @@ const Account: React.FC = () => {
                 {
                     modif && (
                         <IonFooter className={'validateButtonContainer'}>
-                            <IonButton className={'validateButton'}>Valider</IonButton>
+                            <IonButton className={'validateButton'} onClick={handleSubmit}>Valider</IonButton>
                         </IonFooter>
                     )
                 }
