@@ -1,4 +1,4 @@
-import {IContactForm} from "../../../store/reducers/ContactReducer";
+import {IContactForm} from "../../../../store/reducers/ContactReducer";
 
 export const FormFields:IContactForm ={
     name:{
