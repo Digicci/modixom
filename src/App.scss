@@ -85,6 +85,28 @@
   height: 25px;
 }
 
+.validateButtonContainer {
+  width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  padding-bottom: 20px;
+
+  & .validateButton {
+    width: calc(100vw - 40px);
+    background-color: transparent;
+    --background: transparent;
+    color: var(--ion-color-dark);
+    font-size: 24px;
+    text-transform: uppercase;
+    border: 1px solid var(--ion-color-dark);
+
+    & h2 {
+      font-size: 24px !important;
+    }
+  }
+}
+
 .validateButton {
   width: calc(100vw - 40px);
   background-color: transparent;

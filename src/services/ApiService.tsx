@@ -11,7 +11,7 @@ const Api = axios.create({
 // Définition du type pour le contexte
 interface IApiContext {
     get: (url: string, params?: any) => Promise<any>;
-    post: (url: string, data?: any) => Promise<any>;
+    post: (url: string, data?: any, params?: any) => Promise<any>;
     put: (url: string, data?: any) => Promise<any>;
     remove: (url: string) => Promise<any>;
     setHeader: (key: string, value: string) => void;
@@ -48,9 +48,9 @@ function useProvideApi(): IApiContext{
         }
     }
 
-    const post = async (url: string, data = {}) => {
+    const post = async (url: string, data = {}, params = {} ) => {
         try {
-            const response = await Api.post(url, data);
+            const response = await Api.post(url, data, {params});
             return response.data;
         } catch (e: any) {
             throw new Error(e.response.data.message)

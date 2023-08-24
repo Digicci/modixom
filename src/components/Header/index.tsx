@@ -9,11 +9,12 @@ interface IHeaderProps {
     text: string;
     canGoBack?: boolean;
     defaultHref?: string;
+    pro?: boolean | null;
 }
 
-const Header: React.FC<IHeaderProps> = ({text, canGoBack = false, defaultHref = ''}: IHeaderProps) => {
+const Header: React.FC<IHeaderProps> = ({text, canGoBack = false, defaultHref = '', pro = null}: IHeaderProps) => {
 
-    const isPro: boolean = useSelector(isUserPro);
+    const isPro: boolean = pro || useSelector(isUserPro);
     const headerClass: string = generateHeaderClassName(isPro)
 
     return (

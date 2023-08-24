@@ -24,8 +24,6 @@ interface IUserRoute {
 const User: React.FC = () => {
     //On cherche à savoir si l'utilisateur est un pro
     const isPro: boolean = useSelector(isUserPro);
-    //On génère la class du header en fonction
-    const classN: string = generateHeaderClassName(isPro);
 
     const dispatch: Dispatch = useDispatch()
 
