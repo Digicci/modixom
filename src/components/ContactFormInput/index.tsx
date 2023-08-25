@@ -10,6 +10,7 @@ interface IContactFormInputProps {
     handleChange?: FormEventHandler;
     error?: string;
     errorSelector?: (state: any) => any;
+    value?:string;
 }
 
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
@@ -38,6 +39,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
                        name={props.name || props.label}
                        onChange={props.handleChange}
                        required={props.required}
+                       value={props.value}
                 />
             </div>
             <div>

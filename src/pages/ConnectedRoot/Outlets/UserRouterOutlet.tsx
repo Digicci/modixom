@@ -5,7 +5,7 @@ import animationBuilder from "../../../utils/tools/animationBuilder";
 import DeleteAccount from "../DeleteAccount";
 import User from "../User";
 import Account from "../Account";
-import Contact from "../ContactClient";
+import ContactClient from "../ContactClient";
 
 
 
@@ -22,7 +22,7 @@ const UserRouterOutlet: React.FC = () => {
                 <Account/>
             </Route>
             <Route exact={true} path={`/user/contact`}>
-                <Contact/>
+                <ContactClient/>
             </Route>
         </IonRouterOutlet>
     )
