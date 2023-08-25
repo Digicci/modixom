@@ -34,14 +34,16 @@ export const validateNewPassword = (
 export const validator = (
     formConfig: any,
     selector: (state: any) => any,
-    setAction:
-        (name: string, error: string) => {
-            type: string,
-            payload: {
-                name: typeof name,
-                error: typeof error
-            }
-        }
+    //j'ai changer le typage en fonction car au moment ou on initialise le validator on a pas encore le name
+    // et la value a lui donner on les que au moment ou on utilise la methode validate
+    setAction:Function
+        // (name: string, error: string) => {
+        //     type: string,
+        //     payload: {
+        //         name: typeof name,
+        //         error: typeof error
+        //     }
+        // }
 ) => {
 
     const dispatch = useDispatch();
