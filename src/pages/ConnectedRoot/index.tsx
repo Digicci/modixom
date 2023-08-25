@@ -8,6 +8,7 @@ import UserRouterOutlet from "./Outlets/UserRouterOutlet";
 import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
 import {useSelector} from "react-redux";
 import {isUserPro} from "../../store/selectors/UserSelectors";
+import AddAnnonce from "./AddAnnonce";
 
 
 const ConnectedRoot: React.FC = () => {
@@ -32,7 +33,7 @@ const ConnectedRoot: React.FC = () => {
                 {
                     isPro ? (
                         <Route path={'/addAnnonce'}>
-                            <div>addAnnonce</div>
+                            <AddAnnonce/>
                         </Route>
                     ) : (
                         <Route path="/contact">
