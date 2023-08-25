@@ -112,7 +112,7 @@ const inscriptionReducer = (state = initialState, action: ReduxActionInterface) 
             };
 
         case SET_INSCRIPTION_ERROR:
-            const {name: errorName, value: errorValue} = action.payload;
+            const {name: errorName, error: errorValue} = action.payload;
             const newErrors = {
                 ...state.errors,
                 [errorName]: errorValue
