@@ -35,6 +35,8 @@ import Loader from "../../../components/Loader";
 import AccountUpdatableInput from "../../../components/AccountUpdatableInput";
 import {validateNewPassword} from "../../../utils/tools/validator";
 
+
+
 const Account: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
     const dispatch = useDispatch();
