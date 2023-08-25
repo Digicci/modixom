@@ -56,12 +56,14 @@ const DeleteAccount: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <IonFooter className={'deleteAccount__footer'}>
-                    <IonButton expand={'full'} className={'validateButton'} onClick={deleteUser}>
-                        FERMER MON COMPTE
-                    </IonButton>
-                </IonFooter>
             </IonContent>
+
+            <IonFooter className={'deleteAccount__footer'}>
+                <IonButton expand={'full'} className={'validateButton'} onClick={deleteUser}>
+                    FERMER MON COMPTE
+                </IonButton>
+            </IonFooter>
+
         </IonPage>
     )
 }
