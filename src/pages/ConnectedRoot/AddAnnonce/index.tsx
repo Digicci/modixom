@@ -1,19 +1,26 @@
 import React from "react";
+import "./AddAnnonce.scss"
 import Header from "../../../components/Header";
 import {IonButton, IonContent, IonPage} from "@ionic/react";
+import AddAnnonceForm from "./AddAnnonceForm/AddAnnonceForm";
 
 const AddAnnonce: React.FC = () => {
 
     return (
         <IonPage className={"addAnnonce"}>
             <Header text={"je dépose une annonce"}/>
-            <IonContent>
-                <div>
+            <IonContent >
+                <div className={"addAnnonce__container"}>
                     <div>
-                        <p>mon crédit : </p>
-                        <span>12</span>
+                        <div>
+                            <p>mon crédit : </p>
+                            <span>12</span>
+                        </div>
+                        <IonButton>acheter du crédit</IonButton>
                     </div>
-                    <IonButton>acheter du crédit</IonButton>
+                    <div>
+                        <AddAnnonceForm/>
+                    </div>
                 </div>
             </IonContent>
 

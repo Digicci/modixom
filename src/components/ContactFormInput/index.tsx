@@ -10,11 +10,58 @@ interface IContactFormInputProps {
     handleChange?: FormEventHandler;
     error?: string;
     errorSelector?: (state: any) => any;
-    value?:string;
+    value?: string;
+    input?: Object;
 }
 
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
     const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
+    if (props.type === "norme") {
+        return (
+            <>
+                <div className={props.classPrefix || ""}>
+                    <input required={props.required} type={"checkbox"} name={props.name} onChange={props.handleChange}/>
+                    <label form={props.name}>{props.label}</label>
+                    <ul>
+                        {
+
+                            //@ts-ignore
+                            Object.keys(props.input).map((item: any, index: number) => {
+                                console.log(item)
+                                return (
+                                    //@ts-ignore
+                                    <li key={index}>{props.input[item]}</li>
+                                )
+                            })
+                        }
+
+                    </ul>
+                </div>
+            </>
+        )
+    }
+    if (props.type === "client") {
+        console.log(props.input)
+        return (
+            <>
+                <div className={props.classPrefix || ""}>
+                    {
+                        //@ts-ignore
+                        Object.keys(props.input).map((item: any, index: number) => {
+                            return (
+                                <div className={"checkbox__wrapper"} key={index}>
+                                    <input type={"checkbox"} name={props.name} onChange={props.handleChange}/>
+                                    {/*@ts-ignore*/}
+                                    <label form={props.name}>{props.input[item].label}</label>
+                                </div>
+                        )
+                        })
+                    }
+
+                </div>
+            </>
+        )
+    }
     if (props.type === "textarea") {
         return (
             <>
