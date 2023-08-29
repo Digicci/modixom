@@ -24,7 +24,7 @@ export const FormField: IAddAnnonceFormConfig = {
     categorie: {
         name: "categorie",
         type: "select",
-        label: "choisir une catégorie",
+        label: "Choisir une catégorie",
         required: true,
         errorMessage: "veuillez choisir une catégorie",
 
@@ -52,6 +52,7 @@ export const FormField: IAddAnnonceFormConfig = {
     client: {
         type: "client",
         errorMessage: "veuillez choisir au moins un type de client",
+        label:"je souhaite diffuser mon annonce auprés :",
         input: {
             particulier: {
                 name: "client",

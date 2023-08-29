@@ -1,6 +1,6 @@
-import React ,{useEffect} from "react";
+import React, {useEffect} from "react";
 import {FormField} from "./FormField";
-import {IonButton, IonFooter} from "@ionic/react";
+import {IonActionSheet, IonButton, IonFooter} from "@ionic/react";
 import ContactFormInput from "../../../../components/ContactFormInput";
 import {useDispatch, useSelector} from "react-redux";
 import {setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
@@ -11,37 +11,62 @@ import {useApi} from "../../../../services/ApiService";
 import {endpoints} from "../../../../constants";
 import ICategory from "../../../../models/ICategory";
 import {setCategoryCollection} from "../../../../store/actions/categoryActions";
-import category from "../../Filter/Category";
+import {useImageService} from "../../../../services/ImageService";
+
+interface IImgMessage {
+    message: string;
+    errored: boolean;
+}
 
 
 const AddAnnonceForm: React.FC = () => {
     const dispatch = useDispatch()
-    const {validate,validateAll}= validator(FormField,getAddAnnonceValues,setAddAnnonceError)
+    const {validate, validateAll} = validator(FormField, getAddAnnonceValues, setAddAnnonceError)
     const data = useSelector(getAddAnnonceValues)
-    const categoryCollection =useSelector(getCategoryCollection);
+    const categoryCollection = useSelector(getCategoryCollection);
+    const imgService = useImageService();
+    const [imgMessage, setImgMessage] = React.useState<IImgMessage>({
+        message: "Aucune image sélectionnée",
+        errored: true
+    });
+    const [showActionSheet, setShowActionSheet] = React.useState(false);
     const api = useApi()
-    useEffect(()=>{
-        categoryCollection.length===0 && api.get(endpoints.categories).then((res:ICategory[])=>{
+    useEffect(() => {
+        categoryCollection.length === 0 && api.get(endpoints.categories).then((res: ICategory[]) => {
             dispatch(setCategoryCollection(res))
         })
 
-    },[])
-    const handleChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
-        const {name,value,checked}=e.target
-        console.log(name,value)
-        const fieldValue =
-            name ==="norme"?
-            checked:
-            value
-        dispatch(setAddAnnonceField(name,fieldValue))
-        validate(name,fieldValue)
-    }
-console.log(categoryCollection)
+    }, [])
 
-    const handleSubmit =() =>{
-        const errors=validateAll()
-        if(errors.length===0)
+    const imgActionSheetButtons = [
         {
+            text: 'Ouvrir la galerie',
+            handler: () => {
+                imgService.pickImage().then((res) => {
+                    if(typeof res.dataUrl==="string") {
+                        dispatch(setAddAnnonceField("logo", res.dataUrl!))
+                        setImgMessage({
+                            message: "Image sélectionnée",
+                            errored: false
+                        })
+                    }
+                })
+            }
+        }
+    ]
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value, checked} = e.target
+        console.log(name, value)
+        const fieldValue =
+            name === "norme" ?
+                checked :
+                value
+        dispatch(setAddAnnonceField(name, fieldValue))
+        validate(name, fieldValue)
+    }
+    const handleSubmit = () => {
+        const errors = validateAll()
+        if (errors.length === 0) {
             console.log(data)
         }
     }
@@ -51,20 +76,26 @@ console.log(categoryCollection)
                 {
 
                     Object.keys(FormField).map((item: any, index: number) => {
-                        if(item ==="categorie"){
-                            return(
-                                <ContactFormInput
-                                    key={index}
-                                    //@ts-ignore
-                                    {...FormField[item]}
-                                    categorie={categoryCollection}
-                                    handleChange={handleChange}
-                                    errorSelector={getAddAnnonceError}
-                                    classPrefix={"addAnnonce__container__form__wrapper"}
-                                />
+                        if (item === "categorie") {
+                            return (
+                                <>
+                                    <ContactFormInput
+                                        key={index}
+                                        //@ts-ignore
+                                        {...FormField[item]}
+                                        categorie={categoryCollection}
+                                        handleChange={handleChange}
+                                        errorSelector={getAddAnnonceError}
+                                        classPrefix={"addAnnonce__container__form__wrapper"}
+                                    />
+                                    <div className={'logo__wrapper'}>
+                                        <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
+                                        <IonButton onClick={() => setShowActionSheet(true)}>ajouter une photo produit</IonButton>
+                                    </div>
+                                </>
                             )
-                        }else{
-                            return(
+                        } else {
+                            return (
                                 <ContactFormInput
                                     key={index}
                                     //@ts-ignore
@@ -77,10 +108,15 @@ console.log(categoryCollection)
                         }
 
 
-
                     })
                 }
             </div>
+            <IonActionSheet
+                isOpen={showActionSheet}
+                onDidDismiss={() => setShowActionSheet(false)}
+                header={'Ajouter une photo produit'}
+                buttons={imgActionSheetButtons}
+            />
             <IonFooter>
                 <IonButton onClick={handleSubmit}>valider</IonButton>
             </IonFooter>

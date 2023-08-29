@@ -20,13 +20,37 @@
       }
     }
     &__form{
+
+      & .norme{
+        border: 1px solid var(--ion-color-dark);
+        padding: 5px;
+      }
+
+
+      & .categorie{
+        width: 100%;
+
+        select{
+          width: 100%;
+        }
+      }
+      & .logo__wrapper{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
       &__wrapper{
         margin-bottom: 10px;
         p{
-          margin-bottom: 5pxgit;
+          margin-bottom: 5px;
         }
+
         ul{
-          padding-left: 3rem;
+          list-style-type: none;
+          li:before{
+            content: "- ";
+          }
+          padding-left: 2rem;
           display: flex;
           flex-direction: column;
           justify-content: center;

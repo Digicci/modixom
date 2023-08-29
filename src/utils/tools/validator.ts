@@ -52,9 +52,10 @@ export const validator = (
     const validate = (name: string, value: any) => {
         let error = '';
         console.log(name,value)
-        if (name === "particulier" || name === "professionnels") {
-            if (!values.client.particulier && !values.client.professionnels) {
+        if (name === "client") {
+            if (!values.client.particulier && !values.client.professionnels || values.client.length===0) {
                 dispatch(setAction("client", "Veuillez choisir au moins un type de client."));
+                error="Veuillez choisir au moins un type de client."
                 return error ;
             } else {
                 dispatch(setAction("client", ""));

@@ -21,11 +21,14 @@ interface IContactFormInputProps {
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
     const error = props.errorSelector ? props.type==="client"? useSelector(props.errorSelector)["client"]:useSelector(props.errorSelector)[props.name] : null;
     const categorie:Array<Object>=props.categorie||[]
+
+
     if(props.type==="select"){
         return(
             <>
-                <div className={props.classPrefix||""}>
+                <div className={props.classPrefix+" categorie"||""}>
                     <select required={props.required} name={"categorie"} onChange={props.handleChange}>
+                        <option value={""}>{props.label}</option>
                         {
                             Object.keys(categorie).map((item:any,index:number)=>{
                                 return(
@@ -36,6 +39,9 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
                         }
                     </select>
                 </div>
+                <p className={"inputGroup__error"}>{
+                    error && error
+                }</p>
             </>
         )
     }
@@ -43,7 +49,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
     if (props.type === "norme") {
         return (
             <>
-                <div className={props.classPrefix || ""}>
+                <div className={props.classPrefix + " norme" || ""}>
                     <input className={'checkbox'} required={props.required} type={"checkbox"} name={props.name} onChange={props.handleChange}/>
                     <label form={props.name}>{props.label}</label>
                     <ul>
@@ -67,9 +73,12 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
         )
     }
     if (props.type === "client") {
+        console.log(props)
         return (
             <>
                 <div className={props.classPrefix || ""}>
+
+                        <p>{props.label}</p>
                     {
                         //@ts-ignore
                         Object.keys(props.input).map((item: any, index: number) => {
