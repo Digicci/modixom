@@ -11,7 +11,7 @@ const AddAnnonce: React.FC = () => {
             <Header text={"je dépose une annonce"}/>
             <IonContent >
                 <div className={"addAnnonce__container"}>
-                    <div>
+                    <div className={"addAnnonce__container__credit"}>
                         <div>
                             <p>mon crédit : </p>
                             <span>12</span>

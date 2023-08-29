@@ -1,5 +1,5 @@
 export const SET_ADDANNONCE_FIELD = "SET_ADDANNONCE_FIELD";
-export const setAddAnnonceField = (name: string, value: string) => ({
+export const setAddAnnonceField = (name: string, value: string| boolean) => ({
     type: SET_ADDANNONCE_FIELD,
     payload: {
         name,

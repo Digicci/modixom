@@ -17,7 +17,7 @@ export const validateNewPassword = (
         } else {
             dispatch(errorSetter('confirmNewPassword', ''));
         }
-        if(password?.length < 8 && password !== ""){
+        if (password?.length < 8 && password !== "") {
             dispatch(errorSetter('newPassword', 'Le mot de passe doit contenir au moins 8 caractères'));
             return false;
         } else {
@@ -36,22 +36,34 @@ export const validator = (
     selector: (state: any) => any,
     //j'ai changer le typage en fonction car au moment ou on initialise le validator on a pas encore le name
     // et la value a lui donner on les que au moment ou on utilise la methode validate
-    setAction:Function
-        // (name: string, error: string) => {
-        //     type: string,
-        //     payload: {
-        //         name: typeof name,
-        //         error: typeof error
-        //     }
-        // }
+    setAction: Function
+    // (name: string, error: string) => {
+    //     type: string,
+    //     payload: {
+    //         name: typeof name,
+    //         error: typeof error
+    //     }
+    // }
 ) => {
 
     const dispatch = useDispatch();
     const values = useSelector(selector);
 
     const validate = (name: string, value: any) => {
-        const field = formConfig[name];
         let error = '';
+        console.log(name,value)
+        if (name === "particulier" || name === "professionnels") {
+            if (!values.client.particulier && !values.client.professionnels) {
+                dispatch(setAction("client", "Veuillez choisir au moins un type de client."));
+                return error ;
+            } else {
+                dispatch(setAction("client", ""));
+                return error
+            }
+        }
+
+        const field = formConfig[name];
+
         if (field.required && (!value || value === '' || value === false)) {
             error = 'Ce champ est requis';
         }
@@ -76,8 +88,8 @@ export const validator = (
     const validateAll = () => {
         const errors: Array<string> = []
         Object.keys(formConfig).forEach((name: string) => {
-            const error = validate(name, values[name]);
-            if (error !== '') errors.push(error);
+                const error = validate(name, values[name]);
+                if (error !== '') errors.push(error);
         });
         return errors;
     }

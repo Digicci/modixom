@@ -1,5 +1,53 @@
 .addAnnonce{
   &__container{
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 1.3rem;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    &__credit{
+      display: flex;
+      justify-content: space-around;
+
+
+      & div{
+        border: 1px solid var(--ion-color-dark);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 7px;
+      }
+    }
+    &__form{
+      &__wrapper{
+        margin-bottom: 10px;
+        p{
+          margin-bottom: 5pxgit;
+        }
+        ul{
+          padding-left: 3rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .checkbox{
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+        }
+        input{
+          width: 100%;
+          height: 30px;
+          border: none;
+          border-bottom: 1px solid black;
+          outline: none;
+          font-size: 18px;
+          padding: 5px 10px;
+        }
+      }
+    }
   }
+
 }

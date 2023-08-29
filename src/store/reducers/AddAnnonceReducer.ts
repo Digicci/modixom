@@ -7,7 +7,7 @@ export interface IAddAnnonceForm {
     categorie: string | Object;
     dateHeure: boolean | Object;
     norme: boolean|Object;
-    client: string|Object
+    client: Array<string> ;
 }
 
 interface AddAnnonceErrorState {
@@ -16,7 +16,7 @@ interface AddAnnonceErrorState {
     categorie: string | Object;
     dateHeure: string | Object;
     norme: boolean | Object;
-    client: { particulier:string,professionnels:string };
+    client: string ;
 }
 
 interface AddAnnonceState {
@@ -32,10 +32,7 @@ const initialState: AddAnnonceState = {
         categorie: "",
         dateHeure: "",
         norme: false,
-        client: {
-            particulier:false,
-            professionnels:false
-        },
+        client: [],
     },
     addAnnonceErrors:{
         titre: "",
@@ -43,24 +40,24 @@ const initialState: AddAnnonceState = {
         categorie: "",
         dateHeure: "",
         norme: "",
-        client: {
-            particulier:"",
-            professionnels:"",
-        },
+        client: "",
     }
 }
+const addOrRemove =(array:Array<string>,value:string)=>{
+    return array.includes(value)?array.filter((item:string)=>item!==value) :  array.concat([value])
 
+}
 const AddAnnonceReducer=(state=initialState,action:ReduxActionInterface)=>{
     switch (action.type){
         case SET_ADDANNONCE_FIELD:
             const {name,value}=action.payload;
-            const newAnnonce ={
-                ...state.addAnnonce,
-                [name]:value
-            }
             return{
                 ...state,
-                addAnnonce:newAnnonce
+                addAnnonce:{
+                    ...state.addAnnonce,
+                    [name]:name==="client"?
+                        addOrRemove(state.addAnnonce.client,value):value,
+                }
             };
 
         case SET_ADDANNONCE_ERROR:
