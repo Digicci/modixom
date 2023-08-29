@@ -53,7 +53,7 @@ export const validator = (
         let error = '';
         console.log(name,value)
         if (name === "client") {
-            if (!values.client.particulier && !values.client.professionnels || values.client.length===0) {
+            if (values.client.length===0) {
                 dispatch(setAction("client", "Veuillez choisir au moins un type de client."));
                 error="Veuillez choisir au moins un type de client."
                 return error ;
@@ -67,6 +67,10 @@ export const validator = (
 
         if (field.required && (!value || value === '' || value === false)) {
             error = 'Ce champ est requis';
+        }
+
+        if (name === 'quantite' && value == 0) {
+            error = 'La quantité doit être différente de 0';
         }
 
         if (name === "description" && (value.length < 5)) {

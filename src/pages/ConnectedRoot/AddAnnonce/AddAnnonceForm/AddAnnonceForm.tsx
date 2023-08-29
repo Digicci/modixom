@@ -12,6 +12,8 @@ import {endpoints} from "../../../../constants";
 import ICategory from "../../../../models/ICategory";
 import {setCategoryCollection} from "../../../../store/actions/categoryActions";
 import {useImageService} from "../../../../services/ImageService";
+import {getUserToken} from "../../../../store/selectors/UserSelectors";
+import user from "../../User";
 
 interface IImgMessage {
     message: string;
@@ -37,6 +39,8 @@ const AddAnnonceForm: React.FC = () => {
         })
 
     }, [])
+
+    const userToken = useSelector(getUserToken)
 
     const imgActionSheetButtons = [
         {
@@ -67,9 +71,15 @@ const AddAnnonceForm: React.FC = () => {
     const handleSubmit = () => {
         const errors = validateAll()
         if (errors.length === 0) {
-            console.log(data)
+            api.post(endpoints.postAnnonce, data, {token: userToken}).then((res) => {
+                console.log(res)
+            })
         }
     }
+
+    useEffect(()=>{
+        validateAll()
+    }, [data])
     return (
         <>
             <div className={"addAnnonce__container__form"}>
@@ -118,7 +128,7 @@ const AddAnnonceForm: React.FC = () => {
                 buttons={imgActionSheetButtons}
             />
             <IonFooter>
-                <IonButton onClick={handleSubmit}>valider</IonButton>
+                <IonButton className={'validateButton'} onClick={handleSubmit}>valider</IonButton>
             </IonFooter>
         </>
 

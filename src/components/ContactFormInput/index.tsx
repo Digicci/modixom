@@ -1,8 +1,6 @@
 import React, {FormEventHandler} from "react";
 import {useSelector} from "react-redux";
-import item from "../Category/Item";
 import {isSelectedClientCheckbox} from "../../store/selectors/AddAnnonceSelectors";
-import ICategory from "../../models/ICategory";
 
 interface IContactFormInputProps {
     label: string;
@@ -73,7 +71,6 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
         )
     }
     if (props.type === "client") {
-        console.log(props)
         return (
             <>
                 <div className={props.classPrefix || ""}>

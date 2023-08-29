@@ -1,10 +1,11 @@
 import {IAddAnnonceForm} from "../../../../store/reducers/AddAnnonceReducer";
 import {clientTypes} from "../../../../constants";
 
-interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm,"client"> {
-
+interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"> {
+    quantite: Object;
     client: Object;
 }
+
 export const FormField: IAddAnnonceFormConfig = {
     titre: {
         name: "titre",
@@ -29,13 +30,26 @@ export const FormField: IAddAnnonceFormConfig = {
         errorMessage: "veuillez choisir une catégorie",
 
     },
-    dateHeure: {
-        name: "dateHeure",
+    quantite: {
+        name: "quantite",
+        type: "number",
+        label: "quantité",
+        required: true,
+        errorMessage: "veuillez choisir une quantité différente de 0",
+    },
+    dateHeureDebut: {
+        name: "dateHeureDebut",
         type: "datetime-local",
         required: true,
         label: "date et heure de parution",
         errorMessage: "veuillez choisir une date et une heure",
-
+    },
+    dateHeureFin: {
+        name: "dateHeureFin",
+        type: "datetime-local",
+        required: true,
+        label: "date et heure de fin de parution",
+        errorMessage: "veuillez choisir une date et une heure",
     },
     norme: {
         name: "norme",
@@ -52,7 +66,7 @@ export const FormField: IAddAnnonceFormConfig = {
     client: {
         type: "client",
         errorMessage: "veuillez choisir au moins un type de client",
-        label:"je souhaite diffuser mon annonce auprés :",
+        label: "je souhaite diffuser mon annonce auprés :",
         input: {
             particulier: {
                 name: "client",

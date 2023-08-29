@@ -5,18 +5,24 @@ export interface IAddAnnonceForm {
     titre: string | Object;
     descriptif: string | Object;
     categorie: string | Object;
-    dateHeure: boolean | Object;
-    norme: boolean|Object;
-    client: Array<string> ;
+    dateHeureDebut: boolean | Object;
+    dateHeureFin: boolean | Object;
+    norme: boolean | Object;
+    client: Array<string>;
+    quantite: number;
+    logo: string;
 }
 
 interface AddAnnonceErrorState {
     titre: string | Object;
     descriptif: string | Object;
     categorie: string | Object;
-    dateHeure: string | Object;
+    dateHeureDebut: string | Object;
+    dateHeureFin: string | Object;
     norme: boolean | Object;
-    client: string ;
+    client: string;
+    quantite: string;
+    logo: string;
 }
 
 interface AddAnnonceState {
@@ -26,53 +32,59 @@ interface AddAnnonceState {
 }
 
 const initialState: AddAnnonceState = {
-    addAnnonce:{
+    addAnnonce: {
         titre: "",
         descriptif: "",
         categorie: "",
-        dateHeure: "",
+        dateHeureDebut: "",
+        dateHeureFin: "",
         norme: false,
         client: [],
+        quantite: 0,
+        logo: "",
     },
-    addAnnonceErrors:{
+    addAnnonceErrors: {
         titre: "",
-        descriptif:"",
+        descriptif: "",
         categorie: "",
-        dateHeure: "",
+        dateHeureDebut: "",
+        dateHeureFin: "",
         norme: "",
         client: "",
+        quantite: "",
+        logo: "",
     }
 }
-const addOrRemove =(array:Array<string>,value:string)=>{
-    return array.includes(value)?array.filter((item:string)=>item!==value) :  array.concat([value])
+const addOrRemove = (array: Array<string>, value: string) => {
+    return array.includes(value) ? array.filter((item: string) => item !== value) : array.concat([value])
 
 }
-const AddAnnonceReducer=(state=initialState,action:ReduxActionInterface)=>{
-    switch (action.type){
+const AddAnnonceReducer = (state = initialState, action: ReduxActionInterface) => {
+    switch (action.type) {
         case SET_ADDANNONCE_FIELD:
-            const {name,value}=action.payload;
-            return{
+            const {name, value} = action.payload;
+            return {
                 ...state,
-                addAnnonce:{
+                addAnnonce: {
                     ...state.addAnnonce,
-                    [name]:name==="client"?
-                        addOrRemove(state.addAnnonce.client,value):value,
+                    [name]: name === "client" ?
+                        addOrRemove(state.addAnnonce.client, value) : value,
                 }
             };
 
         case SET_ADDANNONCE_ERROR:
-            const {name:errorName,error:errorValue}=action.payload;
-            const newError={
+            const {name: errorName, error: errorValue} = action.payload;
+            const newError = {
                 ...state.addAnnonceErrors,
-                [errorName]:errorValue
+                [errorName]: errorValue
             }
             return {
                 ...state,
-                addAnnonceErrors:newError
+                addAnnonceErrors: newError
             }
 
-             default:
-                return initialState;
+        default:
+            return initialState;
     }
 }
 export default AddAnnonceReducer;
