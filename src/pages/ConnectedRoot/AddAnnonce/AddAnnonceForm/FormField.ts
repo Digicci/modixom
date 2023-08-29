@@ -57,7 +57,7 @@ export const FormField: IAddAnnonceFormConfig = {
         label: "Je certifie que ce que je vend est : ",
         required: true,
         input: {
-            li1: "aux normes ce",
+            li1: "aux normes CE",
             li2: "identique à celui en magasin",
             li3: "une remise exceptionelle"
         }

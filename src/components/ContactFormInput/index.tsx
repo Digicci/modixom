@@ -1,6 +1,7 @@
 import React, {FormEventHandler} from "react";
 import {useSelector} from "react-redux";
 import {isSelectedClientCheckbox} from "../../store/selectors/AddAnnonceSelectors";
+import {IonItem, IonSelect, IonSelectOption} from "@ionic/react";
 
 interface IContactFormInputProps {
     label: string;
@@ -24,19 +25,19 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
     if(props.type==="select"){
         return(
             <>
-                <div className={props.classPrefix+" categorie"||""}>
-                    <select required={props.required} name={"categorie"} onChange={props.handleChange}>
-                        <option value={""}>{props.label}</option>
+                <IonItem className={props.classPrefix+" categorie"||""}>
+                    {/*@ts-ignore*/}
+                    <IonSelect label={props.label} required={props.required} name={"categorie"} onIonChange={props.handleChange}>
                         {
                             Object.keys(categorie).map((item:any,index:number)=>{
                                 return(
                                     // @ts-ignore
-                                    <option  key={index} value={categorie[index].id}>{categorie[index].libelle}</option>
+                                    <IonSelectOption  key={index} value={categorie[index].id}>{categorie[index].libelle}</IonSelectOption>
                                 )
                             })
                         }
-                    </select>
-                </div>
+                    </IonSelect>
+                </IonItem>
                 <p className={"inputGroup__error"}>{
                     error && error
                 }</p>

@@ -30,6 +30,13 @@
           margin-left: 5px;
           font-size: 1rem;
         }
+
+        & .inputGroup__error{
+          display: flex;
+          margin-top: 15px;
+          justify-content: center;
+          font-size: 1.2rem;
+        }
       }
     }
   }

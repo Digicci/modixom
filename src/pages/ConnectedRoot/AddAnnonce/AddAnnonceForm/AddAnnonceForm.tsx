@@ -13,7 +13,6 @@ import ICategory from "../../../../models/ICategory";
 import {setCategoryCollection} from "../../../../store/actions/categoryActions";
 import {useImageService} from "../../../../services/ImageService";
 import {getUserToken} from "../../../../store/selectors/UserSelectors";
-import user from "../../User";
 
 interface IImgMessage {
     message: string;
