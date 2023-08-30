@@ -2,8 +2,7 @@
 
   &__container {
     min-height: 75%;
-    padding: 1rem;
-    text-align: center;
+    padding: 1.2rem;
     font-size: 1.2rem;
 
 
@@ -12,10 +11,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      text-align: center;
 
       h2 {
         font-size: 1.2rem;
         margin: 0;
+        text-transform: uppercase;
       }
 
 
@@ -29,6 +30,7 @@
         label{
           margin-left: 5px;
           font-size: 1rem;
+          text-transform: uppercase;
         }
       }
     }

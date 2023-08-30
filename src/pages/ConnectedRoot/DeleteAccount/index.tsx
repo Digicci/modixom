@@ -41,7 +41,8 @@ const DeleteAccount: React.FC = () => {
             <IonContent>
                 <div className={"deleteAccount__container"}>
                     <div className={"deleteAccount__container__textContainer"}>
-                        <h2>VOUS ALLEZ COMMENCER LE PROCESSUS DE SUPPRESSION DE VOTRE COMPTE</h2>
+                        <h2>vous allez commencer le processus de supression de votre compte </h2>
+                        {/* VOUS ALLEZ COMMENCER LE PROCESSUS DE SUPPRESSION DE VOTRE COMPTE */}
                         <p>
                             Vous êtes sur le point de nous demander de fermer définitivement
                             votre compte et de supprimer vos données. Une fois votre compte fermé,
@@ -50,9 +51,12 @@ const DeleteAccount: React.FC = () => {
                         </p>
                         <div className={"deleteAccount__container__textContainer__checkbox"}>
                             <input type={"checkbox"} id={"deleteAccountButton"} onChange={handleChange}/>
-                            <label htmlFor={"deleteAccountButton"}>OUI,JE SOUHAITE FERMER DÉFINITIVEMENT MON COMPTE ET
-                                SUPPRIMER MES DONNÉES</label>
-                            {error && <p>* Veuillez cocher la case</p>}
+                            <label htmlFor={"deleteAccountButton"}>
+                                oui, je souhaite fermer définitivement
+                                mon compte et supprimer mes données
+                            </label>
+
+                            <div className={"inputGroup__error"}>{error && <p>* Veuillez cocher la case</p>}</div>
                         </div>
                     </div>
                 </div>
