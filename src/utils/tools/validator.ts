@@ -87,6 +87,51 @@ export const validator = (
             error = 'Les mots de passe ne correspondent pas';
         }
 
+        const config = formConfig[name]
+        const rules = config.rules ?? {};
+
+        if (rules.required && !value) {
+            error = config.errorMessage ?? `Le champ ${config.label} est obligatoire.`
+        }
+
+        if (rules.minLength && value.length < rules.minLength) {
+            error = `Le champ ${config.label} doit être composé d'au moins ${rules.minLength} caractères.`;
+        }
+
+        if (rules.maxLength && value.length > rules.maxLength) {
+            error = `Le champ ${config.label} ne peut pas contenir plus de ${rules.maxLength} caractères.`;
+        }
+
+        if (rules.pattern && !rules.pattern.test(value)) {
+            error = config.errorMessage ?? `Le champs ${config.label} ne respecte pas le format attendu.`;
+        }
+
+        if (rules.email) {
+            const pattern = /^[a-zA-Z0-9\\.\\_\\-]+@[a-zA-Z0-9\\.\\_\\-]{2,}.[a-z]{2,4}$/;
+            if (!pattern.test(value)) {
+                error = config.errorMessage ?? "L'adresse email n'est pas valide."
+            }
+        }
+
+        if (rules.emailConfirm) {
+            if (value !== values.mail) {
+                error = config.errorMessage ?? "Les emails ne correspondent pas.";
+            }
+        }
+
+        if (rules.password) {
+            const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$.!%*?&])[A-Za-z\d@$.!%*?&]{12,}$/;
+            if (!pattern.test(value)) {
+                error = config.errorMessage ?? 'Le mot de passe doit contenir au moins \n\r12 caractères, \n\rune majuscule, \n\rune minuscule \n\r un chiffre et un caractère spécial'
+            }
+        }
+
+        if (rules.passwordConfirm) {
+            if (value !== values.password) {
+                error = config.errorMessage ?? "Les mots de passe ne correspondent pas.";
+            }
+        }
+
         dispatch(setAction(name, error));
         return error;
     }

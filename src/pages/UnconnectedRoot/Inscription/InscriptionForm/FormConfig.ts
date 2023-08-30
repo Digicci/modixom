@@ -22,92 +22,123 @@ export const FormFields: IUserState = {
         type: 'text',
         label: 'Nom',
         name: 'name',
-        required: true,
-        pattern: '^[a-zA-Z]+$',
-        errorMessage: 'Seul les lettres sont autorisée'
+        errorMessage: 'Seul les lettres sont autorisée',
+        rules: {
+            minLength: 2,
+            maxLength: 40,
+            required: true,
+            pattern: /^[a-zA-Z]+$/
+        }
     },
     surname: {
         type: 'text',
         label: 'Prénom',
         name: 'surname',
-        required: true,
-        pattern: '^[a-zA-Z]+$',
-        errorMessage: 'Seul les lettres sont autorisée'
+        errorMessage: 'Seul les lettres sont autorisée',
+        rules: {
+            minLength: 2,
+            maxLength: 40,
+            required: true,
+            pattern: /^[a-zA-Z]+$/
+        }
     },
     address: {
         type: 'text',
         label: 'Adresse',
         name: 'address',
-        required: true,
-        pattern: '^[a-zA-Z0-9\\é\\è\\ê\\à\\â\\ù\\-\\ ]+$'
+        rules: {
+            minLength: 5,
+            required: true,
+            pattern: /^[a-zA-Z0-9\\é\\è\\ê\\à\\â\\ù\\-\\ô\\ ]+$/
+        }
     },
     postalCode: {
         type: 'text',
         label: 'Code postal',
         name: 'postalCode',
-        pattern: '^[0-9]{5}$',
         disabled: true,
-        errorMessage: 'Doit contenir 5 chiffres'
+        rules: {
+            minLength: 5,
+            maxLength: 5,
+            pattern: /^[0-9]{5}$/
+        }
     },
     city: {
         type: 'text',
         label: 'Ville',
         name: 'city',
-        required: true,
-        pattern: '^[a-zA-Z-\\é\\è\\ê\\à\\â\\ù\\ ]+$'
+        rules: {
+            minLength: 3,
+            maxLength: 50,
+            required: true,
+            pattern: /^[a-zA-Z-\\é\\è\\ê\\à\\â\\ù\\ ]+$/
+        }
     },
     country: {
         type: 'text',
         label: 'Pays',
         name: 'country',
-        required: true,
-        pattern: '^[a-zA-Z\\-]+$',
-        errorMessage: 'Format invalide'
+        rules: {
+            minLength: 3,
+            maxLength: 15,
+            required: true,
+            pattern: /^[a-zA-Z\\-]+$/
+        }
     },
     phone: {
         type: 'text',
         label: 'Téléphone',
         name: 'phone',
-        required: true,
-        pattern: '^[0-9]{10}$',
-        errorMessage: 'Numéro invalide'
+        rules: {
+            minLength: 10,
+            maxLength: 10,
+            pattern: /^[0-9]*$/,
+            required: true
+        }
     },
     mail: {
         type: 'email',
         label: 'adresse email',
         name: 'mail',
-        required: true,
-        pattern: '^[a-zA-Z0-9\\.\\_\\-]+@[a-zA-Z0-9\\.\\_\\-]{2,}.[a-z]{2,4}$',
-        errorMessage: 'Email invalide'
+        rules: {
+            required: true,
+            email: true
+        }
     },
     mailConfirmation: {
         type: 'email',
         label: 'confirmation adresse email',
         name: 'mailConfirmation',
-        required: true,
-        pattern: '^[a-zA-Z0-9\\.\\_\\-]+@[a-zA-Z0-9\\.\\_\\-]{2,}.[a-z]{2,4}$',
-        errorMessage: 'Email invalide'
+        rules: {
+            required: true,
+            emailConfirm: true
+        }
     },
     password: {
         type: 'password',
         label: 'Mot de passe',
         name: 'password',
-        required: true,
-        pattern: '^[a-zA-Z0-9\\.\\_\\-]{8,}$',
-        errorMessage: 'Le mot de passe doit contenir 8 caractères minimum'
+        rules: {
+            required: true,
+            password: true
+        }
     },
     passwordConfirmation: {
         type: 'password',
         label: 'confirmation mot de passe',
         name: 'passwordConfirmation',
-        required: true,
-        pattern: '^[a-zA-Z0-9\\.\\_\\-]{8,}$'
+        rules: {
+            required: true,
+            passwordConfirm: true
+        }
     },
     cgu: {
         type: 'checkbox',
         label: 'J\'accepte les conditions générales d\'utilisation',
         name: 'cgu',
-        required: true,
-        errorMessage: 'Merci d\'accepter les conditions générales d\'utilisation'
+        errorMessage: 'Merci d\'accepter les conditions générales d\'utilisation',
+        rules: {
+            required: true
+        }
     }
 }
