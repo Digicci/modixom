@@ -65,6 +65,29 @@ const Input: React.FC = (props: IInputProps) => {
         )
     }
 
+    if (props.type === 'checkbox') {
+        return (
+                <div className={'inputGroup'}>
+                    <div className={"inputGroup__wrapper"}>
+                        <input
+                            value={props.value}
+                            onChange={props.handleChange}
+                            checked={props.value}
+                            className={"inputGroup__wrapper__input"}
+                            autoComplete={'off'}
+                            onFocus={handleFocus}
+                            disabled={props.disabled || false}
+                            {...props}
+                        />
+                        <label className={"inputGroup__wrapper__label"}>{props.label}</label>
+                    </div>
+                    <p className={"inputGroup__error"}>{
+                        error && error
+                    }</p>
+                </div>
+            )
+    }
+
     const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
     //Sinon, on retourne un input classique
     return (
