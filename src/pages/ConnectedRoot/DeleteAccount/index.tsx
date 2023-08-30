@@ -52,7 +52,9 @@ const DeleteAccount: React.FC = () => {
                             <input type={"checkbox"} id={"deleteAccountButton"} onChange={handleChange}/>
                             <label htmlFor={"deleteAccountButton"}>OUI,JE SOUHAITE FERMER DÉFINITIVEMENT MON COMPTE ET
                                 SUPPRIMER MES DONNÉES</label>
-                            {error && <p>* Veuillez cocher la case</p>}
+                            {error && <div className={"inputGroup__error"}>
+                                <p>* Veuillez cocher la case</p>
+                            </div>}
                         </div>
                     </div>
                 </div>
