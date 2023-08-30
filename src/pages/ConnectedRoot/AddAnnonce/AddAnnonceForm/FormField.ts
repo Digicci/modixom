@@ -82,5 +82,4 @@ export const FormField: IAddAnnonceFormConfig = {
 
     }
 
-
 }

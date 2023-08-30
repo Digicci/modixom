@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {FormField} from "./FormField";
-import {IonActionSheet, IonButton, IonFooter} from "@ionic/react";
+import {IonActionSheet, IonButton, IonFooter, useIonRouter} from "@ionic/react";
 import ContactFormInput from "../../../../components/ContactFormInput";
 import {useDispatch, useSelector} from "react-redux";
 import {setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
@@ -26,6 +26,7 @@ const AddAnnonceForm: React.FC = () => {
     const data = useSelector(getAddAnnonceValues)
     const categoryCollection = useSelector(getCategoryCollection);
     const imgService = useImageService();
+    const {push}=useIonRouter();
     const [imgMessage, setImgMessage] = React.useState<IImgMessage>({
         message: "Aucune image sélectionnée",
         errored: true
@@ -69,10 +70,11 @@ const AddAnnonceForm: React.FC = () => {
     }
     const handleSubmit = () => {
         const errors = validateAll()
+        push("/addAnnonce/valider","root","replace")
         if (errors.length === 0) {
-            api.post(endpoints.postAnnonce, data, {token: userToken}).then((res) => {
-                console.log(res)
-            })
+            // api.post(endpoints.postAnnonce, data, {token: userToken}).then((res) => {
+            //     console.log(res)
+            // })
         }
     }
 
