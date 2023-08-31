@@ -11,55 +11,71 @@ export const FormField: IAddAnnonceFormConfig = {
         name: "titre",
         type: "text",
         label: "titre annonce",
-        required: true,
-        errorMessage: "Veuillez remplir le titre de votre annonce"
+        rules:{
+            required:true,
+            minLength:5,
+            maxLength:50,
+        }
 
     },
     descriptif: {
         name: "descriptif",
         type: "text",
         label: "descriptif produit",
-        required: true,
-        errorMessage: "Veuillez remplir le descriptif du produit",
+        rules:{
+            required:true,
+            minLength:5,
+        }
+
     },
     categorie: {
         name: "categorie",
         type: "select",
         label: "Choisir une catégorie",
-        required: true,
         errorMessage: "veuillez choisir une catégorie",
+        rules:{
+            required:true,
+        }
 
     },
     quantite: {
         name: "quantite",
         type: "number",
         label: "quantité",
-        required: true,
-        errorMessage: "veuillez choisir une quantité différente de 0",
+        rules:{
+            required:true,
+            quantite:true,
+        }
     },
     dateHeureDebut: {
         name: "dateHeureDebut",
         type: "datetime-local",
-        required: true,
         label: "date et heure de parution",
         errorMessage: "veuillez choisir une date et une heure",
+        rules:{
+            required:true,
+        }
     },
     dateHeureFin: {
         name: "dateHeureFin",
         type: "datetime-local",
-        required: true,
         label: "date et heure de fin de parution",
         errorMessage: "veuillez choisir une date et une heure",
+        rules:{
+            required:true,
+        }
     },
     norme: {
         name: "norme",
         type: "norme",
         label: "Je certifie que ce que je vend est : ",
-        required: true,
         input: {
             li1: "aux normes CE",
             li2: "identique à celui en magasin",
             li3: "une remise exceptionelle"
+        },
+        rules:{
+            required:true,
         }
     },
 
@@ -78,8 +94,9 @@ export const FormField: IAddAnnonceFormConfig = {
                 label: "des professionnels",
                 value: clientTypes.pro
             }
+        },
+        rules: {
+            required: true,
         }
-
     }
-
 }

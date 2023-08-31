@@ -131,6 +131,9 @@ export const validator = (
             }
         }
 
+        if(rules.quantite && value===0){
+            error = config.errorMessage?? 'La quantité doit être différente de 0';
+        }
         dispatch(setAction(name, error));
         return error;
     }
