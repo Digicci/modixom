@@ -1,47 +1,71 @@
 import {IContactForm} from "../../../store/reducers/ContactReducer";
 
-export const FormFields:IContactForm ={
-    name:{
-        name:"name",
-        type:"text",
-        label:"nom",
-        required:true,
-        classPrefix:"contact__container__infoWrapper"
+export const FormFields: IContactForm = {
+    name: {
+        name: "name",
+        type: "text",
+        label: "nom",
+        classPrefix: "contact__container__infoWrapper",
+        rules: {
+            minLength: 2,
+            maxLength: 50,
+            required: true,
+        }
     },
-    surname:{
-        name:"surname",
-        type:"text",
-        label:"prénom",
-        required:true,
-        classPrefix:"contact__container__infoWrapper"
+    surname: {
+        name: "surname",
+        type: "text",
+        label: "prénom",
+        classPrefix: "contact__container__infoWrapper",
+        rules: {
+            minLength: 2,
+            maxLength: 50,
+            required: true,
+        }
     },
-    mail:{
-        name:"mail",
-        type:"email",
-        label:"adresse mail",
-        required:true,
-        classPrefix:"contact__container__infoWrapper"
+    mail: {
+        name: "mail",
+        type: "email",
+        label: "adresse mail",
+        classPrefix: "contact__container__infoWrapper",
+        rules: {
+            required: true,
+            email: true,
+        }
+
     },
-    phone:{
-        name:"phone",
-        type:"tel",
-        label:"téléphone",
-        required:true,
-        classPrefix:"contact__container__infoWrapper"
+    phone: {
+        name: "phone",
+        type: "tel",
+        label: "téléphone",
+        classPrefix: "contact__container__infoWrapper",
+        rules: {
+            minLength: 10,
+            maxLength: 10,
+            required: true,
+            pattern: /^[a-zA-Z\\-]+$/
+        }
     },
-    motif:{
-        name:"motif",
-        type:"text",
-        label:"motif de contact",
-        required:true,
-        classPrefix:"contact__container__infoWrapper"
+    motif: {
+        name: "motif",
+        type: "text",
+        label: "motif de contact",
+        classPrefix: "contact__container__infoWrapper",
+        rules: {
+            minLength: 5,
+            maxLength: 50,
+            required: true,
+        }
     },
-    description:{
-        name:"description",
-        type:"textarea",
-        label:"description",
-        required:true,
-        errorMessage:"Votre message est trop court",
-        classPrefix:"contact__container__infoWrapper"
-    },
+    description: {
+        name: "description",
+        type: "textarea",
+        label: "description",
+        errorMessage: "Votre message est trop court",
+        classPrefix: "contact__container__infoWrapper",
+        rules: {
+            minLength: 5,
+            required: true,
+        }
+    }
 }

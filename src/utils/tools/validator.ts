@@ -51,7 +51,6 @@ export const validator = (
 
     const validate = (name: string, value: any) => {
         let error = '';
-        console.log(name,value)
         if (name === "client") {
             if (values.client.length===0) {
                 dispatch(setAction("client", "Veuillez choisir au moins un type de client."));
@@ -73,9 +72,9 @@ export const validator = (
             error = 'La quantité doit être différente de 0';
         }
 
-        if (name === "description" && (value.length < 5)) {
-            error = field.errorMessage
-        }
+        // if (name === "description" && (value.length < 5)) {
+        //     error = field.errorMessage
+        // }
         if (value !== '' && !new RegExp(field.pattern).test(value)) {
             error = field.errorMessage || 'Ce champ est invalide';
         }
@@ -94,11 +93,11 @@ export const validator = (
             error = config.errorMessage ?? `Le champ ${config.label} est obligatoire.`
         }
 
-        if (rules.minLength && value.length < rules.minLength) {
+        if (rules.minLength &&  value.length < rules.minLength ) {
             error = `Le champ ${config.label} doit être composé d'au moins ${rules.minLength} caractères.`;
         }
 
-        if (rules.maxLength && value.length > rules.maxLength) {
+        if (rules.maxLength &&  value.length > rules.maxLength) {
             error = `Le champ ${config.label} ne peut pas contenir plus de ${rules.maxLength} caractères.`;
         }
 

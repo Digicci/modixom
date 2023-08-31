@@ -2,7 +2,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {isUserPro} from "../../store/selectors/UserSelectors";
 import Header from "../Header";
-import {IonContent} from "@ionic/react";
+import {IonButton, IonContent, IonFooter} from "@ionic/react";
 import ContactForm from "./ContactForm";
 
 const ContactComponents:React.FC=()=>{
