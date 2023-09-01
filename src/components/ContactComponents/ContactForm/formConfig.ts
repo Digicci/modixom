@@ -43,7 +43,7 @@ export const FormFields: IContactForm = {
             minLength: 10,
             maxLength: 10,
             required: true,
-            pattern: /^[a-zA-Z\\-]+$/
+            pattern: /^[0-9]*$/
         }
     },
     motif: {

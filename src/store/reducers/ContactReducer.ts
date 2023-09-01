@@ -53,9 +53,6 @@ const ContactFormReducer=(state=initialState,action:ReduxActionInterface)=>{
                 ...state.contact,
                 [name]:value
             }
-            console.log(newContact)
-            console.log(state.contact)
-
             return{
                 ...state,
                 contact:newContact
