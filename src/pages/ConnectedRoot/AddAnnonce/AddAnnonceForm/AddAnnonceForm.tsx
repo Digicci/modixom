@@ -89,9 +89,8 @@ const AddAnnonceForm: React.FC = () => {
                     Object.keys(FormField).map((item: any, index: number) => {
                         if (item === "categorie") {
                             return (
-                                <>
+                                <div key={index}>
                                     <ContactFormInput
-                                        key={index}
                                         //@ts-ignore
                                         {...FormField[item]}
                                         categorie={categoryCollection}
@@ -103,7 +102,7 @@ const AddAnnonceForm: React.FC = () => {
                                         <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
                                         <IonButton onClick={() => setShowActionSheet(true)}>ajouter une photo produit</IonButton>
                                     </div>
-                                </>
+                                </div>
                             )
                         } else {
                             return (
