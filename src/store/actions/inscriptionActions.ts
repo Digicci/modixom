@@ -1,7 +1,7 @@
 import ICityProposal from '../../models/ICityProposal';
 
 export const SET_INSCRIPTION_FIELD = 'SET_INSCRIPTION_FIELD';
-export const setInscriptionField = (name: string, value: string) => ({
+export const setInscriptionField = (name: string, value: string|boolean) => ({
     type: SET_INSCRIPTION_FIELD,
     payload: {
         name,

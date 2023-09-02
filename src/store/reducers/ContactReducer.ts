@@ -41,7 +41,7 @@ const initialState: ContactFormState = {
         mail: "",
         phone: "",
         motif: "",
-        description: ""
+        description: "",
     }
 }
 
@@ -57,8 +57,7 @@ const ContactFormReducer=(state=initialState,action:ReduxActionInterface)=>{
                 ...state,
                 contact:newContact
             };
-        default:
-            return state
+
         case SET_CONTACTFORM_ERROR:
             const {name: errorName, value: errorValue} = action.payload;
 
@@ -70,6 +69,8 @@ const ContactFormReducer=(state=initialState,action:ReduxActionInterface)=>{
                 ...state,
                 errors: newErrors
             }
+        default:
+            return state
     }
 
 }
