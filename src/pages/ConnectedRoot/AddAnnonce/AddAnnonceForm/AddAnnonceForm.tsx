@@ -72,9 +72,9 @@ const AddAnnonceForm: React.FC = () => {
         const errors = validateAll()
         push("/addAnnonce/valider","root","replace")
         if (errors.length === 0) {
-            // api.post(endpoints.postAnnonce, data, {token: userToken}).then((res) => {
-            //     console.log(res)
-            // })
+             api.post(endpoints.postAnnonce, data, {token: userToken}).then((res) => {
+                 console.log(res)
+             })
         }
     }
 

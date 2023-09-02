@@ -11,6 +11,8 @@ export interface IAddAnnonceForm {
     client: Array<string>;
     quantite: number;
     logo: string;
+    prix: string;
+    pourcent: number;
 }
 
 interface AddAnnonceErrorState {
@@ -23,6 +25,8 @@ interface AddAnnonceErrorState {
     client: string;
     quantite: string;
     logo: string;
+    prix: string;
+    pourcent: string;
 }
 
 interface AddAnnonceState {
@@ -42,6 +46,8 @@ const initialState: AddAnnonceState = {
         client: [],
         quantite: 0,
         logo: "",
+        prix: "79.99",
+        pourcent: 25
     },
     addAnnonceErrors: {
         titre: "",
@@ -53,6 +59,8 @@ const initialState: AddAnnonceState = {
         client: "",
         quantite: "",
         logo: "",
+        prix: "",
+        pourcent: ""
     }
 }
 const addOrRemove = (array: Array<string>, value: string) => {
