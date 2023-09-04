@@ -15,11 +15,11 @@ export const resetInscriptionFields = () => ({
 });
 
 export const SET_INSCRIPTION_ERROR = 'SET_INSCRIPTION_ERROR';
-export const setInscriptionError = (name: string, value: string) => ({
+export const setInscriptionError = (name: string, error: string) => ({
     type: SET_INSCRIPTION_ERROR,
     payload: {
         name,
-        value
+        error
     }
 })
 

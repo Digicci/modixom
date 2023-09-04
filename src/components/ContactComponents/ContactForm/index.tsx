@@ -15,6 +15,7 @@ import {setNewUserField, setUser} from "../../../store/actions/userActions";
 
 import {useApi} from "../../../services/ApiService";
 import Loader from "../../Loader";
+import {IonButton, IonFooter} from "@ionic/react";
 
 
 const ContactForm: React.FC = () => {
@@ -41,6 +42,15 @@ const ContactForm: React.FC = () => {
 
     useEffect(() => {
         fetchUser()
+
+        Object.keys(FormFields).map((item:any)=>{
+            Object.keys(user).map((userItem:any)=>{
+                if(item===userItem){
+                    //@ts-ignore
+                    dispatch(setContactFormField(item,user[userItem]))
+                }
+            })
+        })
         return () => {
             //reset le form
         };
@@ -53,8 +63,7 @@ const ContactForm: React.FC = () => {
         validate(name, value)
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleSubmit = () => {
         const errors = validateAll()
         if (errors.length === 0) {
             console.log(data)
@@ -64,10 +73,12 @@ const ContactForm: React.FC = () => {
     return (
         <>
             {isLoading? <Loader/>:(
-            <form onSubmit={handleSubmit} className={"contact__container"}>
+            <>
+                <div className={"contact__formContainer"} >
                 {
                     Object.keys(FormFields).map((item: any, index: number) => {
 
+                        //@ts-ignore
 
                         return (
 
@@ -83,11 +94,11 @@ const ContactForm: React.FC = () => {
                         )
                     })
                 }
-
-                <div className={'contactButtonContainer'}>
-                    <input type={"submit"} value={"envoyer"} className={"contactButton"}/>
                 </div>
-            </form>
+                <IonFooter className={'validateButtonContainer'}>
+                    <IonButton className={"validateButton"} onClick={handleSubmit}>valider</IonButton>
+                </IonFooter>
+            </>
             )}
         </>
     )

@@ -6,35 +6,35 @@ export const FormFields:IContactForm ={
         type:"text",
         label:"nom",
         required:true,
-        classPrefix:"contact__container__infoWrapper"
+        classPrefix:"contact__formContainer__infoWrapper"
     },
     surname:{
         name:"surname",
         type:"text",
         label:"prénom",
         required:true,
-        classPrefix:"contact__container__infoWrapper"
+        classPrefix:"contact__formContainer__infoWrapper"
     },
     mail:{
         name:"mail",
         type:"email",
         label:"adresse mail",
         required:true,
-        classPrefix:"contact__container__infoWrapper"
+        classPrefix:"contact__formContainer__infoWrapper"
     },
     phone:{
         name:"phone",
         type:"tel",
         label:"téléphone",
         required:true,
-        classPrefix:"contact__container__infoWrapper"
+        classPrefix:"contact__formContainer__infoWrapper"
     },
     motif:{
         name:"motif",
         type:"text",
         label:"motif de contact",
         required:true,
-        classPrefix:"contact__container__infoWrapper"
+        classPrefix:"contact__formContainer__infoWrapper"
     },
     description:{
         name:"description",
@@ -42,6 +42,6 @@ export const FormFields:IContactForm ={
         label:"description",
         required:true,
         errorMessage:"Votre message est trop court",
-        classPrefix:"contact__container__infoWrapper"
+        classPrefix:"contact__formContainer__infoWrapper"
     },
 }
