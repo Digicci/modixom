@@ -65,10 +65,29 @@ export const FormField: IAddAnnonceFormConfig = {
             required:true,
         }
     },
+    prix:{
+        name:"prix",
+        type:"number",
+        label:'Prix',
+        rules:{
+            required:true,
+            quantite:true,
+        }
+    },
+    pourcent:{
+        name:"pourcent",
+        type:"number",
+        label:"pourcentage de réduction",
+        rules:{
+            required:true,
+            quantite:true,
+        },
+    },
     norme: {
         name: "norme",
         type: "norme",
         label: "Je certifie que ce que je vend est : ",
+        errorMessage: "veuillez confirmer que vous respecter les régles",
         input: {
             li1: "aux normes CE",
             li2: "identique à celui en magasin",

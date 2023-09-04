@@ -11,8 +11,8 @@ export interface IAddAnnonceForm {
     client: Array<string>;
     quantite: number;
     logo: string;
-    prix: string;
-    pourcent: number;
+    prix: string | Object;
+    pourcent: number | Object;
 }
 
 interface AddAnnonceErrorState {

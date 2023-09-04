@@ -2,14 +2,22 @@ import React from "react";
 import "./addAnnonceValidate.scss";
 import {IonButton, IonContent, IonPage, useIonRouter} from "@ionic/react";
 import Header from "../../../components/Header";
+import {useSelector} from "react-redux";
+import {getAddAnnonceValues} from "../../../store/selectors/AddAnnonceSelectors";
 
 
 const AddAnnonceValidate: React.FC=()=>{
     const {push} =useIonRouter()
-    const dateDebut="30/08/2023";
-    const dateFin="31/08/2023";
-    const heureDebut = "21h17";
-    const heureFin ="22h00";
+    const addAnnonce= useSelector(getAddAnnonceValues)
+    const dateHeureDebut = addAnnonce.dateHeureDebut.split("T");
+    dateHeureDebut[0]= new Date(dateHeureDebut[0]).toLocaleDateString("fr")
+    dateHeureDebut[1]= dateHeureDebut[1].replace(":","H")
+    const  dateHeureFin = addAnnonce.dateHeureFin.split('T');
+    dateHeureFin[0]= new Date(dateHeureFin[0]).toLocaleDateString("fr")
+    dateHeureFin[1] =dateHeureFin[1].replace(":","H")
+
+
+
 
     return(
         <IonPage className={"addAnnonceValide"}>
@@ -18,9 +26,9 @@ const AddAnnonceValidate: React.FC=()=>{
                 <div className={"addAnnonceValide__container"}>
                     <h2>Merci pour votre confiance</h2>
                     <p>Votre annonce a bien été prise en compte et sera diffusée à partir du
-                        <span>{` ${dateDebut} à ${heureDebut} `}</span>
+                        <span>{` ${dateHeureDebut[0]} à ${dateHeureDebut[1]} `}</span>
                          jusqu'au
-                        <span>{` ${dateFin} à ${heureFin} `}</span>
+                        <span>{` ${dateHeureFin[0]} à ${dateHeureFin[1]} `}</span>
                         .
                     </p>
                     <IonButton onClick={()=>{push("/addAnnonce","back")}}>Passer une nouvelle annonces</IonButton>
