@@ -1,9 +1,11 @@
 .contact{
-  padding: 1rem;
   min-height: 100%;
+  font-size: 1.3rem;
   & h2{
+    padding: 1rem;
     text-transform: uppercase;
   }
+
   &__container{
     min-height: 100%;
     text-transform: capitalize;
@@ -35,5 +37,6 @@
     & .validateButton{
 
     }
+
   }
-}
+
