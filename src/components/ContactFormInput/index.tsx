@@ -1,5 +1,7 @@
 import React, {FormEventHandler} from "react";
 import {useSelector} from "react-redux";
+import {isSelectedClientCheckbox} from "../../store/selectors/AddAnnonceSelectors";
+import {IonItem, IonSelect, IonSelectOption} from "@ionic/react";
 
 interface IContactFormInputProps {
     label: string;
@@ -10,11 +12,94 @@ interface IContactFormInputProps {
     handleChange?: FormEventHandler;
     error?: string;
     errorSelector?: (state: any) => any;
-    value?:string;
+    value?: string;
+    input?: Object;
+    categorie?:Array<object>
 }
 
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
-    const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
+    const error = props.errorSelector ? props.type==="client"? useSelector(props.errorSelector)["client"]:useSelector(props.errorSelector)[props.name] : null;
+    const categorie:Array<Object>=props.categorie||[]
+
+
+    if(props.type==="select"){
+        return(
+            <>
+                <IonItem className={props.classPrefix+" categorie"||""}>
+                    {/*@ts-ignore*/}
+                    <IonSelect label={props.label} required={props.required} name={"categorie"} onIonChange={props.handleChange}>
+                        {
+                            Object.keys(categorie).map((item:any,index:number)=>{
+                                return(
+                                    // @ts-ignore
+                                    <IonSelectOption  key={index} value={categorie[index].id}>{categorie[index].libelle}</IonSelectOption>
+                                )
+                            })
+                        }
+                    </IonSelect>
+                </IonItem>
+                <p className={"inputGroup__error"}>{
+                    error && error
+                }</p>
+            </>
+        )
+    }
+
+    if (props.type === "norme") {
+        return (
+            <>
+                <div className={props.classPrefix + " norme" || ""}>
+                    <input className={'checkbox'} required={props.required} type={"checkbox"} name={props.name} onChange={props.handleChange}/>
+                    <label form={props.name}>{props.label}</label>
+                    <ul>
+                        {
+
+                            //@ts-ignore
+                            Object.keys(props.input).map((item: any, index: number) => {
+                                return (
+                                    //@ts-ignore
+                                    <li key={index}>{props.input[item]}</li>
+                                )
+                            })
+                        }
+
+                    </ul>
+                </div>
+                <p className={"inputGroup__error"}>{
+                    error && error
+                }</p>
+            </>
+        )
+    }
+    if (props.type === "client") {
+        return (
+            <>
+                <div className={props.classPrefix || ""}>
+
+                        <p>{props.label}</p>
+                    {
+                        //@ts-ignore
+                        Object.keys(props.input).map((item: any, index: number) => {
+                            //@ts-ignore
+                            const isSelected=useSelector(isSelectedClientCheckbox(props.input[item].value))
+                            return (
+                                <div className={"checkbox__wrapper"} key={index}>
+                                    {/*//@ts-ignore*/}
+                                    <input type={"checkbox"} className={"checkbox"} checked={isSelected} name={props.input[item].name} value={props.input[item].value} onChange={props.handleChange}/>
+                                    {/*@ts-ignore*/}
+                                    <label form={props.input[item].name}>{props.input[item].label}</label>
+                                </div>
+                        )
+                        })
+
+                    }
+                </div>
+                <p className={"inputGroup__error"}>{
+                    error && error
+                }</p>
+            </>
+        )
+    }
     if (props.type === "textarea") {
         return (
             <>

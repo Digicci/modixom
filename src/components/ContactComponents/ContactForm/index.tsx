@@ -43,18 +43,19 @@ const ContactForm: React.FC = () => {
     useEffect(() => {
         fetchUser()
 
-        Object.keys(FormFields).map((item:any)=>{
-            Object.keys(user).map((userItem:any)=>{
-                if(item===userItem){
-                    //@ts-ignore
-                    dispatch(setContactFormField(item,user[userItem]))
-                }
-            })
-        })
-        return () => {
-            //reset le form
-        };
     }, []);
+
+    useEffect(() => {
+        Object.keys(FormFields).map((item:any)=>{
+            if(item==="motif"||item==="description"){
+                dispatch(setContactFormField(item,""))
+            }else{
+                dispatch(setContactFormField(item,user[item]))
+            }
+
+        })
+    }, [user]);
+
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,32 +74,35 @@ const ContactForm: React.FC = () => {
     return (
         <>
             {isLoading? <Loader/>:(
-            <>
-                <div className={"contact__formContainer"} >
-                {
-                    Object.keys(FormFields).map((item: any, index: number) => {
 
-                        //@ts-ignore
+                <>
+                    <div  className={"contact__container"}>
+                        {
+                            Object.keys(FormFields).map((item: any, index: number) => {
 
-                        return (
 
-                            <ContactFormInput key={index}
-                                //@ts-ignore
-                                              {...FormFields[item]}
-                                              handleChange={handleChange}
-                                              errorSelector={getContactFormError}
-                                //@ts-ignore
-                                              value={user[item]}
-                            />
+                                return (
 
-                        )
-                    })
-                }
-                </div>
-                <IonFooter className={'validateButtonContainer'}>
-                    <IonButton className={"validateButton"} onClick={handleSubmit}>valider</IonButton>
-                </IonFooter>
-            </>
+                                    <ContactFormInput key={index}
+                                        //@ts-ignore
+                                                      {...FormFields[item]}
+                                                      handleChange={handleChange}
+                                                      errorSelector={getContactFormError}
+                                        //@ts-ignore
+                                                      value={data[item]}
+                                    />
+
+                                )
+                            })
+                        }
+
+
+                    </div>
+                    <IonFooter className={"validateButtonContainer"}>
+                        <IonButton className={"validateButton"} onClick={handleSubmit}>envoyer</IonButton>
+                    </IonFooter>
+                </>
+
             )}
         </>
     )

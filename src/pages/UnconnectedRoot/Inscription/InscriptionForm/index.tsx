@@ -59,11 +59,13 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
     //On handle le changement de valeur d'un input
     // eslint-disable-next-line no-undef
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
+        const {name,value,checked} = e.target;
+        //condition pour traiter le changement de valeur des checkbox
+        let fieldValue = name === "cgu" ? checked : value
         //dispatch de l'action
-        dispatch(setInscriptionField(name, value));
+        dispatch(setInscriptionField(name, fieldValue));
         //validation des données
-        validate(name, value);
+        validate(name, fieldValue);
         //Si le champ modifier s'appelle city on execute la fonction handleCityChange
         if (name === 'city') {
             handleCityChange(value);

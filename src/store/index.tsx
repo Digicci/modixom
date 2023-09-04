@@ -11,6 +11,7 @@ import disconnectMiddleware from "./middleware/disconnectMiddleware";
 import categoryReducer from "./reducers/CategoryReducer";
 import AlerteCreatorReducer from "./reducers/AlerteCreatorReducer";
 import ContactFormReducer from "./reducers/ContactReducer";
+import AddAnnonceReducer from "./reducers/AddAnnonceReducer";
 
 const store: Store = createStore(
     combineReducers({
@@ -18,6 +19,7 @@ const store: Store = createStore(
         inscription: inscriptionReducer,
         connexion: connexionReducer,
         annonces: AnnonceReducer,
+        addAnnonce:AddAnnonceReducer,
         category: categoryReducer,
         alerte: AlerteCreatorReducer,
         contact:ContactFormReducer

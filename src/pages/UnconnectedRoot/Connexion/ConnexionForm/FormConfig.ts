@@ -17,7 +17,7 @@ export const ConnexionFields: IConnexionFields = {
         label: 'Email',
         name: 'mail',
         required: true,
-        pattern: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}.[a-z]{2,4}$'
+        // pattern: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}.[a-z]{2,4}$'
     },
     password: {
         type: 'password',
