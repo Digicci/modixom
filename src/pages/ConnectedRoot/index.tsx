@@ -29,7 +29,8 @@ const ConnectedRoot: React.FC = () => {
                    <HomeRouterOutlet />
                 </Route>
                 <Route exact path="/alerte">
-                    <Alerte/>
+                    {/* <Alerte/> */}
+                    <Redirect to={"/home"} />
                 </Route>
                 {
                     isPro ? (
@@ -38,7 +39,8 @@ const ConnectedRoot: React.FC = () => {
                         </Route>
                     ) : (
                         <Route path="/contact">
-                            <ContactPro/>
+                            {/* <ContactPro/> */}
+                            <Redirect to={"/home"} />
                         </Route>
                     )
                 }
