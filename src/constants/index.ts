@@ -22,7 +22,9 @@ export const endpoints = {
     city: 'searchCities',
     profilDetail: 'profil',
     profilUpdate: 'profilUpdate',
-    postAnnonce: 'addAnnonce'
+    postAnnonce: 'addAnnonce',
+    annonceUserDetail:"annoncesProfil"
+
 }
 
 export const clientTypes = {

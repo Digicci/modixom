@@ -1,0 +1,31 @@
+.myAnnonceDetail{
+  &__container{
+    padding: 0 1rem;
+    font-size: 1.3rem;
+    &__infoWrapper{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 20px;
+
+      &__name {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        p{
+          font-weight: bold;
+        }
+      }
+      div {
+        width: 90%;
+        display: flex;
+
+      }
+      & > span {
+        font-weight: normal;
+        align-self: end;
+      }
+    }
+  }
+}
