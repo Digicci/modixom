@@ -43,9 +43,9 @@ const MyAnnonce: React.FC = () => {
 
     return (
         <>
-            { isloading? <Loader/>: <IonPage>
-                <Header text={"annonces diffusées"} canGoBack={true}/>
-                <IonContent className={"myAnnonce"}>
+             <IonPage>
+                <Header text={"annonces diffusées"} canGoBack={true} defaultHref={"/user"}/>
+                 { isloading? <Loader/>:<IonContent className={"myAnnonce"}>
                     <IonList inset={false} lines={"full"} className={'myAnnonce__list'}>
                         {
                             annonces.map((item: any, index: number) => {
@@ -56,8 +56,9 @@ const MyAnnonce: React.FC = () => {
                         }
                     </IonList>
                 </IonContent>
+                 }
             </IonPage>
-            }
+
         </>
     )
 }

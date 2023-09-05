@@ -27,7 +27,7 @@ const test = useSelector(getMyAnnonceById(id))
     return (
         <>
             <IonPage>
-                <Header text={"annonces diffusées"} canGoBack={true}/>
+                <Header text={"annonces diffusées"} canGoBack={true} defaultHref={"/user/myAnnonces"}/>
                 <IonContent className={"myAnnonceDetail"}>
                     <div className={"myAnnonceDetail__container"}>
                         <IonItem detail={false} lines={"none"} onClick={toggleModif}>
