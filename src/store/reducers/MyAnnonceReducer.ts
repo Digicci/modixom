@@ -1,6 +1,5 @@
 import ReduxActionInterface from "../../interface/reduxActionInterface";
-import {SET_MY_ANNONCE_DETAIL, SET_MY_ANNONCES} from "../actions/myAnnonceDetailAction";
-
+import {SET_MY_ANNONCE_DETAIL, SET_MY_ANNONCE_DETAIL_ERROR, SET_MY_ANNONCES} from "../actions/myAnnonceDetailAction";
 
 
 export interface IMyannonceDetail {
@@ -32,13 +31,13 @@ interface MyAnnonceDetailErrorState {
 }
 
 interface MyAnnonceDetailState {
-    myAnnonces: Array<object> |null;
+    myAnnonces: Array<object> | null;
     myAnnonceDetail: IMyannonceDetail;
     myAnnonceDetailErrorState: MyAnnonceDetailErrorState;
 }
 
 const initialState: MyAnnonceDetailState = {
-    myAnnonces:null,
+    myAnnonces: null,
     myAnnonceDetail: {
         titre: "",
         descriptif: "",
@@ -72,7 +71,7 @@ const addOrRemove = (array: Array<string>, value: string) => {
 const MyAnnonceReducer = (state = initialState, action: ReduxActionInterface) => {
     switch (action.type) {
         case SET_MY_ANNONCE_DETAIL:
-            const {name, value} = action.payload
+            const {name, value } = action.payload
             return {
                 ...state,
                 myAnnonceDetail: {
@@ -80,6 +79,17 @@ const MyAnnonceReducer = (state = initialState, action: ReduxActionInterface) =>
                     [name]: name === "client" ?
                         addOrRemove(state.myAnnonceDetail.client, value) : value,
                 }
+            };
+        case SET_MY_ANNONCE_DETAIL_ERROR:
+            const {name: errorName, value: error} = action.payload
+
+            const newError = {
+                ...state.myAnnonceDetailErrorState,
+                [errorName]: error
+            }
+            return {
+                ...state,
+                myAnnonceDetailErrorState: newError
             };
         case SET_MY_ANNONCES:
             const values = action.payload

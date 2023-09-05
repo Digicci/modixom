@@ -50,6 +50,7 @@ export const validator = (
 
     const validate = (name: string, value: any) => {
         let error = '';
+
         if (name === "client") {
             if (values.client.length===0) {
                 dispatch(setAction("client", "Veuillez choisir au moins un type de client."));

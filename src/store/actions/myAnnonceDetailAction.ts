@@ -7,7 +7,7 @@ export const setMyAnnonceDetail = (name:string,value:string|boolean)=>({
     }
 })
 export const SET_MY_ANNONCE_DETAIL_ERROR ="SET_MY_ANNONCE_DETAIL_ERROR";
-export const setMyAnnonceDetailError = (name:string,value:string)=>({
+export const setMyAnnonceDetailError = (name:string,value:string)=>( {
     type:SET_MY_ANNONCE_DETAIL_ERROR,
     payload:{
         name,

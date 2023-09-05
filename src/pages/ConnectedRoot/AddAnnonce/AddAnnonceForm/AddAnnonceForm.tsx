@@ -60,7 +60,6 @@ const AddAnnonceForm: React.FC = () => {
     ]
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value, checked} = e.target
-        console.log(name, value)
         const fieldValue =
             name === "norme" ?
                 checked :

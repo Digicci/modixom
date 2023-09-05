@@ -1,28 +1,73 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IonContent, IonItem, IonLabel, IonPage} from "@ionic/react";
 import Header from "../../../components/Header";
 import "./MyAnnonceDetail.scss"
-import AccountUpdatableInput from "../../../components/AccountUpdatableInput";
 import {useParams} from "react-router";
-import {useSelector} from "react-redux";
-import {getMyAnnonceById} from "../../../store/selectors/myAnnonceSelectors";
-import {FormField} from "../AddAnnonce/AddAnnonceForm/FormField";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getMyAnnonceById,
+    getMyAnnoncesDetailErrorState,
+    getMyAnnoncesValues
+} from "../../../store/selectors/myAnnonceSelectors";
+
+import validator from "../../../utils/tools/validator";
+import {setMyAnnonceDetail, setMyAnnonceDetailError} from "../../../store/actions/myAnnonceDetailAction";
+import MyAnnoncesUdaptableInput from "../../../components/MyAnnoncesUdaptableInput";
+import {FormFieldConfig} from "./FormFieldConfig";
+
+
 
 
 const MyAnnonceDetail: React.FC = () => {
-const [modif,setModif] =useState(false)
-const params = useParams<{id:string}>();
-const id =parseInt(params.id,10)
-console.log(params)
-    const toggleModif =()=>{
-    setModif(!modif)
-    }
-    const handleChange=()=>{
+    const [modif, setModif] = useState(false)
+    const params = useParams<{ id: string }>();
+    const id = parseInt(params.id)
+    const annoncefind= useSelector(getMyAnnonceById(id))
+    const [annonce,setAnnonce]=useState({})
+    const dispatch = useDispatch()
+    const annonceDetail=useSelector(getMyAnnoncesValues)
+    //@ts-ignore a corriger
+    const {validate} = validator(FormFieldConfig, getMyAnnoncesValues, setMyAnnonceDetailError)
+    useEffect(() => {
+        const annonceConstruc={
+            titre: annoncefind.titre,
+            descriptif: annoncefind.description,
+            categorie: "",
+            dateHeureDebut: "",
+            dateHeureFin: "",
+            norme: false,
+            client: [],
+            quantite: 0,
+            logo: annoncefind.image,
+            prix: annoncefind.prix,
+            pourcent: annoncefind.pourcentRemise
+        }
+        setAnnonce(annonceConstruc)
 
+    }, []);
+
+
+    useEffect(() => {
+        Object.keys(annonce).map((item:any)=>{
+            //@ts-ignore
+            dispatch(setMyAnnonceDetail(item,annonce[item]))
+        })
+    }, [annonce]);
+
+    const toggleModif = () => {
+        setModif(!modif)
+    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value, checked} = e.target
+        const fieldValue =
+            name === "norme" ?
+                checked :
+                value
+        dispatch(setMyAnnonceDetail(name, fieldValue))
+        validate(name, fieldValue)
     }
 
-const test = useSelector(getMyAnnonceById(id))
-    console.log(test)
+
     //get annoncesProfil parametre token:token
     return (
         <>
@@ -38,20 +83,19 @@ const test = useSelector(getMyAnnonceById(id))
                             </IonLabel>
                         </IonItem>
                         {
-                            Object.keys(FormField).map((item:any,index:number)=>{
-                                console.log(item)
-                                return(
-                                    <div key={index} className={"myAnnonceDetail__container__infoWrapper"}>
-                                        <AccountUpdatableInput
-                                            actualValue={test[item]}
-                                            //@ts-ignore
-                                            {...FormField[item]}
-                                            classPrefix={"myAnnonceDetail__container__infoWrapper__name"}
-                                            isUpdating={modif}
-                                            handleChange={handleChange}
-                                            newValue={""}
-                                        />
-                                    </div>
+                            Object.keys(FormFieldConfig).map((item: any, index: number) => {
+
+
+                                return (
+                                    // @ts-ignore
+                                    <MyAnnoncesUdaptableInput isUpdating={modif} key={index} {...FormFieldConfig[item]}
+                                                              handleChange={handleChange}
+                                                              value={annonceDetail[item]}
+                                                              errorSelector={getMyAnnoncesDetailErrorState}
+                                                              //@ts-ignore
+                                                              actualValue={annonce[item]}
+
+                                    />
                                 )
                             })
                         }
