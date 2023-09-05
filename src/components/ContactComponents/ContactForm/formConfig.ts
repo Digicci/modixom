@@ -56,6 +56,7 @@ export const FormFields: IContactForm = {
             maxLength: 50,
             required: true,
         }
+
     },
     description: {
         name: "description",

@@ -42,6 +42,7 @@ const ContactForm: React.FC = () => {
 
     useEffect(() => {
         fetchUser()
+
     }, []);
 
     useEffect(() => {
@@ -73,6 +74,7 @@ const ContactForm: React.FC = () => {
     return (
         <>
             {isLoading? <Loader/>:(
+
                 <>
                     <div  className={"contact__container"}>
                         {
@@ -100,6 +102,7 @@ const ContactForm: React.FC = () => {
                         <IonButton className={"validateButton"} onClick={handleSubmit}>envoyer</IonButton>
                     </IonFooter>
                 </>
+
             )}
         </>
     )

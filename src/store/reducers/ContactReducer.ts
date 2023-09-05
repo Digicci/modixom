@@ -59,7 +59,7 @@ const ContactFormReducer=(state=initialState,action:ReduxActionInterface)=>{
             };
 
         case SET_CONTACTFORM_ERROR:
-            const {name: errorName, value: errorValue} = action.payload;
+            const {name: errorName, error: errorValue} = action.payload;
 
             const newErrors = {
                 ...state.errors,
