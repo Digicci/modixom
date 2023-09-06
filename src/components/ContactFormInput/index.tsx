@@ -20,6 +20,7 @@ interface IContactFormInputProps {
     value?: string;
     input?: Object;
     categorie?:Array<object>;
+    isSelectedCheckbox?:(state:string)=>any
 }
 
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
@@ -101,7 +102,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
                         //@ts-ignore
                         Object.keys(props.input).map((item: any, index: number) => {
                             //@ts-ignore
-                            const isSelected=useSelector(isSelectedClientCheckbox(props.input[item].value))
+                            const isSelected=useSelector(props.isSelectedCheckbox(props.input[item].value))
                             return (
                                 <div className={"checkbox__wrapper"} key={index}>
                                     {/*//@ts-ignore*/}

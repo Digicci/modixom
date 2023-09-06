@@ -5,7 +5,11 @@ import ContactFormInput from "../../../../components/ContactFormInput";
 import {useDispatch, useSelector} from "react-redux";
 import {setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
 import validator from "../../../../utils/tools/validator";
-import {getAddAnnonceError, getAddAnnonceValues} from "../../../../store/selectors/AddAnnonceSelectors";
+import {
+    getAddAnnonceError,
+    getAddAnnonceValues,
+    isSelectedClientCheckbox
+} from "../../../../store/selectors/AddAnnonceSelectors";
 import {getCategoryCollection} from "../../../../store/selectors/CategorySelectors";
 import {useApi} from "../../../../services/ApiService";
 import {endpoints} from "../../../../constants";
@@ -103,8 +107,21 @@ const AddAnnonceForm: React.FC = () => {
                                     </div>
                                 </div>
                             )
-                        } else {
+                        }
+                        if (item === "client") {
                             return (
+                                <ContactFormInput
+                                    key={index}
+                                    //@ts-ignore
+                                    {...FormField[item]}
+                                    handleChange={handleChange}
+                                    errorSelector={getAddAnnonceError}
+                                    classPrefix={"addAnnonce__container__form__wrapper"}
+                                    isSelectedCheckbox={isSelectedClientCheckbox}
+                                />
+                            )
+                        }
+                        return (
                                 <ContactFormInput
                                     key={index}
                                     //@ts-ignore
@@ -114,7 +131,7 @@ const AddAnnonceForm: React.FC = () => {
                                     classPrefix={"addAnnonce__container__form__wrapper"}
                                 />
                             )
-                        }
+
 
 
                     })

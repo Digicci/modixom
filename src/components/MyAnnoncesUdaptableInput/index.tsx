@@ -18,6 +18,7 @@ interface IMyAnnoncesUdaptableInput {
     categorie?: Array<object>;
     isUpdating: boolean;
     imgHandler?:()=>void;
+    isSelectedCheckbox ?:(state:string)=>any;
 
 }
 
@@ -63,6 +64,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                             errorSelector={props.errorSelector}
                             value={props.value}
                             input={props.input || ""}
+                            isSelectedCheckbox={props.isSelectedCheckbox}
                         />
                     ) :
                     (

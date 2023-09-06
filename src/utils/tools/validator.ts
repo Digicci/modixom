@@ -141,6 +141,7 @@ export const validator = (
         const errors: Array<string> = []
         Object.keys(formConfig).forEach((name: string) => {
                 const error = validate(name, values[name]);
+                console.log(name,values[name])
                 if (error !== '') errors.push(error);
         });
         return errors;

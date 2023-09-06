@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getMyAnnonceById,
     getMyAnnoncesDetailErrorState,
-    getMyAnnoncesValues
+    getMyAnnoncesValues, isSelectedClientCheckboxMyAnnonce
 } from "../../../store/selectors/myAnnonceSelectors";
 
 import validator from "../../../utils/tools/validator";
@@ -39,7 +39,6 @@ const MyAnnonceDetail: React.FC = () => {
             dateHeureDebut: "",
             dateHeureFin: "",
             norme: false,
-            client: [],
             quantite: 0,
             logo: annoncefind.images,
             prix: annoncefind.prix,
@@ -121,6 +120,21 @@ const MyAnnonceDetail: React.FC = () => {
                                             //@ts-ignore
                                                                   actualValue={annonce[item]}
                                                                   imgHandler={handleImgChange}
+
+                                        />
+                                    )
+                                }
+                                if(item==="client"){
+
+                                    return (
+                                        // @ts-ignore
+                                        <MyAnnoncesUdaptableInput isUpdating={modif} key={index} {...FormFieldConfig[item]}
+                                                                  handleChange={handleChange}
+                                                                  value={annonceDetail[item]}
+                                                                  errorSelector={getMyAnnoncesDetailErrorState}
+                                            //@ts-ignore
+                                                                  actualValue={annonce[item]}
+                                                                  isSelectedCheckbox={isSelectedClientCheckboxMyAnnonce}
 
                                         />
                                     )
