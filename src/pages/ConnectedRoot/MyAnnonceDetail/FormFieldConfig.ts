@@ -5,6 +5,7 @@ import {clientTypes} from "../../../constants";
 interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"|"logo"|"norme"> {
     quantite: Object;
     client: Object;
+    logo:Object;
 }
 
 export const FormFieldConfig: IAddAnnonceFormConfig = {
@@ -19,9 +20,14 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
         }
 
     },
+    logo:{
+      name:"image",
+      type:"img",
+      label:"image produit"
+    },
     descriptif: {
         name: "descriptif",
-        type: "text",
+        type: "textarea",
         label: "descriptif produit",
         rules:{
             required:true,

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {IonContent, IonItem, IonLabel, IonPage} from "@ionic/react";
+import {IonActionSheet, IonButton, IonContent, IonFooter, IonItem, IonLabel, IonPage} from "@ionic/react";
 import Header from "../../../components/Header";
 import "./MyAnnonceDetail.scss"
 import {useParams} from "react-router";
@@ -14,12 +14,15 @@ import validator from "../../../utils/tools/validator";
 import {setMyAnnonceDetail, setMyAnnonceDetailError} from "../../../store/actions/myAnnonceDetailAction";
 import MyAnnoncesUdaptableInput from "../../../components/MyAnnoncesUdaptableInput";
 import {FormFieldConfig} from "./FormFieldConfig";
+import {useImageService} from "../../../services/ImageService";
 
 
 
 
 const MyAnnonceDetail: React.FC = () => {
     const [modif, setModif] = useState(false)
+    const [actionSheet, setActionSheet] = useState<boolean>(false);
+    const imgService = useImageService();
     const params = useParams<{ id: string }>();
     const id = parseInt(params.id)
     const annoncefind= useSelector(getMyAnnonceById(id))
@@ -27,7 +30,7 @@ const MyAnnonceDetail: React.FC = () => {
     const dispatch = useDispatch()
     const annonceDetail=useSelector(getMyAnnoncesValues)
     //@ts-ignore a corriger
-    const {validate} = validator(FormFieldConfig, getMyAnnoncesValues, setMyAnnonceDetailError)
+    const {validate,validateAll} = validator(FormFieldConfig, getMyAnnoncesValues, setMyAnnonceDetailError)
     useEffect(() => {
         const annonceConstruc={
             titre: annoncefind.titre,
@@ -38,7 +41,7 @@ const MyAnnonceDetail: React.FC = () => {
             norme: false,
             client: [],
             quantite: 0,
-            logo: annoncefind.image,
+            logo: annoncefind.images,
             prix: annoncefind.prix,
             pourcent: annoncefind.pourcentRemise
         }
@@ -67,8 +70,30 @@ const MyAnnonceDetail: React.FC = () => {
         validate(name, fieldValue)
     }
 
+    const actionSheetButton = {
+        text: 'Ouvrir la galerie',
+        handler: () => {
+            setActionSheet(false);
+            imgService.pickImage().then((res) => {
+                if (typeof res.dataUrl === "string") {
+                    dispatch(setMyAnnonceDetail("logo", res.dataUrl!))
+                }
+            })
+        }
+    }
+    const handleImgChange = () => {
+        setActionSheet(true)
+    }
 
-    //get annoncesProfil parametre token:token
+    const handleSubmit=()=>{
+       const errors = validateAll()
+        if(errors.length===0){
+            console.log(annonceDetail)
+        }
+    }
+
+
+
     return (
         <>
             <IonPage>
@@ -85,6 +110,21 @@ const MyAnnonceDetail: React.FC = () => {
                         {
                             Object.keys(FormFieldConfig).map((item: any, index: number) => {
 
+                                if(item==="logo"){
+
+                                    return (
+                                        //@ts-ignore
+                                        <MyAnnoncesUdaptableInput isUpdating={modif} key={index} {...FormFieldConfig[item]}
+
+                                                                  value={annonceDetail[item]}
+                                                                  errorSelector={getMyAnnoncesDetailErrorState}
+                                            //@ts-ignore
+                                                                  actualValue={annonce[item]}
+                                                                  imgHandler={handleImgChange}
+
+                                        />
+                                    )
+                                }
 
                                 return (
                                     // @ts-ignore
@@ -100,6 +140,21 @@ const MyAnnonceDetail: React.FC = () => {
                             })
                         }
                     </div>
+                    <IonActionSheet
+                        isOpen={actionSheet}
+                        onDidDismiss={() => {
+                            setActionSheet(false)
+                        }}
+                        header={'Changer de logo'}
+                        buttons={[actionSheetButton]}
+                    />
+                    {
+                        modif && (
+                            <IonFooter className={'validateButtonContainer'}>
+                                <IonButton className={'validateButton'} onClick={handleSubmit}>Valider</IonButton>
+                            </IonFooter>
+                        )
+                    }
                 </IonContent>
             </IonPage>
         </>

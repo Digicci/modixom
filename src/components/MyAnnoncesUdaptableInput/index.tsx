@@ -1,5 +1,6 @@
 import React, {FormEventHandler} from "react";
 import ContactFormInput from "../ContactFormInput";
+import {IonButton, IonImg} from "@ionic/react";
 
 
 interface IMyAnnoncesUdaptableInput {
@@ -16,13 +17,38 @@ interface IMyAnnoncesUdaptableInput {
     input?: Object;
     categorie?: Array<object>;
     isUpdating: boolean;
+    imgHandler?:()=>void;
 
 }
 
 const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IMyAnnoncesUdaptableInput) => {
 
 
+    if (props.type === "img") {
+        return (
+            <div className={`${props.classPrefix}__logoContainer`} style={{
+                transition: "all 0.5s ease-in-out"
+            }}>
+                {
+                    props.isUpdating ? (
+                        <IonButton
+                            className={`${props.classPrefix}__logoContainer__button`}
+                            onClick={props.imgHandler}
+                        >Changer le {props.label}</IonButton>
+                    ) : (
+                        <p>{props.label}</p>
+                    )
+                }
+                <IonImg
+                    src={props.value}
+                    className={`${props.classPrefix}__logoContainer__logo`}
+                    alt={"img"}
+                />
+            </div>
+        )
+    }
     return (
+        <>
         <div className={props.classPrefix || ""} style={{
             transition: "all 0.5s ease-in-out"
         }}>
@@ -48,6 +74,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
             }
 
         </div>
+        </>
     )
 }
 export default MyAnnoncesUpdatableInput

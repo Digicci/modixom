@@ -120,6 +120,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             </>
         )
     }
+
     if (props.type === "textarea") {
         return (
             <>
@@ -128,6 +129,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
                     <textarea
                         name={props.name || props.label}
                         onChange={props.handleChange}
+                        value={props.value}
                     />
                 </div>
                 <p className={"inputGroup__error"}>{
