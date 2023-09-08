@@ -57,7 +57,7 @@ const ConnectedRoot: React.FC = () => {
                 // End of router outlet /////////////////////////////////////////////////////
                 // Bottom tab bar navigation
             }
-            <IonTabBar slot="bottom">
+            <IonTabBar slot="bottom" style={{paddingBottom: '40px'}}>
                 <IonTabButton tab="home" href="/home">
                     <IonIcon aria-hidden={true} icon={home}/>
                 </IonTabButton>
