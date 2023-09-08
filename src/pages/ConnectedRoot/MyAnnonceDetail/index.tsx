@@ -113,7 +113,7 @@ const MyAnnonceDetail: React.FC = () => {
 
                                     return (
                                         //@ts-ignore
-                                        <MyAnnoncesUdaptableInput isUpdating={modif} key={index} {...FormFieldConfig[item]}
+                                        <MyAnnoncesUdaptableInput classPrefix={"myAnnonceDetail__container__logo"} isUpdating={modif} key={index} {...FormFieldConfig[item]}
 
                                                                   value={annonceDetail[item]}
                                                                   errorSelector={getMyAnnoncesDetailErrorState}
@@ -148,6 +148,7 @@ const MyAnnonceDetail: React.FC = () => {
                                                               errorSelector={getMyAnnoncesDetailErrorState}
                                                               //@ts-ignore
                                                               actualValue={annonce[item]}
+                                                              classPrefix={"myAnnonceDetail__container__infoWrapper"}
 
                                     />
                                 )

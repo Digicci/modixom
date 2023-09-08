@@ -69,7 +69,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                     ) :
                     (
                         <>
-                            <p>{props.label}</p>
+                            <p className={"label"}>{props.label}</p>
                             <span>{props.actualValue}</span>
                         </>
                     )

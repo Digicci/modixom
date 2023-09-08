@@ -1,31 +1,55 @@
-.myAnnonceDetail{
-  &__container{
+.myAnnonceDetail {
+  &__container {
     padding: 0 1rem;
     font-size: 1.3rem;
-    &__infoWrapper{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin-top: 20px;
 
-      &__name {
+    &__infoWrapper {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0px;
+
+      .label {
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-weight: bold;
+
+      }
+
+      div {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 10px;
 
-        p{
-          font-weight: bold;
+        textarea{
+          height: 105px;
+          width: 100%;
         }
-      }
-      div {
-        width: 90%;
-        display: flex;
+        input{
+          width: 100%;
+        }
 
       }
+
       & > span {
         font-weight: normal;
-        align-self: end;
+
       }
     }
+
+    &__logo__logoContainer{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px 0px;
+
+      &__logo{
+        height: 100px;
+      }
+    }
+
+
   }
 }

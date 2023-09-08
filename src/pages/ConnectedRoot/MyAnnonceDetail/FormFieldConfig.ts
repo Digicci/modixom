@@ -12,7 +12,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     titre: {
         name: "titre",
         type: "text",
-        label: "titre annonce",
+        label: "titre annonce :",
         rules:{
             required:true,
             minLength:5,
@@ -23,12 +23,12 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     logo:{
       name:"image",
       type:"img",
-      label:"image produit"
+      label:"image produit :"
     },
     descriptif: {
         name: "descriptif",
         type: "textarea",
-        label: "descriptif produit",
+        label: "descriptif produit :",
         rules:{
             required:true,
             minLength:5,
@@ -38,7 +38,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     categorie: {
         name: "categorie",
         type: "select",
-        label: "Choisir une catégorie",
+        label: "Catégorie :",
         errorMessage: "veuillez choisir une catégorie",
         rules:{
             required:true,
@@ -48,7 +48,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     quantite: {
         name: "quantite",
         type: "number",
-        label: "quantité",
+        label: "quantité :",
         rules:{
             required:true,
             quantite:true,
@@ -57,7 +57,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     dateHeureDebut: {
         name: "dateHeureDebut",
         type: "datetime-local",
-        label: "date et heure de parution",
+        label: "date et heure de parution :",
         errorMessage: "veuillez choisir une date et une heure",
         rules:{
             required:true,
@@ -66,7 +66,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     dateHeureFin: {
         name: "dateHeureFin",
         type: "datetime-local",
-        label: "date et heure de fin de parution",
+        label: "date et heure de fin de parution :",
         errorMessage: "veuillez choisir une date et une heure",
         rules:{
             required:true,
@@ -75,7 +75,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     prix:{
         name:"prix",
         type:"number",
-        label:'Prix',
+        label:'Prix :',
         rules:{
             required:true,
             quantite:true,
@@ -84,7 +84,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     pourcent:{
         name:"pourcent",
         type:"number",
-        label:"pourcentage de réduction",
+        label:"pourcentage de réduction :",
         rules:{
             required:true,
             quantite:true,
@@ -99,12 +99,12 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
         input: {
             particulier: {
                 name: "client",
-                label: "des particuliers",
+                label: "des particuliers :",
                 value: clientTypes.part
             },
             professionnels: {
                 name: "client",
-                label: "des professionnels",
+                label: "des professionnels : ",
                 value: clientTypes.pro
             }
         },
