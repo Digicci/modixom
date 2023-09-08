@@ -1,5 +1,14 @@
+import {Geolocation, Geoposition} from "@ionic-native/geolocation";
+
 export const getLocation = async () => {
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
+
+    const authorization = Geolocation
+    console.log(authorization)
+
+   try {
+       const position: Geoposition = await Geolocation.getCurrentPosition()
+       return position
+   } catch(e: any) {
+       console.log(e.message)
+   }
 }
