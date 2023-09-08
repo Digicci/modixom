@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/main.tsx",
   "scripts": {
-    "dev": "ionic serve",
+    "dev": "ionic serve --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test.e2e": "cypress run",

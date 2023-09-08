@@ -47,6 +47,7 @@ const AddAnnonceForm: React.FC = () => {
             text: 'Ouvrir la galerie',
             handler: () => {
                 imgService.pickImage().then((res) => {
+                    console.log(res)
                     if(typeof res.dataUrl==="string") {
                         dispatch(setAddAnnonceField("logo", res.dataUrl!))
                         setImgMessage({

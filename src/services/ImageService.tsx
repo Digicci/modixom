@@ -7,11 +7,15 @@ export const useImageService = () => {
 
     // Todo : On aimerait récupérer plus d'infos sur l'image, comme sa taille, son nom, etc...
     const pickImage = async () => {
-        return await Camera.getPhoto({
+        const image = await Camera.getPhoto({
             resultType: CameraResultType.DataUrl,
             source: CameraSource.Photos,
-            quality: 100
+            quality: 100,
+            promptLabelCancel: 'Annuler',
+            presentationStyle: 'popover',
+            promptLabelPhoto: 'Gallery'
         })
+        return image
     }
 
     return {
