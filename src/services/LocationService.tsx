@@ -1,14 +1,21 @@
-import {Geolocation, Geoposition} from "@ionic-native/geolocation";
+import {Geolocation} from "@capacitor/geolocation";
 
 export const getLocation = async () => {
-
-    const authorization = Geolocation
-    console.log(authorization)
+    ensureAuthorization()
 
    try {
-       const position: Geoposition = await Geolocation.getCurrentPosition()
-       return position
+       return await Geolocation.getCurrentPosition()
    } catch(e: any) {
        console.log(e.message)
    }
+}
+
+const ensureAuthorization = () => {
+    Geolocation.checkPermissions().then((permissionStatus) => {
+        permissionStatus.location === 'denied' && Geolocation.requestPermissions({
+            permissions: ['location']
+        }).then((permissionStatus) => {
+            console.log(permissionStatus)
+        })
+    })
 }
