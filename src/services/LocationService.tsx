@@ -12,7 +12,8 @@ export const getLocation = async () => {
 
 const ensureAuthorization = () => {
     Geolocation.checkPermissions().then((permissionStatus) => {
-        permissionStatus.location === 'denied' && Geolocation.requestPermissions({
+        console.log(permissionStatus)
+        permissionStatus.location !== 'granted' && Geolocation.requestPermissions({
             permissions: ['location']
         }).then((permissionStatus) => {
             console.log(permissionStatus)

@@ -105,8 +105,8 @@ const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, re
     const handleLocationClick = () => {
         getLocation().then((res: any) => {
             console.log(res)
-            dispatch(dispatchFn({lat: res.coords.latitude, lng: res.coords.longitude, rayon: rayon ?? 50, ville: null}));
-            changeVille(positionLabel);
+            res && dispatch(dispatchFn({lat: res.coords.latitude, lng: res.coords.longitude, rayon: rayon ?? 50, ville: null}));
+            res && changeVille(positionLabel);
         })
     }
 
