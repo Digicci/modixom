@@ -37,7 +37,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                             onClick={props.imgHandler}
                         >Changer le {props.label}</IonButton>
                     ) : (
-                        <p>{props.label}</p>
+                        <p className={"label"}>{props.label}</p>
                     )
                 }
                 <IonImg

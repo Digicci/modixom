@@ -1,6 +1,5 @@
 import React, {FormEventHandler, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {isSelectedClientCheckbox} from "../../store/selectors/AddAnnonceSelectors";
 import {IonItem, IonSelect, IonSelectOption} from "@ionic/react";
 import {endpoints} from "../../constants";
 import ICategory from "../../models/ICategory";
@@ -97,7 +96,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             <>
                 <div className={props.classPrefix || ""}>
 
-                        <p>{props.label}</p>
+                        <p className={"label"}>{props.label}</p>
                     {
                         //@ts-ignore
                         Object.keys(props.input).map((item: any, index: number) => {
@@ -126,7 +125,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
         return (
             <>
                 <div className={props.classPrefix || ""}>
-                    <p>{props.label}</p>
+                    <p className={"label"}>{props.label}</p>
                     <textarea
                         name={props.name || props.label}
                         onChange={props.handleChange}
@@ -142,7 +141,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
     return (
         <>
             <div className={props.classPrefix || ""}>
-                <p>{props.label}</p>
+                <p className={"label"}>{props.label}</p>
                 <input type={props.type}
                        name={props.name}
                        onChange={props.handleChange}

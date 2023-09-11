@@ -91,6 +91,9 @@ const MyAnnonceDetail: React.FC = () => {
         }
     }
 
+    useEffect(()=>{
+        validateAll()
+    }, [annonceDetail])
 
 
     return (

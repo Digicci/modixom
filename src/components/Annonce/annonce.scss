@@ -89,13 +89,12 @@
       }
     }
   }
-
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin:0;
-    padding: 0;
-  }
+}
+.annonce__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 99%;
+  margin:0;
+  padding: 0 3px;
 }
