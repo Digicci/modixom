@@ -40,6 +40,8 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                 console.log(vendeurNote)
                 console.log(userToken)
                 console.log(props.idVendeur)
+                props.onDidDismiss()
+
             }else{
                 setError("veuillez choisir une note different de 0 ")
             }
@@ -54,7 +56,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
         props.onDidDismiss()
     }
     return (
-        <IonModal id={"starModal"} showBackdrop={true} backdropDismiss={true} isOpen={props.isOpen}
+        <IonModal id={"starModal"} showBackdrop={true} backdropDismiss={false} isOpen={props.isOpen}
                   onDidDismiss={props.onDidDismiss}>
             <div className={"starModal__container"}>
                 <h1>Noter: {props.header}</h1>
@@ -88,7 +90,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                             <IonRange min={0} max={100} pin={true} onIonKnobMoveEnd={({detail})=>{setVendeurNote(detail.value)}} />
                         </div>
                 }
-                {error && <p>{error}</p>}
+                {error && <p className={"inputGroup__error"}>{error}</p>}
                 <div className={"starModal__container__buttonContainer"}>
                     <IonButton className={"starModal__container__buttonContainer__button"}
                                onClick={cancel}> Annuler</IonButton>

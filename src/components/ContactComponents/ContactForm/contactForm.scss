@@ -1,6 +1,10 @@
 .contact{
   padding: 1rem;
   min-height: 100%;
+  .textarea-wrapper{
+    border: 1px solid var(--ion-color-dark);
+    padding: 3px;
+  }
   & h2{
     text-transform: uppercase;
   }

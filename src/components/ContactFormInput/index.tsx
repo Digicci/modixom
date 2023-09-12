@@ -1,6 +1,6 @@
 import React, {FormEventHandler, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {IonItem, IonSelect, IonSelectOption} from "@ionic/react";
+import {IonItem, IonSelect, IonSelectOption, IonTextarea} from "@ionic/react";
 import {endpoints} from "../../constants";
 import ICategory from "../../models/ICategory";
 import {setCategoryCollection} from "../../store/actions/categoryActions";
@@ -126,10 +126,12 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             <>
                 <div className={props.classPrefix || ""}>
                     <p className={"label"}>{props.label}</p>
-                    <textarea
+                    <IonTextarea
                         name={props.name || props.label}
-                        onChange={props.handleChange}
+                        //@ts-ignore
+                        onIonChange={props.handleChange}
                         value={props.value}
+                        autoGrow={true}
                     />
                 </div>
                 <p className={"inputGroup__error"}>{
