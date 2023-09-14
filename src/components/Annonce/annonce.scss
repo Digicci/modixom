@@ -5,8 +5,9 @@
   align-items: center;
   padding: 10px 0;
   width: 100%;
+  height: 230px;
 
-  &__top {
+  &__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,7 +18,7 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      max-width: 100px;
+      max-width: 143px;
 
       & .img {
         width: 100%;
@@ -25,7 +26,7 @@
       }
     }
 
-    &__description {
+    &__information {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -36,10 +37,14 @@
       &__title {
         font-size: 1.5rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0rem;
       }
 
-      &__text {
+      &__notation {
+       margin-bottom: 0.3rem;
+      }
+
+      &__description {
         font-size: .8rem;
         font-weight: 400;
         margin-bottom: 0.5rem;
@@ -47,32 +52,30 @@
         overflow: hidden;
         text-overflow: "-->";
       }
-    }
 
-    &__price {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 150px;
 
-      & .vendor {
-        width: 100%;
-        height: 100%;
+      &__price {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 5px 0px;
+        width: 100%;
 
-        &__img {
-          max-width: 55px;
-        }
+        //& .vendor {
+        //  width: 100%;
+        //  height: 100%;
+        //  display: flex;
+        //  justify-content: center;
+        //  align-items: center;
+
+        //&__img {
+        //  max-width: 55px;
+        //}
       }
 
       & .price {
         width: 100%;
-        height: 100%;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
         align-items: center;
         gap: 5px;
@@ -80,7 +83,7 @@
         &__old {
           color: red;
           text-decoration: line-through;
-          font-size: 0.8rem;
+          font-size: 1rem;
         }
 
         &__new {
@@ -90,11 +93,5 @@
     }
   }
 }
-.annonce__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 99%;
-  margin:0;
-  padding: 0 3px;
-}
+
+

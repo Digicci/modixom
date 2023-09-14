@@ -15,25 +15,22 @@ interface INotationsProps {
 
 const Notation: React.FC<INotationsProps> = (props: INotationsProps) => {
     const [showNotation, setShowNotation] = useState(false)
-    const [type, setType] = useState<"vendeur" | "produit">("produit");
     const closeModal = () => {
         setShowNotation(false)
 
     }
-    const openModal = (value: "produit" | "vendeur") => {
-        setType(value)
+    const openModal = (e:React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
         setShowNotation(true)
     }
 
 
     return (
         <div className={'notation'}>
-            <div className={'notation__price'} onClick={() => {
-                openModal("produit")
+            <div className={'notation__price'} onClick={(e) => {
+                openModal(e)
             }}>
-                <div className={"notation__price__title"}>
-                    Note produit
-                </div>
                 <div className={"notation__price__stars"}>
                     {
                         Array(5).fill(0).map((_, index) => (
@@ -66,27 +63,30 @@ const Notation: React.FC<INotationsProps> = (props: INotationsProps) => {
                         ))
                     }
                 </div>
+                <div className={"notation__price__title"}>
+                    {/*mettre le nombre d'avis plus tard quand api modifier*/}
+                    (15)
+                </div>
             </div>
             {/*@ts-ignore*/}
-            <div className={'notation__vendor'} onClick={() => {
-                openModal("vendeur")
-            }}>
-                <div className={"notation__vendor__title"}>
-                    Note vendeur
-                </div>
-                <div className={"notation__vendor__bar"}>
-                    <div className={'notation__vendor__bar__label'}>{props.vendorNote}%</div>
-                    <div className={"notation__vendor__bar__progress"}>
-                        <div className={"notation__vendor__bar__progress__fill"} style={{
-                            width: `calc(100% - ${props.vendorNote}%)`,
-                        }}>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <AlertNotation type={type} idProduit={props.idProduit} isOpen={showNotation} onDidDismiss={closeModal}
-                           header={type === "produit" ? props.titreAnnonce : props.vendeur}
-                           idVendeur={props.idVendeur}
+            {/*<div className={'notation__vendor'} onClick={() => {*/}
+            {/*    openModal("vendeur")*/}
+            {/*}}>*/}
+            {/*    <div className={"notation__vendor__title"}>*/}
+            {/*        Note vendeur*/}
+            {/*    </div>*/}
+            {/*    <div className={"notation__vendor__bar"}>*/}
+            {/*        <div className={'notation__vendor__bar__label'}>{props.vendorNote}%</div>*/}
+            {/*        <div className={"notation__vendor__bar__progress"}>*/}
+            {/*            <div className={"notation__vendor__bar__progress__fill"} style={{*/}
+            {/*                width: `calc(100% - ${props.vendorNote}%)`,*/}
+            {/*            }}>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <AlertNotation  idProduit={props.idProduit} isOpen={showNotation} onDidDismiss={closeModal}
+                           header={ props.titreAnnonce }
             />
         </div>
     )

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {IonButton, IonModal, IonRange} from "@ionic/react";
+import {IonButton, IonModal} from "@ionic/react";
 import "./alertNotation.scss"
 import {useSelector} from "react-redux";
 import {getUserToken} from "../../store/selectors/UserSelectors";
@@ -9,8 +9,6 @@ interface IAlertNotationProps {
     onDidDismiss: () => void;
     header?: string;
     idProduit: number;
-    idVendeur:number;
-    type: "produit" | "vendeur";
 
 }
 
@@ -18,40 +16,29 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
     const star = 5;
     const starArray = Array.from({length: star}, (_, index) => index + 1);
     const [highlightedLabel, setHighlightedLabel] = useState<number | null>(null);
-    const [vendeurNote,setVendeurNote]= useState<any>(0)
     const [error, setError] = useState("")
 
     const userToken = useSelector(getUserToken);
     const handleCheckStar = (e: React.MouseEvent<HTMLLabelElement>) => {
+        e.stopPropagation()
         setHighlightedLabel(parseInt(e.currentTarget.id, 10));
     }
-    const ValidatehandleCheckStar = () => {
-        if(props.type==="produit"){
+    const ValidatehandleCheckStar = (e:React.MouseEvent) => {
+        e.stopPropagation()
             if (highlightedLabel !== null) {
                 console.log(userToken)
                 console.log(props.idProduit)
                 console.log(highlightedLabel)
+                setHighlightedLabel(null)
                 props.onDidDismiss()
             } else {
                 setError("veuillez selectionner une note ")
             }
-        }else{
-            if(vendeurNote!==0){
-                console.log(vendeurNote)
-                console.log(userToken)
-                console.log(props.idVendeur)
-                props.onDidDismiss()
-
-            }else{
-                setError("veuillez choisir une note different de 0 ")
-            }
-        }
-
     };
 
-    const cancel = () => {
+    const cancel = (e:React.MouseEvent) => {
+        e.stopPropagation()
         setHighlightedLabel(null)
-        setVendeurNote(0)
         setError("")
         props.onDidDismiss()
     }
@@ -61,34 +48,29 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
             <div className={"starModal__container"}>
                 <h1>Noter: {props.header}</h1>
                 {
-                    props.type==="produit" ?
-                        <div className={"starModal__container__starsContainer"}>
-                            {starArray.map((item: any) => {
-                                const labelClass = `starModal__container__starsContainer__starWrapper input${item} ${
-                                    //@ts-ignore
-                                    item <= highlightedLabel ? "highlighted" : ""
-                                }`;
-                                return (
-                                    <label
-                                        id={item.toString()}
-                                        className={labelClass}
-                                        onClick={handleCheckStar}
-                                        key={item}
-                                    >
-                                        <input
-                                            className="starModal__container__starsContainer__starWrapper__starInput"
-                                            name="star"
-                                            type="radio"
-                                        />
-                                        ⭐️
-                                    </label>
-                                );
-                            })}
-                        </div>
-                        :
-                        <div className={"starModal__container__rangeContainer"}>
-                            <IonRange min={0} max={100} pin={true} onIonKnobMoveEnd={({detail})=>{setVendeurNote(detail.value)}} />
-                        </div>
+                    <div className={"starModal__container__starsContainer"}>
+                        {starArray.map((item: any) => {
+                            const labelClass = `starModal__container__starsContainer__starWrapper input${item} ${
+                                //@ts-ignore
+                                item <= highlightedLabel ? "highlighted" : ""
+                            }`;
+                            return (
+                                <label
+                                    id={item.toString()}
+                                    className={labelClass}
+                                    onClick={handleCheckStar}
+                                    key={item}
+                                >
+                                    <input
+                                        className="starModal__container__starsContainer__starWrapper__starInput"
+                                        name="star"
+                                        type="radio"
+                                    />
+                                    ⭐️
+                                </label>
+                            );
+                        })}
+                    </div>
                 }
                 {error && <p className={"inputGroup__error"}>{error}</p>}
                 <div className={"starModal__container__buttonContainer"}>
