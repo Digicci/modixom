@@ -19,7 +19,7 @@ const Header: React.FC<IHeaderProps> = ({text, canGoBack = false, defaultHref = 
 
     return (
         <IonHeader className={headerClass}>
-            <IonToolbar className={'toolBar'}>
+            <IonToolbar className={'toolBar'} style={{paddingTop: '40px'}}>
                 {
                     canGoBack &&
                         <IonButtons slot={"start"}>

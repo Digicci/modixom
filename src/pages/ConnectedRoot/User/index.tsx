@@ -20,6 +20,7 @@ interface IUserRoute {
     route: string;
     label: string;
     color?: string;
+    disabled?: boolean;
 }
 const User: React.FC = () => {
     //On cherche à savoir si l'utilisateur est un pro
@@ -40,7 +41,8 @@ const User: React.FC = () => {
         },
         {
             route: "confidentialite",
-            label: "politique de confidentialité"
+            label: "politique de confidentialité",
+            disabled: true,
         }
     ];
     // On ajoute les routes dont seuls les pro peuvent avoir access
@@ -49,19 +51,23 @@ const User: React.FC = () => {
         availableRoutes.push(
             {
                 route: 'facture',
-                label: "factures"
+                label: "factures",
+                disabled: true
             },
             {
                 route: 'buyCredit',
-                label: "acheter du crédit"
+                label: "acheter du crédit",
+                disabled: true
             },
             {
                 route: 'myAnnonces',
-                label: "annonces diffusées"
+                label: "annonces diffusées",
+                disabled: true
             },
             {
                 route: 'contact',
-                label: "nous contacter"
+                label: "nous contacter",
+                disabled: true
             }
         )
     }
@@ -102,6 +108,7 @@ const User: React.FC = () => {
                                     }
                                     routerLink={`/user/${item.route}`}
                                     routerDirection={"forward"}
+                                    disabled={item.disabled}
                                 >
                                     <IonLabel className={'list__item__label'}>
                                         {item.label.toUpperCase()}

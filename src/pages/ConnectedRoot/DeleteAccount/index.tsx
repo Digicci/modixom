@@ -1,26 +1,19 @@
 import React, {useState} from "react";
 import "./deleteAccount.scss"
+import { useIonToast } from "@ionic/react";
 import {
-    IonBackButton,
     IonButton,
-    IonButtons,
     IonContent,
     IonFooter,
-    IonHeader,
-    IonPage, IonTitle,
-    IonToolbar
+    IonPage,
 } from "@ionic/react";
-import {useSelector} from "react-redux";
-import {isUserPro} from "../../../store/selectors/UserSelectors";
-import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 import Header from "../../../components/Header";
 
 const DeleteAccount: React.FC = () => {
 
-    const isPro: boolean = useSelector(isUserPro);
-    const headerClass: string = generateHeaderClassName(isPro);
     const [checked, setChecked] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
+    const [present] = useIonToast();
 
     const handleChange = (): void => {
         setChecked(!checked);
@@ -32,6 +25,11 @@ const DeleteAccount: React.FC = () => {
             setError(false);
             //TODO ajouter la requete vers l'api pour supprimer l'utilisateur
             console.log("ok")
+            present({
+                message: 'en cour de développement',
+                duration: 5000,
+                color: "warning"
+            })
         }
 
     }
