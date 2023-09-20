@@ -12,6 +12,7 @@ import {endpoints} from "../../../constants";
 
 import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 import Header from "../../../components/Header";
+import StarsComponents from "../../../components/StarsComponents";
 
 
 const AnnonceDetail: React.FC = () => {

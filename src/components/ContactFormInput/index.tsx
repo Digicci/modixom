@@ -1,7 +1,11 @@
-import React, {FormEventHandler} from "react";
-import {useSelector} from "react-redux";
-import {isSelectedClientCheckbox} from "../../store/selectors/AddAnnonceSelectors";
-import {IonItem, IonSelect, IonSelectOption} from "@ionic/react";
+import React, {FormEventHandler, useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {IonItem, IonSelect, IonSelectOption, IonTextarea} from "@ionic/react";
+import {endpoints} from "../../constants";
+import ICategory from "../../models/ICategory";
+import {setCategoryCollection} from "../../store/actions/categoryActions";
+import {useApi} from "../../services/ApiService";
+import {getCategoryCollection} from "../../store/selectors/CategorySelectors";
 
 interface IContactFormInputProps {
     label: string;
@@ -14,12 +18,27 @@ interface IContactFormInputProps {
     errorSelector?: (state: any) => any;
     value?: string;
     input?: Object;
-    categorie?:Array<object>
+    categorie?:Array<object>;
+    isSelectedCheckbox?:(state:string)=>any
 }
 
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
     const error = props.errorSelector ? props.type==="client"? useSelector(props.errorSelector)["client"]:useSelector(props.errorSelector)[props.name] : null;
-    const categorie:Array<Object>=props.categorie||[]
+
+    const dispatch = useDispatch();
+
+    const api = useApi();
+    const categoryCollection=useSelector(getCategoryCollection);
+
+    const fetchCategorie=()=>{
+        categoryCollection.length === 0 && api.get(endpoints.categories).then((res: ICategory[]) => {
+            dispatch(setCategoryCollection(res))
+        })
+    }
+    useEffect(() => {
+        fetchCategorie()
+    }, []);
+    const categorie:Array<Object>=props.categorie||categoryCollection;
 
 
     if(props.type==="select"){
@@ -29,6 +48,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
                     {/*@ts-ignore*/}
                     <IonSelect label={props.label} required={props.required} name={"categorie"} onIonChange={props.handleChange}>
                         {
+
                             Object.keys(categorie).map((item:any,index:number)=>{
                                 return(
                                     // @ts-ignore
@@ -76,12 +96,12 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             <>
                 <div className={props.classPrefix || ""}>
 
-                        <p>{props.label}</p>
+                        <p className={"label"}>{props.label}</p>
                     {
                         //@ts-ignore
                         Object.keys(props.input).map((item: any, index: number) => {
                             //@ts-ignore
-                            const isSelected=useSelector(isSelectedClientCheckbox(props.input[item].value))
+                            const isSelected=useSelector(props.isSelectedCheckbox(props.input[item].value))
                             return (
                                 <div className={"checkbox__wrapper"} key={index}>
                                     {/*//@ts-ignore*/}
@@ -100,14 +120,18 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             </>
         )
     }
+
     if (props.type === "textarea") {
         return (
             <>
                 <div className={props.classPrefix || ""}>
-                    <p>{props.label}</p>
-                    <textarea
+                    <p className={"label"}>{props.label}</p>
+                    <IonTextarea
                         name={props.name || props.label}
-                        onChange={props.handleChange}
+                        //@ts-ignore
+                        onIonChange={props.handleChange}
+                        value={props.value}
+                        autoGrow={true}
                     />
                 </div>
                 <p className={"inputGroup__error"}>{
@@ -119,9 +143,9 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
     return (
         <>
             <div className={props.classPrefix || ""}>
-                <p>{props.label}</p>
+                <p className={"label"}>{props.label}</p>
                 <input type={props.type}
-                       name={props.name || props.label}
+                       name={props.name}
                        onChange={props.handleChange}
                        required={props.required}
                        value={props.value}

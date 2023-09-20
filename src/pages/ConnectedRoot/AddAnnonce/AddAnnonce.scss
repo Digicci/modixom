@@ -29,18 +29,18 @@
         text-transform: none;
       }
 
-      & .inputGroup__error{
+      & .inputGroup__error {
         margin-bottom: 10px;
         text-transform: none;
 
         &:first-letter {
-            text-transform: capitalize;
+          text-transform: capitalize;
         }
       }
 
       & .categorie {
         width: 100%;
-        --padding-start:0px;
+        --padding-start: 0px;
       }
 
       & .logo__wrapper {
@@ -76,7 +76,7 @@
           margin-right: 5px;
         }
 
-        .checkbox__wrapper{
+        .checkbox__wrapper {
           margin: 10px 0;
         }
 

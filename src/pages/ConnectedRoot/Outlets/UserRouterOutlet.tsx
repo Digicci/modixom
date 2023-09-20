@@ -6,6 +6,8 @@ import DeleteAccount from "../DeleteAccount";
 import User from "../User";
 import Account from "../Account";
 import ContactClient from "../ContactClient";
+import MyAnnonce from "../MyAnnonce";
+import MyAnnonceDetail from "../MyAnnonceDetail";
 
 
 
@@ -23,6 +25,12 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/contact`}>
                 <ContactClient/>
+            </Route>
+            <Route exact={true} path={`/user/myAnnonces`}>
+                <MyAnnonce/>
+            </Route>
+            <Route exact={true} path={`/user/myAnnonces/:id`}>
+                <MyAnnonceDetail/>
             </Route>
         </IonRouterOutlet>
     )

@@ -50,6 +50,7 @@ export const validator = (
 
     const validate = (name: string, value: any) => {
         let error = '';
+
         if (name === "client") {
             if (values.client.length===0) {
                 dispatch(setAction("client", "Veuillez choisir au moins un type de client."));
@@ -140,6 +141,7 @@ export const validator = (
         const errors: Array<string> = []
         Object.keys(formConfig).forEach((name: string) => {
                 const error = validate(name, values[name]);
+                console.log(name,values[name])
                 if (error !== '') errors.push(error);
         });
         return errors;

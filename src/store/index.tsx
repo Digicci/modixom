@@ -12,6 +12,7 @@ import categoryReducer from "./reducers/CategoryReducer";
 import AlerteCreatorReducer from "./reducers/AlerteCreatorReducer";
 import ContactFormReducer from "./reducers/ContactReducer";
 import AddAnnonceReducer from "./reducers/AddAnnonceReducer";
+import MyAnnonceReducer from "./reducers/MyAnnonceReducer";
 
 const store: Store = createStore(
     combineReducers({
@@ -22,7 +23,8 @@ const store: Store = createStore(
         addAnnonce:AddAnnonceReducer,
         category: categoryReducer,
         alerte: AlerteCreatorReducer,
-        contact:ContactFormReducer
+        contact:ContactFormReducer,
+        myAnnonce:MyAnnonceReducer
     }),
     composeWithDevTools(applyMiddleware(
         thunk,

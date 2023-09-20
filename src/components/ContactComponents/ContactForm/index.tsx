@@ -50,6 +50,7 @@ const ContactForm: React.FC = () => {
             if(item==="motif"||item==="description"){
                 dispatch(setContactFormField(item,""))
             }else{
+                //@ts-ignore
                 dispatch(setContactFormField(item,user[item]))
             }
 
