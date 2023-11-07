@@ -11,7 +11,7 @@ interface IAnnonceRoute{
     timeLeft?: string
 
 }
-const MyAnnonceComponents: React.FC<IAnnonceRoute>=(props)=>{
+const MyAnnonceComponents: React.FC<IAnnonceRoute> = (props)=>{
 
     const [timeLeft, setTimeLeft] = React.useState<string>(props.timeLeft || '00:00:00');
 

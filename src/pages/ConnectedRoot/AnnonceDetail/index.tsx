@@ -6,13 +6,9 @@ import {IonHeader, IonPage, IonContent, IonBackButton} from "@ionic/react";
 import {IAnnonce} from "../../../models/IAnnonce";
 import {useApi} from "../../../services/ApiService";
 import Loader from "../../../components/Loader";
-import {useSelector} from "react-redux";
-import {isUserPro} from "../../../store/selectors/UserSelectors";
 import {endpoints} from "../../../constants";
 
-import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 import Header from "../../../components/Header";
-import StarsComponents from "../../../components/StarsComponents";
 
 
 const AnnonceDetail: React.FC = () => {
@@ -20,8 +16,6 @@ const AnnonceDetail: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const params = useParams<{ id: string }>();
     const api = useApi();
-    const isPro = useSelector(isUserPro);
-    const headerClass: string = generateHeaderClassName(isPro);
 
     useEffect(() => {
         api.get(endpoints.annonceDetail, {id: params.id}).then((res: IAnnonce) => {
