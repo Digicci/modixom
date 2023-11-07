@@ -66,7 +66,7 @@ const MyAnnonceComponents: React.FC<IAnnonceRoute>=(props)=>{
                 <IonLabel className={"myAnnonce__list__item__label"}>
                     <h2>{props.titre}</h2>
                     <p style={statutStyle}>{props.statut}</p>
-                    <p style={{fontSize: '12px', color: '#ff8000'}}>Temps restant: {timeLeft}</p>
+                    {props.statut === 'active' && <p style={{fontSize: '12px', color: '#ff8000'}}>Temps restant: {timeLeft}</p>}
                 </IonLabel>
             </IonItem>
         </>
