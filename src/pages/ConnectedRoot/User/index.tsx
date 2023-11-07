@@ -62,7 +62,6 @@ const User: React.FC = () => {
             {
                 route: 'myAnnonces',
                 label: "annonces diffusées",
-                disabled: true
             },
             {
                 route: 'contact',

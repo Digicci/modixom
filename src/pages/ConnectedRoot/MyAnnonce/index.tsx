@@ -65,8 +65,9 @@ const MyAnnonce: React.FC = () => {
                     <IonList inset={false} lines={"full"} className={'myAnnonce__list'}>
                         {annonces ? (
                             annonces.map((item: any, index: number) => {
+                                const timeLeft = `${item.heures || '00'}:${item.minutes || '00'}:${item.secondes || '00'}`;
                                 return (
-                                    <MyAnnonceComponents key={index} titre={item.titre} date={item.date} id={item.id} />
+                                    <MyAnnonceComponents key={index} titre={item.titre} timeLeft={timeLeft} statut={item.statut} id={item.id} />
                                 )
                             })
                         ) : (
