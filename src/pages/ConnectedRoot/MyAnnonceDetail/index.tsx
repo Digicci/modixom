@@ -15,6 +15,7 @@ import {setMyAnnonceDetail, setMyAnnonceDetailError} from "../../../store/action
 import MyAnnoncesUdaptableInput from "../../../components/MyAnnoncesUdaptableInput";
 import {FormFieldConfig} from "./FormFieldConfig";
 import {useImageService} from "../../../services/ImageService";
+import {useIonToast} from "@ionic/react";
 
 
 
@@ -31,6 +32,8 @@ const MyAnnonceDetail: React.FC = () => {
     const annonceDetail=useSelector(getMyAnnoncesValues)
     //@ts-ignore a corriger
     const {validate,validateAll} = validator(FormFieldConfig, getMyAnnoncesValues, setMyAnnonceDetailError)
+    const [present] = useIonToast();
+
     useEffect(() => {
         const annonceConstruc={
             titre: annoncefind.titre,
@@ -73,9 +76,17 @@ const MyAnnonceDetail: React.FC = () => {
         text: 'Ouvrir la galerie',
         handler: () => {
             setActionSheet(false);
-            imgService.pickImage().then((res) => {
-                if (typeof res.dataUrl === "string") {
-                    dispatch(setMyAnnonceDetail("logo", res.dataUrl!))
+            imgService.pickImage().then( async (res) => {
+                if(res) {
+                    if (typeof res.dataUrl === "string") {
+                        dispatch(setMyAnnonceDetail("logo", res.dataUrl))
+                    }
+                } else {
+                    await present({
+                        message: "Une erreur est survenue lors du chargement de l'image",
+                        duration: 2000,
+                        color: "danger"
+                    })
                 }
             })
         }

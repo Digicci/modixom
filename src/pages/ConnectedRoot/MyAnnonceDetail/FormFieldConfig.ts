@@ -39,7 +39,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
         name: "categorie",
         type: "select",
         label: "Catégorie :",
-        errorMessage: "veuillez choisir une catégorie",
+        errorMessage: "Veuillez choisir une catégorie",
         rules:{
             required:true,
         }
@@ -58,7 +58,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
         name: "dateHeureDebut",
         type: "datetime-local",
         label: "date et heure de parution :",
-        errorMessage: "veuillez choisir une date et une heure",
+        errorMessage: "Veuillez choisir une date et une heure",
         rules:{
             required:true,
         }
@@ -67,7 +67,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
         name: "dateHeureFin",
         type: "datetime-local",
         label: "date et heure de fin de parution :",
-        errorMessage: "veuillez choisir une date et une heure",
+        errorMessage: "Veuillez choisir une date et une heure",
         rules:{
             required:true,
         }
@@ -95,7 +95,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     client: {
         type: "client",
         errorMessage: "veuillez choisir au moins un type de client",
-        label: "je souhaite diffuser mon annonce auprés :",
+        label: "je souhaite diffuser mon annonce auprès :",
         input: {
             particulier: {
                 name: "client",

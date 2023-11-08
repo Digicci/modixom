@@ -17,6 +17,7 @@ import ICategory from "../../../../models/ICategory";
 import {setCategoryCollection} from "../../../../store/actions/categoryActions";
 import {useImageService} from "../../../../services/ImageService";
 import {getUserToken} from "../../../../store/selectors/UserSelectors";
+import {useIonToast} from "@ionic/react";
 
 interface IImgMessage {
     message: string;
@@ -30,13 +31,15 @@ const AddAnnonceForm: React.FC = () => {
     const data = useSelector(getAddAnnonceValues)
     const categoryCollection = useSelector(getCategoryCollection);
     const imgService = useImageService();
-    const {push}=useIonRouter();
+    const {push} = useIonRouter();
     const [imgMessage, setImgMessage] = React.useState<IImgMessage>({
         message: "Aucune image sélectionnée",
         errored: true
     });
     const [showActionSheet, setShowActionSheet] = React.useState(false);
     const api = useApi()
+    const [present] = useIonToast();
+
     useEffect(() => {
         categoryCollection.length === 0 && api.get(endpoints.categories).then((res: ICategory[]) => {
             dispatch(setCategoryCollection(res))
@@ -46,43 +49,65 @@ const AddAnnonceForm: React.FC = () => {
 
     const userToken = useSelector(getUserToken)
 
-    const imgActionSheetButtons = [
+    const imgActionSheetButtons : {
+        text: string;
+        handler: () => void;
+    }[] = [
         {
             text: 'Ouvrir la galerie',
-            handler: () => {
-                imgService.pickImage().then((res) => {
-                    console.log(res)
-                    if(typeof res.dataUrl==="string") {
-                        dispatch(setAddAnnonceField("logo", res.dataUrl!))
-                        setImgMessage({
-                            message: "Image sélectionnée",
-                            errored: false
+            handler: () : void => {
+                imgService.pickImage().then(async (res) : Promise<void> => {
+                    if (res) {
+                        if (typeof res.dataUrl === "string") {
+                            dispatch(setAddAnnonceField("logo", res.dataUrl))
+                            setImgMessage({
+                                message: "Image sélectionnée",
+                                errored: false
+                            })
+                        }
+                    } else {
+                        await present({
+                            message: "Une erreur est survenue lors du chargement de l'image",
+                            duration: 2000,
+                            color: "danger"
                         })
                     }
                 })
             }
         }
     ]
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
         const {name, value, checked} = e.target
-        const fieldValue =
+        const fieldValue : string | boolean =
             name === "norme" ?
                 checked :
                 value
         dispatch(setAddAnnonceField(name, fieldValue))
         validate(name, fieldValue)
     }
-    const handleSubmit = () => {
-        const errors = validateAll()
-        push("/addAnnonce/valider","forward")
+    const handleSubmit = () : void => {
+        const errors : string[] = validateAll()
         if (errors.length === 0) {
-             api.post(endpoints.postAnnonce, data, {token: userToken}).then((res) => {
-                 console.log(res)
-             })
+            api.post(endpoints.postAnnonce, data, {token: userToken}).then(async (res) : Promise<void> => {
+                if (res.message === "Annonce ajoutée") {
+                    await present({
+                        message: "Annonce ajoutée",
+                        duration: 2000,
+                        color: "success"
+                    })
+                    push("/addAnnonce/valider", "forward")
+                } else {
+                    await present({
+                        message: "Une erreur est survenue lors de la création de l'annonce",
+                        duration: 2000,
+                        color: "danger"
+                    })
+                }
+            })
         }
     }
 
-    useEffect(()=>{
+    useEffect(() : void => {
         validateAll()
     }, [data])
     return (
@@ -104,7 +129,8 @@ const AddAnnonceForm: React.FC = () => {
                                     />
                                     <div className={'logo__wrapper'}>
                                         <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
-                                        <IonButton onClick={() => setShowActionSheet(true)}>ajouter une photo produit</IonButton>
+                                        <IonButton onClick={() => setShowActionSheet(true)}>ajouter une photo
+                                            produit</IonButton>
                                     </div>
                                 </div>
                             )
@@ -123,16 +149,15 @@ const AddAnnonceForm: React.FC = () => {
                             )
                         }
                         return (
-                                <ContactFormInput
-                                    key={index}
-                                    //@ts-ignore
-                                    {...FormField[item]}
-                                    handleChange={handleChange}
-                                    errorSelector={getAddAnnonceError}
-                                    classPrefix={"addAnnonce__container__form__wrapper"}
-                                />
-                            )
-
+                            <ContactFormInput
+                                key={index}
+                                //@ts-ignore
+                                {...FormField[item]}
+                                handleChange={handleChange}
+                                errorSelector={getAddAnnonceError}
+                                classPrefix={"addAnnonce__container__form__wrapper"}
+                            />
+                        )
 
 
                     })
