@@ -95,7 +95,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     client: {
         type: "client",
         errorMessage: "veuillez choisir au moins un type de client",
-        label: "je souhaite diffuser mon annonce auprès :",
+        label: "je souhaite diffuser mon annonce auprès dès :",
         input: {
             particulier: {
                 name: "client",

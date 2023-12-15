@@ -37,6 +37,7 @@ const MyAnnonceDetail: React.FC = () => {
     useEffect(() => {
         const annonceConstruc={
             titre: annoncefind.titre,
+
             descriptif: annoncefind.description,
             categorie: "",
             dateHeureDebut: "",
@@ -45,7 +46,8 @@ const MyAnnonceDetail: React.FC = () => {
             quantite: 0,
             logo: annoncefind.images,
             prix: annoncefind.prix,
-            pourcent: annoncefind.pourcentRemise
+            pourcent: annoncefind.pourcentRemise,
+            visiblePro: annoncefind.visiblePro
         }
         setAnnonce(annonceConstruc)
 

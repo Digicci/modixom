@@ -8,12 +8,21 @@ import {
     IonPage,
 } from "@ionic/react";
 import Header from "../../../components/Header";
+import {useApi} from "../../../services/ApiService";
+import {endpoints} from "../../../constants";
+import {useSelector, useDispatch} from "react-redux";
+import {getUserToken} from "../../../store/selectors/UserSelectors";
+import {disconnectUser} from "../../../store/actions/userActions";
 
 const DeleteAccount: React.FC = () => {
 
     const [checked, setChecked] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
     const [present] = useIonToast();
+    const api = useApi()
+    const dispatch = useDispatch()
+    const token = useSelector(getUserToken)
+
 
     const handleChange = (): void => {
         setChecked(!checked);
@@ -23,23 +32,41 @@ const DeleteAccount: React.FC = () => {
             setError(true);
         } else {
             setError(false);
-            //TODO ajouter la requete vers l'api pour supprimer l'utilisateur
-            console.log("ok")
-            present({
-                message: 'en cour de développement',
-                duration: 5000,
-                color: "warning"
+            api.get(endpoints.deleteProfil, {token}).then((res) => {
+                console.log(res)
+                if(res.message === "Suppression ok") {
+                    present({
+                        message: 'Votre compte à été supprimé',
+                        duration: 5000,
+                        color: "success"
+                    }).then(() => {
+                        dispatch(disconnectUser())
+                    })
+                } else {
+                    present({
+                        message: `Une erreur est survenue : ${res.message}`,
+                        duration: 5000,
+                        color: "danger"
+                    }).then()
+                }
+            }).catch(() => {
+                present({
+                    message: 'Une erreur s\'est produite, merci d\'essayer plus tard',
+                    duration: 5000,
+                    color: "danger"
+                }).then()
             })
+            console.log("ok")
         }
-
     }
+
     return (
         <IonPage className={"deleteAccount"}>
             <Header text={'supprimer mon compte'} canGoBack={true} defaultHref={'/user'} />
             <IonContent>
                 <div className={"deleteAccount__container"}>
                     <div className={"deleteAccount__container__textContainer"}>
-                        <h2>vous allez commencer le processus de supression de votre compte </h2>
+                        <h2>vous allez commencer le processus de suppression de votre compte </h2>
                         {/* VOUS ALLEZ COMMENCER LE PROCESSUS DE SUPPRESSION DE VOTRE COMPTE */}
                         <p>
                             Vous êtes sur le point de nous demander de fermer définitivement

@@ -36,6 +36,7 @@ const Home: React.FC = () => {
 
         api.get(endpoints.annonces, data).then((res: IAnnonce[]) => {
             dispatch(setAnnonce(res));
+            console.log(res)
         });
     }, [where]);
 

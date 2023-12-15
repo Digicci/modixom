@@ -70,14 +70,18 @@ const addOrRemove = (array: Array<string>, value: string) => {
 }
 const MyAnnonceReducer = (state = initialState, action: ReduxActionInterface) => {
     switch (action.type) {
+        //ToDo : dissocier la fonction de modification de la fonction de création.
+            //le but est de définir les valeur du tableau client lors de la création et de les modifier grace à "addOrRemove()" lors du changement
         case SET_MY_ANNONCE_DETAIL:
             const {name, value } = action.payload
+            const client = ['particuliers']
+            name === 'visiblePro' && value === true && client.push('proféssionnels')
+            console.log(name, value)
             return {
                 ...state,
                 myAnnonceDetail: {
                     ...state.myAnnonceDetail,
-                    [name]: name === "client" ?
-                        addOrRemove(state.myAnnonceDetail.client, value) : value,
+                    client: client
                 }
             };
         case SET_MY_ANNONCE_DETAIL_ERROR:

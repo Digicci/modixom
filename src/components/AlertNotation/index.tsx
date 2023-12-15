@@ -3,6 +3,9 @@ import {IonButton, IonModal} from "@ionic/react";
 import "./alertNotation.scss"
 import {useSelector} from "react-redux";
 import {getUserToken} from "../../store/selectors/UserSelectors";
+import {useApi} from "../../services/ApiService";
+import {endpoints} from "../../constants";
+import {useIonToast} from "@ionic/react";
 
 interface IAlertNotationProps {
     isOpen: boolean
@@ -17,6 +20,8 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
     const starArray = Array.from({length: star}, (_, index) => index + 1);
     const [highlightedLabel, setHighlightedLabel] = useState<number | null>(null);
     const [error, setError] = useState("")
+    const api = useApi();
+    const [present] = useIonToast();
 
     const userToken = useSelector(getUserToken);
     const handleCheckStar = (e: React.MouseEvent<HTMLLabelElement>) => {
@@ -26,11 +31,35 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
     const ValidatehandleCheckStar = (e:React.MouseEvent) => {
         e.stopPropagation()
             if (highlightedLabel !== null) {
-                console.log(userToken)
-                console.log(props.idProduit)
-                console.log(highlightedLabel)
-                setHighlightedLabel(null)
-                props.onDidDismiss()
+                api.post(
+                    endpoints.addNote,
+                    {
+                        produit: props.idProduit,
+                        note: highlightedLabel
+                    },
+                    {
+                        token: userToken
+                    }
+                ).then(() => {
+                    present({
+                        message: "Votre note à été ajoutée. Elle sera prochainement prise en compte.",
+                        duration: 3000,
+                        color: 'success'
+                    }).then(() => {
+                        props.onDidDismiss()
+                        setHighlightedLabel(null)
+                    })
+                }).catch((e) => {
+                    present({
+                        message: `Une erreur s'est produite, veuillez réessayer plus tard : ${e.message}`,
+                        duration: 3000,
+                        color: "danger"
+                    }).then(() => {
+                        props.onDidDismiss()
+                        setHighlightedLabel(null)
+                    })
+                })
+
             } else {
                 setError("veuillez selectionner une note ")
             }

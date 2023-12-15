@@ -13,7 +13,7 @@ interface IMyAnnoncesUdaptableInput {
     error?: string;
     errorSelector?: (state: any) => any;
     value?: string;
-    actualValue?: string;
+    actualValue?: string | Array<string>;
     input?: Object;
     categorie?: Array<object>;
     isUpdating: boolean;
@@ -26,6 +26,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
 
 
     if (props.type === "img") {
+        console.log(props)
         return (
             <div className={`${props.classPrefix}__logoContainer`} style={{
                 transition: "all 0.5s ease-in-out"
@@ -41,11 +42,45 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                     )
                 }
                 <IonImg
-                    src={props.value}
+                    src={props.value || props.actualValue}
                     className={`${props.classPrefix}__logoContainer__logo`}
                     alt={"img"}
                 />
             </div>
+        )
+    }
+
+    if (props.type === "client") {
+        console.log(props)
+        return (
+            <>
+                <div className={props.classPrefix || ""} style={{
+                    transition: "all 0.5s ease-in-out"
+                }}>
+
+                    {
+                        props.isUpdating ? (
+                                <ContactFormInput
+                                    label={props.label}
+                                    type={props.type} name={props.name}
+                                    handleChange={props.handleChange}
+                                    required={props.required}
+                                    errorSelector={props.errorSelector}
+                                    value={props.value}
+                                    input={props.input || ""}
+                                    isSelectedCheckbox={props.isSelectedCheckbox}
+                                />
+                            ) :
+                            (
+                                <>
+                                    <p className={"label"}>{props.label}</p>
+                                    <span>{props.actualValue ? props.actualValue.join(', ') : props.value?.join(', ') }</span>
+                                </>
+                            )
+                    }
+
+                </div>
+            </>
         )
     }
     return (
@@ -62,7 +97,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                             handleChange={props.handleChange}
                             required={props.required}
                             errorSelector={props.errorSelector}
-                            value={props.value}
+                            value={props.value || props.actualValue}
                             input={props.input || ""}
                             isSelectedCheckbox={props.isSelectedCheckbox}
                         />

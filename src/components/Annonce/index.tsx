@@ -29,7 +29,7 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                                 {/*TODO changer l'id vendeur par la bonne une fois qu'on l'aura*/}
                                 <Notation vendeur={props.enseigne} idVendeur={props.id} idProduit={props.id}
                                           titreAnnonce={props.titre} priceNote={props.moyAnnonce}
-                                          vendorNote={props.moyEnseigne}/>
+                                          vendorNote={props.moyEnseigne} nbNote={props.nbNote!}/>
                             </div>
                             <div className={'annonce__wrapper__information__description'}>
                                 {props.description || 'pas de déscription'}

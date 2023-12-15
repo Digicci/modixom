@@ -47,7 +47,6 @@ const User: React.FC = () => {
     ];
     // On ajoute les routes dont seuls les pro peuvent avoir access
     if(isPro) {
-        //Todo : Ajouter toutes les routes pour la partie pro
         availableRoutes.push(
             {
                 route: 'facture',

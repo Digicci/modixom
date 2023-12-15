@@ -23,11 +23,12 @@ export const endpoints = {
     profilDetail: 'profil',
     profilUpdate: 'profilUpdate',
     postAnnonce: 'addAnnonce',
-    annonceUserDetail:"annoncesProfil"
-
+    annonceUserDetail:"annoncesProfil",
+    deleteProfil: "deleteProfil",
+    addNote: "noteProduit"
 }
 
 export const clientTypes = {
-    part: "particulier",
-    pro: "professionnel"
+    part: "particuliers",
+    pro: "proféssionnels"
 }

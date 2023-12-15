@@ -11,6 +11,7 @@ interface INotationsProps {
     idProduit: number;
     idVendeur:number;
     vendeur: string | undefined;
+    nbNote: number;
 }
 
 const Notation: React.FC<INotationsProps> = (props: INotationsProps) => {
@@ -65,7 +66,7 @@ const Notation: React.FC<INotationsProps> = (props: INotationsProps) => {
                 </div>
                 <div className={"notation__price__title"}>
                     {/*mettre le nombre d'avis plus tard quand api modifier*/}
-                    (15)
+                    ({props.nbNote})
                 </div>
             </div>
             {/*@ts-ignore*/}
