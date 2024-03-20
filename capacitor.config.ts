@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'jkc.modixom.com',
   appName: 'modixom',
   webDir: 'dist',
   server: {
