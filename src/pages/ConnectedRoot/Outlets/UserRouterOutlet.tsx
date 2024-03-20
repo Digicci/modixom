@@ -13,6 +13,7 @@ import MyAnnonceDetail from "../MyAnnonceDetail";
 
 const UserRouterOutlet: React.FC = () => {
     return (
+        //@ts-ignore
         <IonRouterOutlet animation={animationBuilder}>
             <Route exact={true} path={"/user"}>
                 <User/>

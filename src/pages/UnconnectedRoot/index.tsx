@@ -11,6 +11,7 @@ import animationBuilder from "../../utils/tools/animationBuilder";
 
 const UnconnectedRoot: React.FC = () => {
     return (
+        //@ts-ignore
         <IonRouterOutlet animation={animationBuilder}>
             <Route exact path="/connexion">
                 <Connexion />

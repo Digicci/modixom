@@ -8,6 +8,7 @@ import AddAnnonceValidate from "../addAnnonceValidate";
 
 const AnnonceRouterOutlet: React.FC = () => {
     return (
+        //@ts-ignore
         <IonRouterOutlet animation={animationBuilder}>
             <Route exact path="/addAnnonce">
                 <AddAnnonce/>

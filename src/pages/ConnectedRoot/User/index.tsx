@@ -2,17 +2,15 @@ import React, {ReactNode} from 'react';
 
 //Style & DomElement import
 import './user.scss';
-import {IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage} from "@ionic/react";
+import {IonButton, IonContent, IonFooter, IonItem, IonLabel, IonList, IonPage} from "@ionic/react";
 
 //Store import
 import {useSelector, useDispatch} from "react-redux";
 import {isUserPro} from "../../../store/selectors/UserSelectors";
 import {disconnectUser} from "../../../store/actions/userActions";
 
-import {chevronForwardOutline} from "ionicons/icons";
 
 //utils import
-import {generateHeaderClassName} from "../../../utils/tools/classNameGenerator";
 import {Dispatch} from "redux";
 import Header from "../../../components/Header";
 

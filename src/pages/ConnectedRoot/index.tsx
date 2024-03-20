@@ -87,6 +87,7 @@ const ConnectedRoot: React.FC = () => {
             {
                 // Router outlet with all pages as tabs
             }
+            {/*@ts-ignore*/}
             <IonRouterOutlet>
                 <Route path={'/home'}>
                    <HomeRouterOutlet />

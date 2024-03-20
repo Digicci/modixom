@@ -105,7 +105,7 @@ const Account: React.FC = () => {
         handler: () => {
             setActionSheet(false);
             imgService.pickImage().then((res) => {
-                if (typeof res.dataUrl === "string") {
+                if (typeof res?.dataUrl === "string") {
                     dispatch(setNewUserField("logo", res.dataUrl!))
                 }
             })

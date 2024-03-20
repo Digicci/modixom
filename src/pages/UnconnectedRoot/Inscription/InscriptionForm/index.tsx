@@ -86,7 +86,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
             text: 'Ouvrir la galerie',
             handler: () => {
                 imgService.pickImage().then((res) => {
-                    if(typeof res.dataUrl==="string") {
+                    if(typeof res?.dataUrl==="string") {
                         dispatch(setInscriptionField("logo", res.dataUrl!))
                         setImgMessage({
                             message: "Image sélectionnée",

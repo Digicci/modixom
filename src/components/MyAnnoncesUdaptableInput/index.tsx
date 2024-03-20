@@ -12,7 +12,7 @@ interface IMyAnnoncesUdaptableInput {
     handleChange?: FormEventHandler;
     error?: string;
     errorSelector?: (state: any) => any;
-    value?: string;
+    value?: string | Array<string>;
     actualValue?: string | Array<string>;
     input?: Object;
     categorie?: Array<object>;
@@ -42,7 +42,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                     )
                 }
                 <IonImg
-                    src={props.value || props.actualValue}
+                    src={props.value && typeof props.value === 'string' ? props.value : typeof props.actualValue === 'string' ? props.actualValue : undefined}
                     className={`${props.classPrefix}__logoContainer__logo`}
                     alt={"img"}
                 />
@@ -66,7 +66,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                                     handleChange={props.handleChange}
                                     required={props.required}
                                     errorSelector={props.errorSelector}
-                                    value={props.value}
+                                    value={typeof props.value === 'string' ? props.value : undefined}
                                     input={props.input || ""}
                                     isSelectedCheckbox={props.isSelectedCheckbox}
                                 />
@@ -74,7 +74,7 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                             (
                                 <>
                                     <p className={"label"}>{props.label}</p>
-                                    <span>{props.actualValue ? props.actualValue.join(', ') : props.value?.join(', ') }</span>
+                                    <span>{props.actualValue && typeof props.actualValue === 'object' ? props.actualValue.join(', ') : typeof props.value === 'object' ? props.value.join(', ') : props.value}</span>
                                 </>
                             )
                     }
@@ -97,7 +97,13 @@ const MyAnnoncesUpdatableInput: React.FC<IMyAnnoncesUdaptableInput> = (props: IM
                             handleChange={props.handleChange}
                             required={props.required}
                             errorSelector={props.errorSelector}
-                            value={props.value || props.actualValue}
+                            value={
+                                typeof props.value === 'string' && props.value ?
+                                    props.value
+                                    : typeof props.actualValue === 'string' && props.actualValue ?
+                                        props.actualValue
+                                        : undefined
+                            }
                             input={props.input || ""}
                             isSelectedCheckbox={props.isSelectedCheckbox}
                         />

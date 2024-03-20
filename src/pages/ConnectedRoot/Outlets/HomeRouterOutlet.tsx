@@ -9,6 +9,7 @@ import {IonRouterOutlet} from "@ionic/react";
 
 const HomeRouterOutlet: React.FC = () => {
     return (
+        //@ts-ignore
         <IonRouterOutlet animation={animationBuilder}>
             <Route exact path="/home/:id">
                 <AnnonceDetail/>
