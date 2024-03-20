@@ -30,10 +30,12 @@
 	<string>Modixom souhaite accéder à votre librairie photo afin de charger des images.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Modixom souhaite accéder à votre position.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Modixom souhaite accéder à votre librairie photo afin de charger des images.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Modixom souhaite accéder à votre librairie photo afin de charger des images.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Modixom souhaite accéder à votre librairie photo afin de charger des images.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Modixom souhaite accéder à votre librairie photo afin de charger des images.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Modixom souhaite accéder à votre position, afin de vous proposer des offres à proximitée.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
