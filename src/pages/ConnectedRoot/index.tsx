@@ -7,7 +7,7 @@ import ContactPro from "./ContactPro";
 import UserRouterOutlet from "./Outlets/UserRouterOutlet";
 import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
 import {useSelector} from "react-redux";
-import {isUserPro} from "../../store/selectors/UserSelectors";
+import {getUser, isUserPro} from "../../store/selectors/UserSelectors";
 import AddAnnonce from "./AddAnnonce";
 import AnnonceRouterOutlet from "./Outlets/AnnonceRouterOutlet";
 import {
@@ -17,53 +17,83 @@ import {
     ActionPerformed,
     PermissionStatus, RegistrationError
 } from '@capacitor/push-notifications';
+import {useApi} from "../../services/ApiService";
+import {endpoints} from "../../constants";
+import {UserState} from "../../store/reducers/UserReducer";
 
 
 const ConnectedRoot: React.FC = () => {
-    // Todo: se connecter au store user pour savoir si le user est un pro ou un particulier
-    // utiliser le store pour afficher les bonnes pages
 
     const isPro = useSelector(isUserPro);
     const [present] = useIonToast()
+    const api = useApi()
+    const user: UserState = useSelector(getUser)
+
 
 
     //Push notifications : verification des permissions et enregistrement du token
     useEffect(() => {
+        //On commence par vérifier l'état des permissions concernant les notifications
+
         PushNotifications.checkPermissions().then((res: PermissionStatus) => {
             if (res.receive !== 'granted') {
+                //Si l'utilisateur n'a pas déjà autorisé les notifications et qu'on ne le lui a jamais demandé, on lui demande
                 if (res.receive === "prompt") {
                     PushNotifications.requestPermissions().then(async (res: PermissionStatus) => {
+                        // S'il refuse les notifications, on lui précise simplement les conséquences de sont refus
+                        // (Impossible de lui envoyer de notifications)
                         if (res.receive !== 'granted') {
                             await present({
-                                message: "Les notifications ont été désactivée.",
+                                message: "Les notifications ont été désactivée. Sans accord de votre part Modixom ne pourra pas vous envoyer de notifications.",
                                 duration: 3000,
                                 color: 'warning'
                             })
                         } else {
+                            // S'il accepte les notifications, on tente de s'enregistrer au sérvice et de récupérer un token
                             register()
                         }
                     })
                 }
             } else if (res.receive === 'granted') {
+                // Si les notifications ont déjà étè autorisées au préalable alors,
+                // on souscrit simplement au système de notifications
                 subscribe();
             }
         })
     }, []);
 
     const register = () => {
+        // register() envoi une demande au service de notifications push,
+        // ce dérnier renverra un token d'identifications si l'enregistrement se passe sans problème,
+        // dans le cas contraire le service renverra une erreur
         PushNotifications.register().then(() => {
             saveToken();
         })
     }
 
     const saveToken = () => {
+        // On place un listener sur l'événement "registration" déclencher lorsque l'inscription au service se passe sans problème.
+        // Lorsque l'évènement est déclenché notre fonction de rappel est déclenchée
         PushNotifications.addListener('registration', (token: Token) => {
-            //TODO: send token to api for registration in user table
-            alert(`Registration success, token is : ${token.value}`);
-            subscribe();
+            api.post(endpoints.notificationTokenUpdate, {
+                token: token.value,
+                mail: user.mail
+            }).then(() => {
+                 subscribe()
+            }).catch(() => {
+                present({
+                    message: 'Une erreur s\'est produite lors de l\'inscription au sérvice de notifications. Merci de réessayer plus tard.',
+                    color: 'danger',
+                    duration: 5000,
+                })
+            })
         })
         PushNotifications.addListener("registrationError", (reason: RegistrationError) => {
-            alert(`Registration failed, the reason was : ${reason.error}`);
+            present({
+                message: 'Une erreur s\'est produite lors de l\'inscription au sérvice de notifications. Merci de réessayer plus tard. '+ reason.error +'',
+                color: 'danger',
+                duration: 5000,
+            })
         })
     }
 
@@ -74,7 +104,7 @@ const ConnectedRoot: React.FC = () => {
         })
 
         PushNotifications.addListener("pushNotificationActionPerformed", (notification: ActionPerformed) => {
-            //TODO : implement navigation to proposal page
+            //FIXME : implement navigation to proposal page
             //  remove alert, only for development
             alert(`You clicked on a notification, she's containing title: ${notification.notification.title} and body: ${notification.notification.body}`)
         })
@@ -90,11 +120,11 @@ const ConnectedRoot: React.FC = () => {
             {/*@ts-ignore*/}
             <IonRouterOutlet>
                 <Route path={'/home'}>
-                   <HomeRouterOutlet />
+                    <HomeRouterOutlet/>
                 </Route>
                 <Route exact path="/alerte">
                     {/* <Alerte/> */}
-                    <Redirect to={"/home"} />
+                    <Redirect to={"/home"}/>
                 </Route>
                 {
                     isPro ? (
@@ -104,11 +134,11 @@ const ConnectedRoot: React.FC = () => {
                     ) : (
                         <Route path="/contact">
                             {/* <ContactPro/> */}
-                            <Redirect to={"/home"} />
+                            <Redirect to={"/home"}/>
                         </Route>
                     )
                 }
-                <Route path={'/user'} render={() => <UserRouterOutlet />}/>
+                <Route path={'/user'} render={() => <UserRouterOutlet/>}/>
                 <Route exact path="/">
                     <Redirect to="/home"/>
                 </Route>

@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const Api = axios.create({
-    baseURL: 'https://deamonerp.fr/modixom/public/index.php/api/',
+    baseURL: 'https://modixom.fr/api',
 })
 
 // ToDo : Ajouter une methode qui permet de modifier le token d'authentification
@@ -87,4 +87,3 @@ function useProvideApi(): IApiContext{
         setHeader
     }
 }
-
