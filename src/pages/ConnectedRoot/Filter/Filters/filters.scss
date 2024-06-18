@@ -59,16 +59,18 @@
       margin-left: 0;
       padding-left: 0;
       width: 100%;
-      position: sticky;
       bottom: 0;
     }
 
     &__validate {
       color: var(--ion-color-dark);
       border: 1px solid var(--ion-color-dark);
+      background: var(--ion-background-color);
       border-radius: 0;
       width: 100%;
       align-self: unset;
+      position: sticky;
+      bottom: 0;
     }
   }
 }

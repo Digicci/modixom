@@ -4,6 +4,7 @@
   justify-content: flex-start;
     align-items: center;
   padding: 1rem;
+  position: relative;
 
   &__grid {
     display: grid;
@@ -20,8 +21,9 @@
     margin-top: 20px;
     margin-bottom: 20px;
     width: 100vw;
-    position: fixed;
+    position: sticky;
     bottom: 0;
     left: 0;
+    background: var(--ion-background-color);
   }
 }
