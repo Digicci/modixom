@@ -26,7 +26,7 @@ const ConnexionForm: React.FC = () => {
         const user: IStorageUser | null = JSON.parse(localStorage.getItem(userKey) as string);
         // if user is not null, it means that he is already connected
         if (user !== null) {
-            dispatch(connectUser(user.idUser, user.token, user.isPro));
+            dispatch(connectUser(user.idUser, user.token, user.isPro, user.mail));
             push('/home', 'forward', 'replace');
         }
     }, [])
@@ -53,8 +53,8 @@ const ConnexionForm: React.FC = () => {
             duration: 3000,
             color: 'success',
         });
-        const {idUser, token, type} = response.user;
-        dispatch(connectUser(idUser, token, type));
+        const {idUser, token, type, mail} = response.user;
+        dispatch(connectUser(idUser, token, type, mail || data.mail));
         push('/home', 'forward', 'replace')
     }
 

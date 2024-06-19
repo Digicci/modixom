@@ -51,9 +51,11 @@ function useProvideApi(): IApiContext{
     const post = async (url: string, data = {}, params = {} ) => {
         try {
             const response = await Api.post(url, data, {params});
+            // todo remove log
+            console.log(response);
             return response.data;
         } catch (e: any) {
-            throw new Error(e.response.data.message)
+            console.log(e)
         }
     }
 

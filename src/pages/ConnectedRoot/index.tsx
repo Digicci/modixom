@@ -74,19 +74,24 @@ const ConnectedRoot: React.FC = () => {
     const saveToken = () => {
         // On place un listener sur l'événement "registration" déclencher lorsque l'inscription au service se passe sans problème.
         // Lorsque l'évènement est déclenché notre fonction de rappel est déclenchée
-        PushNotifications.addListener('registration', (token: Token) => {
-            api.post(endpoints.notificationTokenUpdate, {
-                token: token.value,
-                mail: user.mail
-            }).then(() => {
-                 subscribe()
-            }).catch(() => {
-                present({
+        PushNotifications.addListener('registration', async (token: Token) => {
+            console.log(token, 'token retrieved')
+            try {
+                const apiRes = await api.post(endpoints.notificationTokenUpdate, {
+                    token: token.value,
+                    mail: user.mail
+                })
+                console.log('apiResponse', apiRes)
+                subscribe()
+            } catch(e) {
+                console.log('api catch block')
+                await present({
                     message: 'Une erreur s\'est produite lors de l\'inscription au sérvice de notifications. Merci de réessayer plus tard.',
                     color: 'danger',
                     duration: 5000,
                 })
-            })
+                console.log(e)
+            }
         })
         PushNotifications.addListener("registrationError", (reason: RegistrationError) => {
             present({
@@ -94,6 +99,7 @@ const ConnectedRoot: React.FC = () => {
                 color: 'danger',
                 duration: 5000,
             })
+            console.log(reason)
         })
     }
 

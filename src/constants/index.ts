@@ -13,6 +13,7 @@ export interface IStorageUser {
     idUser: string;
     token: string;
     isPro: boolean;
+    mail: string;
 }
 
 export const endpoints = {

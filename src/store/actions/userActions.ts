@@ -3,14 +3,15 @@ import {clientTypes} from "../../constants";
 import ICityProposal from "../../models/ICityProposal";
 
 export const CONNECT_USER: string = 'CONNECT_USER';
-export const connectUser = (id: number | string, token: string, type: string | boolean) => {
+export const connectUser = (id: number | string, token: string, type: string | boolean, mail: string) => {
     const isPro: boolean = typeof type === 'string' ? type === clientTypes.pro : type;
     return {
         type: CONNECT_USER,
         payload: {
             id: typeof id === 'string' ? parseInt(id) : id,
             token,
-            isPro
+            isPro,
+            mail
         }
     }
 }
