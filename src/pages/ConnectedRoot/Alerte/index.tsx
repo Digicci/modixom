@@ -31,7 +31,7 @@ const Alerte: React.FC = () => {
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const api = useApi();
     const user = useSelector(getUser)
-    const {push} = useIonRouter()
+    const router = useIonRouter()
 
     useEffect(() => {
         categoryCollection.length === 0 && api.get(endpoints.categories).then((res) => {
@@ -39,17 +39,21 @@ const Alerte: React.FC = () => {
             setIsLoading(false);
         })
         categoryCollection.length > 0 && setIsLoading(false);
+        return () => {
+            dispatch(setCategoryCollection([]))
+        }
     }, [])
 
     const handleValidate = () => {
+
         api.post(endpoints.addAlerte, {...alerte, mail: user.mail}).then(async (data) => {
             console.log(data)
-            push('/home', 'forward', 'replace')
             await present({
                 message: 'Alerte enregistrée avec succées',
                 color: 'success',
                 duration: 5000,
             })
+            router.goBack()
         })
     }
 
