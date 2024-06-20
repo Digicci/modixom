@@ -27,7 +27,8 @@ export const endpoints = {
     annonceUserDetail:"annoncesProfil",
     deleteProfil: "deleteProfil",
     addNote: "noteProduit",
-    notificationTokenUpdate: "token"
+    notificationTokenUpdate: "token",
+    addAlerte: 'addAlertes'
 }
 
 export const clientTypes = {

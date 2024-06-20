@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {IonButton, IonContent, IonFooter, IonHeader, IonPage} from "@ionic/react";
-
+import {IonButton, IonContent, IonFooter, IonHeader, IonPage, useIonToast, useIonRouter} from "@ionic/react";
+import {useNavigate} from 'react-router-dom'
 // style import
 import './alerte.scss';
 
@@ -21,14 +21,18 @@ import ICategory from "../../../models/ICategory";
 import Item from "../../../components/Category/Item";
 import RayonFilter from "../../../components/RayonFilter";
 import Header from "../../../components/Header";
+import {getUser} from "../../../store/selectors/UserSelectors";
 
 const Alerte: React.FC = () => {
 
     const categoryCollection = useSelector(getCategoryCollection)
     const alerte = useSelector(getAlerte)
+    const [present] = useIonToast()
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const api = useApi();
+    const user = useSelector(getUser)
+    const {push} = useIonRouter()
 
     useEffect(() => {
         categoryCollection.length === 0 && api.get(endpoints.categories).then((res) => {
@@ -39,7 +43,15 @@ const Alerte: React.FC = () => {
     }, [])
 
     const handleValidate = () => {
-        console.log({message: 'alerte validée', data: alerte});
+        api.post(endpoints.addAlerte, {...alerte, mail: user.mail}).then(async (data) => {
+            console.log(data)
+            await present({
+                message: 'Alerte enregistrée avec succées',
+                color: 'success',
+                duration: 5000,
+            })
+            push('/home', 'forward', 'replace')
+        })
     }
 
     return (
