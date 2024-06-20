@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import {IonButton, IonContent, IonFooter, IonHeader, IonPage, useIonToast, useIonRouter} from "@ionic/react";
-import {useNavigate} from 'react-router-dom'
+import {IonButton, IonContent, IonFooter, IonPage, useIonToast, useIonRouter} from "@ionic/react";
 // style import
 import './alerte.scss';
 
@@ -45,17 +44,17 @@ const Alerte: React.FC = () => {
     const handleValidate = () => {
         api.post(endpoints.addAlerte, {...alerte, mail: user.mail}).then(async (data) => {
             console.log(data)
+            push('/home', 'forward', 'replace')
             await present({
                 message: 'Alerte enregistrée avec succées',
                 color: 'success',
                 duration: 5000,
             })
-            push('/home', 'forward', 'replace')
         })
     }
 
     return (
-        <IonPage>
+        <IonPage className={"page"}>
             <Header text={'je créer une alerte'} />
             <IonContent>
                 <div className={'alerte'}>
