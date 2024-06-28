@@ -4,9 +4,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 10px;
 
   &__button {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 50px;
     background-color: var(--client-primary-bg-color);
     font-size: 20px;
@@ -25,6 +26,23 @@
         font-size: 24px;
         color: black;
       }
+    }
+  }
+}
+
+.forgot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+
+  a {
+    text-decoration: none;
+    small {
+      color: var(--ion-text-color);
+      padding: 2px;
+      border-bottom: 2px solid var(--ion-text-color);
     }
   }
 }

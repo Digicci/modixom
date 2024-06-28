@@ -70,7 +70,8 @@
     &:placeholder-shown ~ .inputGroup__wrapper__label {
       font-size: 1.3rem;
       cursor: text;
-      top: 33px;
+      top: 50%;
+      transform: translateY(-25%);
     }
 
     &:focus {

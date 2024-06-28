@@ -74,6 +74,9 @@ const ConnexionForm: React.FC = () => {
                     )
                 })
             }
+            <div className="forgot">
+                <a href="https://www.modixom.fr"><small>Mot de passe oublié ?</small></a>
+            </div>
             <div className={'inputGroup connexion__button'}>
                 <div className={"inputGroup__wrapper"}>
                     <input
