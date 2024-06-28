@@ -1,3 +1,6 @@
+.inputGroup {
+  width: 100%;
+}
 .fieldSet {
   display: flex;
   justify-content: space-evenly;
@@ -48,16 +51,8 @@
   gap: 5px;
   width: 100%;
   height: 100%;
-
-  &__label {
-    text-transform: uppercase;
-    font-size: 18px;
-    margin-left: 15px;
-    &:before {
-      content: "*";
-      color: red;
-    }
-  }
+  position: relative;
+  padding: 15px 0 0;
 
   &__input {
     width: 100%;
@@ -67,7 +62,39 @@
     outline: none;
     font-size: 18px;
     padding: 5px 10px;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:placeholder-shown ~ .inputGroup__wrapper__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 33px;
+    }
+
+    &:focus {
+      ~ .inputGroup__wrapper__label {
+        top: 0;
+        font-weight: 500;
+      }
+    }
   }
+
+  &__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: all .2s;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-left: 15px;
+    &:before {
+      content: "*";
+      color: red;
+    }
+  }
+
 }
 
 .inputGroup__wrapper:has(input[type="checkbox"]) {
@@ -86,6 +113,8 @@
 }
 
 .inputGroup__wrapper:has(input[type="submit"]) {
+  position: unset;
+  padding: 0;
   & input {
     width: 100%;
     height: 50px;
@@ -97,6 +126,11 @@
     color: var(--ion-color-dark);
     cursor: pointer;
     margin-bottom: 10px;
+    text-transform: uppercase;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

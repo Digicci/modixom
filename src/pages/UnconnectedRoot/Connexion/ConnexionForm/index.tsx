@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import './connexionForm.scss';
 import {useSelector, useDispatch} from "react-redux";
 import {useApi} from "../../../../services/ApiService";
-import {useIonToast, useIonRouter} from "@ionic/react";
+import {useIonToast, useIonRouter, IonNavLink} from "@ionic/react";
 import {storageKeys, IStorageUser} from "../../../../constants";
 
 import Input from "../../../../components/Input";

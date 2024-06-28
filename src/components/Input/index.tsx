@@ -88,7 +88,7 @@ const Input: React.FC = (props: IInputProps) => {
             )
     }
 
-    const className = `inputGroup ${props.name === 'city' && 'cityWrapper'}`
+    const className = `inputGroup${props.name === 'city' ? ' cityWrapper' : ''}`
     //Sinon, on retourne un input classique
     return (
         <div className={className}>
@@ -98,11 +98,13 @@ const Input: React.FC = (props: IInputProps) => {
                     onChange={props.handleChange}
                     className={"inputGroup__wrapper__input"}
                     autoComplete={'off'}
+                    placeholder={props.label}
+                    id={props.name}
                     onFocus={handleFocus}
                     disabled={props.disabled || false}
                     {...props}
                 />
-                <label className={"inputGroup__wrapper__label"}>{props.label}</label>
+                <label className={"inputGroup__wrapper__label"} htmlFor={props.name}>{props.label}</label>
             </div>
             {
                 // @ts-ignore

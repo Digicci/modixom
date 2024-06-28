@@ -7,14 +7,14 @@ const Connexion: React.FC = () => {
     return (
         <IonPage>
             <IonHeader className={'header__container'}>
-                <h1>Connexion</h1>
+                <h1>CONNEXION / INSCRIPTION</h1>
             </IonHeader>
             <ConnexionForm />
-            <IonFooter className={'signinButton__wrapper'}>
+            <div className={'signinButton__wrapper'}>
                     <IonButton className={'signinButton'} routerLink={'/inscription'} expand={'full'}>
                         {"S'inscrire"}
                     </IonButton>
-            </IonFooter>
+            </div>
         </IonPage>
     );
 };
