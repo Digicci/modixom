@@ -5,9 +5,13 @@
 }
 
 :root {
-  --client-primary-bg-color: #C2E79D;
+  --client-primary-bg-color: #D82EA9;
   --pro-primary-bg-color: #a0d3fe;
   --client-text-color: whitesmoke;
+
+  @media (prefers-color-scheme: light) {
+    --client-text-color: #201f1f
+  }
 }
 
 .header__container {

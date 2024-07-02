@@ -42,6 +42,7 @@
       &__category .button, &__button .button {
         --background: transparent;
         background: transparent;
+        color: var(--client-text-color)
       }
     }
   }
