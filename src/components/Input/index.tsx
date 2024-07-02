@@ -1,9 +1,10 @@
-import React, {FormEventHandler} from "react";
+import React, {FormEventHandler, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {setInscriptionFocus} from "../../store/actions/inscriptionActions";
 import Proposal from '../Proposal';
 import "./input.scss";
 import ICityProposal from "../../models/ICityProposal";
+import ShowPasswordButton from "./showPasswordButton";
 
 interface IInputProps {
     type: string;
@@ -25,7 +26,11 @@ interface IInputProps {
 const Input: React.FC = (props: IInputProps) => {
     const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
     const dispatch = useDispatch();
+    const [showPassword, setShowPassword] = useState(false)
 
+    const toggleShowPassword = (): void => {
+        setShowPassword(!showPassword)
+    }
 
     //control la popup de proposition de ville.
     const handleFocus = (e: any) => {
@@ -86,6 +91,30 @@ const Input: React.FC = (props: IInputProps) => {
                     }</p>
                 </div>
             )
+    }
+
+    if (props.type === 'password') {
+        return <div className={"inputGroup"}>
+            <div className={"inputGroup__wrapper"}>
+                <input
+                    value={props.value}
+                    onChange={props.handleChange}
+                    className={"inputGroup__wrapper__input"}
+                    autoComplete={'off'}
+                    placeholder={props.label}
+                    id={props.name}
+                    onFocus={handleFocus}
+                    disabled={props.disabled || false}
+                    {...props}
+                    type={showPassword ? 'text' : 'password'}
+                />
+                <label className={"inputGroup__wrapper__label"} htmlFor={props.name}>{props.label}</label>
+                <ShowPasswordButton show={showPassword} toggleShow={toggleShowPassword} />
+            </div>
+            <p className={"inputGroup__error"}>{
+            error && error
+            }</p>
+        </div>
     }
 
     const className = `inputGroup${props.name === 'city' ? ' cityWrapper' : ''}`

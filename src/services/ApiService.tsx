@@ -56,6 +56,7 @@ function useProvideApi(): IApiContext{
             return response.data;
         } catch (e: any) {
             console.log(e)
+            throw e
         }
     }
 

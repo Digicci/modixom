@@ -9,7 +9,7 @@ export const FormFields: IUserState = {
         fieldset: [
             {
                 value: defaultGender,
-                label: 'Mr'
+                label: 'M'
             },
             {
                 value: 'F',
@@ -27,7 +27,7 @@ export const FormFields: IUserState = {
             minLength: 2,
             maxLength: 40,
             required: true,
-            pattern: /^[a-zA-Z]+$/
+            pattern: /^[a-zA-Z\\ ]+$/
         }
     },
     surname: {
@@ -39,7 +39,7 @@ export const FormFields: IUserState = {
             minLength: 2,
             maxLength: 40,
             required: true,
-            pattern: /^[a-zA-Z]+$/
+            pattern: /^[a-zA-Z\\ ]+$/
         }
     },
     address: {
@@ -87,7 +87,7 @@ export const FormFields: IUserState = {
     },
     phone: {
         type: 'text',
-        label: 'Téléphone',
+        label: 'Numéro de téléphone',
         name: 'phone',
         rules: {
             minLength: 10,
@@ -98,7 +98,7 @@ export const FormFields: IUserState = {
     },
     mail: {
         type: 'email',
-        label: 'adresse email',
+        label: 'Adresse e-mail',
         name: 'mail',
         rules: {
             required: true,
@@ -107,7 +107,7 @@ export const FormFields: IUserState = {
     },
     mailConfirmation: {
         type: 'email',
-        label: 'confirmation adresse email',
+        label: 'Confirmation adresse e-mail',
         name: 'mailConfirmation',
         rules: {
             required: true,
@@ -125,7 +125,7 @@ export const FormFields: IUserState = {
     },
     passwordConfirmation: {
         type: 'password',
-        label: 'confirmation mot de passe',
+        label: 'Confirmation mot de passe',
         name: 'passwordConfirmation',
         rules: {
             required: true,

@@ -137,11 +137,10 @@ export const validator = (
         dispatch(setAction(name, error));
         return error;
     }
-    const validateAll = () => {
+    const validateAll = (): Array<string> => {
         const errors: Array<string> = []
         Object.keys(formConfig).forEach((name: string) => {
                 const error = validate(name, values[name]);
-                console.log(name,values[name])
                 if (error !== '') errors.push(error);
         });
         return errors;

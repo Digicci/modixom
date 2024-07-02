@@ -5,7 +5,7 @@ import Input from "../../../../components/Input";
 import {FormFields} from "./FormConfig";
 import {useSelector, useDispatch} from "react-redux";
 import {getInscriptionValues} from "../../../../store/selectors/InscriptionSelectors";
-import {endpoints} from "../../../../constants";
+import {clientTypes, endpoints} from "../../../../constants";
 
 import {
     setInscriptionField,
@@ -118,12 +118,12 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
             }).catch((err) => {
                 //@ts-ignore
                 present({
-                    message: err.message,
+                    message: err.response.data.message,
                     duration: 3000,
                     color: "danger",
                     position: "bottom"
                 }).then(() => {
-                    if (err.message.includes('L\'email existe déjà')) {
+                    if (err.response.data.message.includes('L\'email existe déjà')) {
                         dispatch(resetInscriptionFields());
                         push('/connexion', 'root', 'replace');
                     }
@@ -141,7 +141,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
         }
     }
 
-    if (props.type === 'professionnel') {
+    if (props.type === clientTypes.pro) {
         FormFields.siret = {
             name: 'siret',
             label: 'Siret',
@@ -170,7 +170,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
     return (
         <form onSubmit={handleSubmit}>
             {
-                props.type === 'professionnel' && (
+                props.type === clientTypes.pro && (
                     <>
                         <div className={'inscriptionPro__container'}>
                             <Input
@@ -222,7 +222,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                     <div className={"inputGroup__wrapper"}>
                         <input
                             type="submit"
-                            value={"Je valide"}
+                            value={"Je m'inscris"}
                             className={"inputGroup__wrapper__input"}
                         />
                     </div>

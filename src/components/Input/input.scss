@@ -18,7 +18,7 @@
     gap: 5px;
 
     &__label {
-      text-transform: uppercase;
+      text-transform: capitalize;
       font-size: 18px;
 
     }
@@ -26,6 +26,35 @@
     &__input {
       width: 20px;
       height: 20px;
+      appearance: unset;
+
+      &:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+      }
+
+      &:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #C2E79D;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+      }
     }
   }
 }
