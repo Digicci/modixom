@@ -18,7 +18,7 @@
 
       &__grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
         grid-gap: 1rem;
         width: 100%;
         padding: 1rem;
@@ -28,8 +28,9 @@
 
     &__rayon {
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       width: 100vw;
       padding: 1rem;
       margin-top: 20px;

@@ -18,6 +18,7 @@ import {setCategoryCollection} from "../../../../store/actions/categoryActions";
 import {useImageService} from "../../../../services/ImageService";
 import {getUserToken} from "../../../../store/selectors/UserSelectors";
 import {useIonToast} from "@ionic/react";
+import Input from "../../../../components/Input";
 
 interface IImgMessage {
     message: string;

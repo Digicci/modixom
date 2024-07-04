@@ -86,7 +86,7 @@ export const FormFields: IUserState = {
         }
     },
     phone: {
-        type: 'text',
+        type: 'tel',
         label: 'Numéro de téléphone',
         name: 'phone',
         rules: {

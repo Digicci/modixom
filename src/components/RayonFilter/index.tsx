@@ -89,7 +89,7 @@ const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, re
             dispatch(dispatchFn({ville: null, rayon: null}));
             return;
         }
-        changeVille(ville.nom);
+        changeVille(`${ville.nom} (${ville.cp})`);
         setShowSuggest(false);
         setVilles([])
         setIsLoading(false)

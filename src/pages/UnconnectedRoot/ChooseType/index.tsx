@@ -34,6 +34,9 @@ const ChooseType: React.FC = () => {
                         }
                     </div>
                 </IonContent>
+                <div className={"signinButton__wrapper"}>
+                    <IonButton routerLink={'/connexion'} className={"signinButton"} routerDirection={"forward"}>Se connecter</IonButton>
+                </div>
             </div>
         </IonPage>
     )

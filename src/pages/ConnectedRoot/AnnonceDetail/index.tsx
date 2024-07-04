@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './annonceDetail.scss';
 import {useParams} from "react-router";
-import {IonHeader, IonPage, IonContent, IonBackButton} from "@ionic/react";
+import {IonPage, IonContent} from "@ionic/react";
 
 import {IAnnonce} from "../../../models/IAnnonce";
 import {useApi} from "../../../services/ApiService";
@@ -9,6 +9,8 @@ import Loader from "../../../components/Loader";
 import {endpoints} from "../../../constants";
 
 import Header from "../../../components/Header";
+import {getLocation} from "../../../services/LocationService";
+
 
 
 const AnnonceDetail: React.FC = () => {
@@ -24,6 +26,15 @@ const AnnonceDetail: React.FC = () => {
             setIsLoading(false);
         });
     }, [params.id]);
+
+    const runGoogleMaps = () => {
+        getLocation().then((res) => {
+            const destination = res && encodeURIComponent(`${annonce?.adresse},${annonce?.ville?.toLowerCase()}`)
+            console.log(destination)
+            destination && window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`)
+        })
+
+    }
 
     return (
         <IonPage>
@@ -49,11 +60,11 @@ const AnnonceDetail: React.FC = () => {
                                         {
                                             annonce?.debut && annonce?.fin && (
                                                 <>
-                                                    Annonce valable du
-                                                    <span className={'start'}>{annonce?.debut.split(' ')[0]}</span>
-                                                    au
+                                                    Annonce valable de
+                                                    <span className={'start'}>{annonce?.debut.split(' ')[1].replace(':', 'h')}</span>
+                                                    à
                                                     <span className={'end'}>
-                                                        {annonce?.fin.split(' ')[0]}
+                                                        {annonce?.fin.split(' ')[1].replace(":", "h")}
                                                     </span>
                                                 </>
                                             )
@@ -82,7 +93,7 @@ const AnnonceDetail: React.FC = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={'annonceDetail__part4'}>
+                                <div className={'annonceDetail__part4'} onClick={runGoogleMaps}>
                                     itinéraire
                                 </div>
                             </div>

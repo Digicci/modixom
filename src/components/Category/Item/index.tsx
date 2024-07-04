@@ -27,7 +27,7 @@ const Item: React.FC<IItemProps> = ({name, id, selector, dispatchFn}: IItemProps
     return (
         <div className={className} onClick={handleClick}>
             <div className={"category__item__name"}>
-                {name.replace("/", " ")}
+                {name.replace("/", " / ")}
             </div>
             {
                 isSelected && (

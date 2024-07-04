@@ -4,7 +4,8 @@ import {setInscriptionFocus} from "../../store/actions/inscriptionActions";
 import Proposal from '../Proposal';
 import "./input.scss";
 import ICityProposal from "../../models/ICityProposal";
-import ShowPasswordButton from "./showPasswordButton";
+import ShowPasswordButton from "./ShowPasswordButton";
+import {IonInput} from "@ionic/react";
 
 interface IInputProps {
     type: string;
@@ -122,18 +123,18 @@ const Input: React.FC = (props: IInputProps) => {
     return (
         <div className={className}>
             <div className={"inputGroup__wrapper"}>
-                <input
+                <IonInput
                     value={props.value}
-                    onChange={props.handleChange}
+                    onInput={props.handleChange}
                     className={"inputGroup__wrapper__input"}
-                    autoComplete={'off'}
                     placeholder={props.label}
                     id={props.name}
                     onFocus={handleFocus}
                     disabled={props.disabled || false}
+                    label={props.label}
+                    labelPlacement={"floating"}
                     {...props}
                 />
-                <label className={"inputGroup__wrapper__label"} htmlFor={props.name}>{props.label}</label>
             </div>
             {
                 // @ts-ignore

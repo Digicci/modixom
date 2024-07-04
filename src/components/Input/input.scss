@@ -90,14 +90,14 @@
     border-bottom: 1px solid black;
     outline: none;
     font-size: 18px;
-    padding: 5px 10px;
+    padding: 0;
 
     &::placeholder {
       color: transparent;
     }
 
     &:placeholder-shown ~ .inputGroup__wrapper__label {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       cursor: text;
       top: 50%;
       transform: translateY(-25%);
@@ -105,8 +105,9 @@
 
     &:focus {
       ~ .inputGroup__wrapper__label {
-        top: 0;
+        top: 5px;
         font-weight: 500;
+        font-size: .9rem;
       }
     }
   }
@@ -116,13 +117,9 @@
     top: 0;
     display: block;
     transition: all .2s;
-    font-weight: 700;
+    font-weight: 300;
     font-size: 1rem;
-    margin-left: 15px;
-    &:before {
-      content: "*";
-      color: red;
-    }
+    margin-left: 0;
   }
 
 }

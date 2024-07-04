@@ -15,6 +15,10 @@ import {getAnnonces, getWhereClause, isLoadingAnnonces} from "../../../store/sel
 import {setAnnonce, setIsLoadingAnnonces} from "../../../store/actions/annonceActions";
 import {endpoints} from "../../../constants";
 import topToBottomAnimation from "../../../utils/tools/topToBottomAnimation";
+import {UserState} from "../../../store/reducers/UserReducer";
+import {apiUserDataAdapter} from "../../../utils/tools/apiDataAdapter";
+import {setNewUserField, setUser} from "../../../store/actions/userActions";
+import {getUserToken} from "../../../store/selectors/UserSelectors";
 
 const Home: React.FC = () => {
 
@@ -23,8 +27,20 @@ const Home: React.FC = () => {
     const annonces = useSelector(getAnnonces)
     const isLoading = useSelector(isLoadingAnnonces)
     const where = useSelector(getWhereClause);
+    const token = useSelector(getUserToken)
+
+    const fetchUser = () =>{
+        api.get(endpoints.profilDetail, {token}).then((res) => {
+            console.log(res);
+            const apiUser: UserState = apiUserDataAdapter(res);
+            dispatch(setUser(apiUser));
+            dispatch(setNewUserField("id", apiUser.id!));
+            dispatch(setNewUserField('isPro', apiUser.isPro!));
+        })
+    }
 
     useEffect(() => {
+        fetchUser()
         dispatch(setIsLoadingAnnonces(true));
         let data = {};
         if(where.motscles.length < 3) {

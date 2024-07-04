@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {IonButton, IonModal} from "@ionic/react";
+import {IonButton, IonIcon, IonModal} from "@ionic/react";
 import "./alertNotation.scss"
 import {useSelector} from "react-redux";
 import {getUserToken} from "../../store/selectors/UserSelectors";
 import {useApi} from "../../services/ApiService";
 import {endpoints} from "../../constants";
 import {useIonToast} from "@ionic/react";
+import {star as starIcon} from "ionicons/icons";
 
 interface IAlertNotationProps {
     isOpen: boolean
@@ -42,7 +43,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                     }
                 ).then(() => {
                     present({
-                        message: "Votre note à été ajoutée. Elle sera prochainement prise en compte.",
+                        message: "Votre note à été ajoutée prise en compte.",
                         duration: 3000,
                         color: 'success'
                     }).then(() => {
@@ -75,7 +76,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
         <IonModal id={"starModal"} showBackdrop={true} backdropDismiss={false} isOpen={props.isOpen}
                   onDidDismiss={props.onDidDismiss}>
             <div className={"starModal__container"}>
-                <h1>Noter: {props.header}</h1>
+                <h1>Evaluer l&apos;annonce</h1>
                 {
                     <div className={"starModal__container__starsContainer"}>
                         {starArray.map((item: any) => {
@@ -95,7 +96,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                                         name="star"
                                         type="radio"
                                     />
-                                    ⭐️
+                                    <IonIcon icon={starIcon} />
                                 </label>
                             );
                         })}

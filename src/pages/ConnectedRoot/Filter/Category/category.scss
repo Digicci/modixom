@@ -8,7 +8,7 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
     grid-gap: 1rem;
     width: 100%;
     padding: 1rem;
@@ -25,5 +25,8 @@
     bottom: 0;
     left: 0;
     background: var(--ion-background-color);
+    & .button {
+      background: var(--ion-color-light);
+    }
   }
 }

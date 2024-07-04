@@ -49,7 +49,7 @@ const Alerte: React.FC = () => {
         api.post(endpoints.addAlerte, {...alerte, mail: user.mail}).then(async (data) => {
             console.log(data)
             await present({
-                message: 'Alerte enregistrée avec succées',
+                message: 'Alerte enregistrée avec succès',
                 color: 'success',
                 duration: 5000,
             })
@@ -59,7 +59,7 @@ const Alerte: React.FC = () => {
 
     return (
         <IonPage className={"page"}>
-            <Header text={'je créer une alerte'} />
+            <Header text={'je crée une alerte'} />
             <IonContent>
                 <div className={'alerte'}>
                     <div className={'alerte__category'}>
@@ -82,6 +82,9 @@ const Alerte: React.FC = () => {
 
                     </div>
                     <div className={'alerte__rayon'}>
+                        <div>
+                            <h2>Choisir le périmètre</h2>
+                        </div>
                         <RayonFilter
                             storageKey={storageKeys.alerteVille}
                             rayonSelector={getAlerteRayon}

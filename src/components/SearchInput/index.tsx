@@ -12,17 +12,25 @@ const SearchInput: FC = () => {
         const {value} = e.target;
         dispatch(setWhere({motscles: value}))
     }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+    }
 
     return (
-        <IonItem className={'home__header__search'}>
-            <IonInput
-                className={'home__header__search__input'}
-                type={'text'}
-                placeholder={'Rechercher un produit / une enseigne'}
-                onIonInput={handleChange}
-            />
-            <IonIcon icon={search} slot={'start'} className={'home__header__search__icon'}/>
-        </IonItem>
+        <form onSubmit={handleSubmit} className={'home__header__search'}>
+            <IonItem className={'home__header__search'}>
+                <IonInput
+                    className={'home__header__search__input'}
+                    type={'search'}
+                    placeholder={'Rechercher un produit / une enseigne'}
+                    onIonInput={handleChange}
+                    enterkeyhint={"search"}
+                    clearInput={true}
+                />
+                <IonIcon icon={search} slot={'start'} className={'home__header__search__icon'}/>
+            </IonItem>
+        </form>
     );
 }
 

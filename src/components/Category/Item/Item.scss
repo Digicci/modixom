@@ -6,15 +6,16 @@
   border: 1px solid var(--ion-color-light);
   position: relative;
   opacity: 0.7;
-  max-width: 30vw;
+  max-width: 25vw;
   min-width: 25vw;
   border-radius: 10px;
 
   &__name {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-weight: 500;
     color: var(--ion-color-dark);
     text-transform: uppercase;
+    word-break: keep-all;
     background: transparent;
     position:relative;
     padding: 0.2rem 0.5rem;

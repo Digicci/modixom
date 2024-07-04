@@ -221,6 +221,16 @@ const Account: React.FC = () => {
                                 handleChange={handleChange}
                                 newValue={newUser.phone}
                             />
+                            <AccountUpdatableInput
+                                actualValue={user.address}
+                                label={'adresse postale :'}
+                                type={'text'}
+                                name={'address'}
+                                isUpdating={modif}
+                                classPrefix={"account__container__infoWrapperAdresse"}
+                                handleChange={handleChange}
+                                newValue={newUser.address}
+                            />
 
                             <div className={"account__container__infoWrapper"}>
                                 <AccountUpdatableInput
@@ -256,20 +266,18 @@ const Account: React.FC = () => {
                                     newValue={newUser.country}
                                 />
                             </div>
-                            <AccountUpdatableInput
-                                actualValue={user.address}
-                                label={'adresse postale :'}
-                                type={'text'}
-                                name={'address'}
-                                isUpdating={modif}
-                                classPrefix={"account__container__infoWrapperAdresse"}
-                                handleChange={handleChange}
-                                newValue={newUser.address}
-                            />
                             {
                                 modif && (
                                     <>
-
+                                        <AccountUpdatableInput
+                                            label={'mot de passe :'}
+                                            name={'password'}
+                                            type={'password'}
+                                            isUpdating={true}
+                                            classPrefix={"account__container__infoWrapper__name"}
+                                            handleChange={handleChange}
+                                            newValue={newUser.password}
+                                        />
                                         <AccountUpdatableInput
                                             label={'nouveau mot de passe :'}
                                             name={'newPassword'}
@@ -290,15 +298,6 @@ const Account: React.FC = () => {
                                             errorSelector={getNewUserError}
                                             newValue={newUser.confirmNewPassword}
                                         />
-                                        <AccountUpdatableInput
-                                            label={'mot de passe :'}
-                                            name={'password'}
-                                            type={'password'}
-                                            isUpdating={true}
-                                            classPrefix={"account__container__infoWrapper__name"}
-                                            handleChange={handleChange}
-                                            newValue={newUser.password}
-                                        />
                                     </>
                                 )
                             }
@@ -316,7 +315,7 @@ const Account: React.FC = () => {
                 {
                     modif && (
                         <IonFooter className={'validateButtonContainer'}>
-                            <IonButton className={'validateButton'} onClick={handleSubmit}>Valider</IonButton>
+                            <IonButton className={'validateButton'} onClick={handleSubmit}>Enregistrer</IonButton>
                         </IonFooter>
                     )
                 }

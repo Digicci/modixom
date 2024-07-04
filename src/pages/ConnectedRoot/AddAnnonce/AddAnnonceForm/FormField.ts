@@ -1,7 +1,7 @@
 import {IAddAnnonceForm} from "../../../../store/reducers/AddAnnonceReducer";
 import {clientTypes} from "../../../../constants";
 
-interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"|"logo"> {
+interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"|"logo"|"norme"> {
     quantite: Object;
     client: Object;
 }
@@ -13,8 +13,6 @@ export const FormField: IAddAnnonceFormConfig = {
         label: "titre annonce",
         rules:{
             required:true,
-            minLength:5,
-            maxLength:50,
         }
 
     },
@@ -24,7 +22,6 @@ export const FormField: IAddAnnonceFormConfig = {
         label: "descriptif produit",
         rules:{
             required:true,
-            minLength:5,
         }
 
     },
@@ -51,7 +48,7 @@ export const FormField: IAddAnnonceFormConfig = {
         name: "dateHeureDebut",
         type: "datetime-local",
         label: "date et heure de parution",
-        errorMessage: "veuillez choisir une date et une heure",
+        errorMessage: "veuillez choisir une date et une heure de parution",
         rules:{
             required:true,
         }
@@ -60,7 +57,7 @@ export const FormField: IAddAnnonceFormConfig = {
         name: "dateHeureFin",
         type: "datetime-local",
         label: "date et heure de fin de parution",
-        errorMessage: "veuillez choisir une date et une heure",
+        errorMessage: "veuillez choisir une date et une heure de parution",
         rules:{
             required:true,
         }
@@ -68,7 +65,7 @@ export const FormField: IAddAnnonceFormConfig = {
     prix:{
         name:"prix",
         type:"number",
-        label:'Prix',
+        label:'Prix avant réduction (en €)',
         rules:{
             required:true,
             quantite:true,
@@ -83,20 +80,20 @@ export const FormField: IAddAnnonceFormConfig = {
             quantite:true,
         },
     },
-    norme: {
-        name: "norme",
-        type: "norme",
-        label: "Je certifie que ce que je vend est : ",
-        errorMessage: "veuillez confirmer que vous respecter les régles",
-        input: {
-            li1: "aux normes CE",
-            li2: "identique à celui en magasin",
-            li3: "une remise exceptionelle"
-        },
-        rules:{
-            required:true,
-        }
-    },
+    // norme: {
+    //     name: "norme",
+    //     type: "norme",
+    //     label: "Je certifie que ce que je vend est : ",
+    //     errorMessage: "veuillez confirmer que vous respecter les régles",
+    //     input: {
+    //         li1: "aux normes CE",
+    //         li2: "identique à celui en magasin",
+    //         li3: "une remise exceptionelle"
+    //     },
+    //     rules:{
+    //         required:true,
+    //     }
+    // },
 
     client: {
         type: "client",

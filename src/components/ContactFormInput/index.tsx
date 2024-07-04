@@ -1,6 +1,6 @@
 import React, {FormEventHandler, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {IonItem, IonSelect, IonSelectOption, IonTextarea} from "@ionic/react";
+import {IonDatetime, IonDatetimeButton, IonItem, IonModal, IonSelect, IonSelectOption, IonTextarea} from "@ionic/react";
 import {endpoints} from "../../constants";
 import ICategory from "../../models/ICategory";
 import {setCategoryCollection} from "../../store/actions/categoryActions";
@@ -38,7 +38,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
     useEffect(() => {
         fetchCategorie()
     }, []);
-    const categorie:Array<Object>=props.categorie||categoryCollection;
+    const categorie:Array<Object> = props.categorie||categoryCollection;
 
 
     if(props.type==="select"){
@@ -140,6 +140,16 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             </>
         )
     }
+
+    // if(props.type === "datetime-local") {
+    //     return <>
+    //         <p className="label">{props.label}</p>
+    //         <IonDatetimeButton datetime={props.name}></IonDatetimeButton>
+    //         <IonModal keepContentsMounted={true}>
+    //             <IonDatetime showDefaultButtons={true} onIonChange={(e) => console.log(e)} doneText={"Valider"} cancelText={'Annuler'} value={props.value} locale={"fr-FR"} id={props.name}><span slot={'title'}>{props.label}</span></IonDatetime>
+    //         </IonModal>
+    //     </>
+    // }
     return (
         <>
             <div className={props.classPrefix || ""}>

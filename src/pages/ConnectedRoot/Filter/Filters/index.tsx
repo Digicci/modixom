@@ -1,11 +1,10 @@
 import React from "react";
-import {IonButton, IonContent, IonHeader, IonPage, useIonToast} from "@ionic/react";
+import {IonButton, IonContent, IonPage, useIonToast} from "@ionic/react";
 
 //components imports
 import OrderFilter from "../../../../components/OrderFilter";
 
 //utils imports
-import {generateHeaderClassName} from "../../../../utils/tools/classNameGenerator";
 import {useSelector, useDispatch} from "react-redux";
 import {isUserPro} from "../../../../store/selectors/UserSelectors";
 import {resetWhere, setWhere} from "../../../../store/actions/annonceActions";
@@ -17,9 +16,9 @@ import AnnonceTypeFilter from "../../../../components/AnnonceTypeFilter";
 import {getRayon, getWhereClause} from "../../../../store/selectors/AnnonceSelectors";
 import {storageKeys} from "../../../../constants";
 import topToBottomAnimation from "../../../../utils/tools/topToBottomAnimation";
+import Header from "../../../../components/Header";
 const Filters: React.FC = () => {
     const isPro: boolean = useSelector(isUserPro);
-    const headerClass: string = generateHeaderClassName(isPro);
     const dispatch = useDispatch();
     const [present] = useIonToast();
 
@@ -34,9 +33,7 @@ const Filters: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader className={headerClass}>
-                <h1>FILTRES</h1>
-            </IonHeader>
+            <Header text={'Filtres'} canGoBack={true} defaultHref={"/home"} />
             <IonContent>
                 <div className={'filters'}>
                     <div className={'filters__section'}>

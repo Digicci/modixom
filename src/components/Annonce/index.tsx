@@ -31,9 +31,6 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                                           titreAnnonce={props.titre} priceNote={props.moyAnnonce}
                                           vendorNote={props.moyEnseigne} nbNote={props.nbNote!}/>
                             </div>
-                            <div className={'annonce__wrapper__information__description'}>
-                                {props.description || 'pas de déscription'}
-                            </div>
 
                             <div className={'annonce__wrapper__information__price'}>
                                 <div className={'price'}>

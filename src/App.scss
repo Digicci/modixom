@@ -5,8 +5,8 @@
 }
 
 :root {
-  --client-primary-bg-color: #D82EA9;
-  --pro-primary-bg-color: #a0d3fe;
+  --client-primary-bg-color: #C2E79DFF;
+  --pro-primary-bg-color: #FE67C4;
   --client-text-color: whitesmoke;
 
   @media (prefers-color-scheme: light) {
@@ -30,12 +30,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 
   & .title {
     font-size: 24px;
+    padding: 0 25px;
     text-transform: uppercase;
-    max-width: 80%;
+    max-width: 100%;
     text-align: center;
   }
 

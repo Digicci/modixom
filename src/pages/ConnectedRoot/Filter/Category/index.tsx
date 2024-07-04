@@ -1,24 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import './category.scss';
-import {IonButton, IonContent, IonHeader, IonPage} from "@ionic/react";
+import {IonButton, IonContent, IonPage} from "@ionic/react";
 import {useApi} from "../../../../services/ApiService";
 import {endpoints} from "../../../../constants";
 import ICategory from "../../../../models/ICategory";
 
-import {generateHeaderClassName} from "../../../../utils/tools/classNameGenerator";
 import {useSelector, useDispatch} from "react-redux";
 import {getCategoryCollection} from "../../../../store/selectors/CategorySelectors";
 import {setCategoryCollection} from "../../../../store/actions/categoryActions";
-import {isUserPro} from "../../../../store/selectors/UserSelectors";
 import Loader from "../../../../components/Loader";
 import Item from "../../../../components/Category/Item";
 import {isSelectedCategory} from "../../../../store/selectors/AnnonceSelectors";
 import {toggleCategoryFilter} from "../../../../store/actions/annonceActions";
 import topToBottomAnimation from "../../../../utils/tools/topToBottomAnimation";
+import Header from "../../../../components/Header";
 
 const Category: React.FC = () => {
-    const isPro: boolean = useSelector(isUserPro);
-    const headerClass: string = generateHeaderClassName(isPro);
     const api = useApi();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const dispatch = useDispatch();
@@ -34,9 +31,7 @@ const Category: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader className={headerClass}>
-                <h1>Categories</h1>
-            </IonHeader>
+            <Header text={"Catégories"} canGoBack={true} defaultHref={"/home"} />
             <IonContent>
                 <div className={'category'}>
                     {
