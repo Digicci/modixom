@@ -20,5 +20,5 @@ export interface IAnnonce {
     pourcentRemise?: number;
     quantite?: number;
     telephone?: string;
-    nbNote?: number;
+    nbNoteAnnonce?: number;
 }
