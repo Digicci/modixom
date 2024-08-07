@@ -20,7 +20,7 @@ const AddAnnonce: React.FC = () => {
                             <p>mon crédit : </p>
                             <span>{user.credit}</span>
                         </div>
-                        <IonButton>acheter du crédit</IonButton>
+                        <IonButton href={"https://modixom.fr/achatCredit"}>acheter du crédit</IonButton>
                     </div>
                     <div>
                         <AddAnnonceForm/>

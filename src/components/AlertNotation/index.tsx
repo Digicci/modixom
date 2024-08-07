@@ -43,7 +43,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                     }
                 ).then(() => {
                     present({
-                        message: "Votre note à été ajoutée prise en compte.",
+                        message: "Votre note à été prise en compte.",
                         duration: 3000,
                         color: 'success'
                     }).then(() => {
@@ -109,7 +109,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                     {/*@ts-ignore*/}
                     <IonButton className={"starModal__container__buttonContainer__button"}
                                onClick={ValidatehandleCheckStar}>
-                        valider
+                        Valider
                     </IonButton>
                 </div>
             </div>

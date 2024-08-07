@@ -6,7 +6,7 @@ import {IonButton, IonContent, IonFooter, IonItem, IonLabel, IonList, IonPage} f
 
 //Store import
 import {useSelector, useDispatch} from "react-redux";
-import {isUserPro} from "../../../store/selectors/UserSelectors";
+import {getUser, isUserPro} from "../../../store/selectors/UserSelectors";
 import {disconnectUser} from "../../../store/actions/userActions";
 
 
@@ -24,6 +24,8 @@ const User: React.FC = () => {
     //On cherche à savoir si l'utilisateur est un pro
     const isPro: boolean = useSelector(isUserPro);
 
+    const user = useSelector(getUser);
+
     const dispatch: Dispatch = useDispatch()
 
     const disconnect: () => void = (): void => {
@@ -34,34 +36,32 @@ const User: React.FC = () => {
     //On crée la liste des routes communes aux particulier et pro
     const availableRoutes: IUserRoute[] = [
         {
-            route: "coordonnes",
+            route: "/user/coordonnes",
             label: "mes coordonnées"
         },
         {
-            route: "confidentialite",
+            route: "https://modixom.fr/protection-des-donnees",
             label: "politique de confidentialité",
-            disabled: true,
         }
     ];
     // On ajoute les routes dont seuls les pro peuvent avoir access
     if(isPro) {
         availableRoutes.push(
             {
-                route: 'facture',
+                route: '/user/facture',
                 label: "factures",
                 disabled: true
             },
             {
-                route: 'buyCredit',
+                route: 'https://modixom.fr/achatCredit',
                 label: "acheter du crédit",
-                disabled: true
             },
             {
-                route: 'myAnnonces',
+                route: '/user/myAnnonces',
                 label: "annonces diffusées",
             },
             {
-                route: 'contact',
+                route: '/user/contact',
                 label: "nous contacter",
                 disabled: true
             }
@@ -70,7 +70,7 @@ const User: React.FC = () => {
 
     availableRoutes.push(
         {
-            route: "delete",
+            route: "/user/delete",
             label: "supprimer mon compte",
             color: "red"
         }
@@ -90,26 +90,43 @@ const User: React.FC = () => {
                                     {'Mon crédit'.toUpperCase()}
                                 </IonLabel>
                                 <IonItem slot={'end'} className={'list__item__label__credit'}>
-                                    000
+                                    {user.credit}
                                 </IonItem>
                             </IonItem>
                         }
                         {
                             availableRoutes.map((item: IUserRoute, index: number): ReactNode => (
-                                <IonItem
+                                item.route.startsWith('http') ?
+                                    <IonItem
+                                        key={index}
+                                        className={'list__item'}
+                                        routerDirection={"forward"}
+                                        style={
+                                            item.color ? {color: item.color} : {}
+                                        }
+                                        disabled={item.disabled}
+                                    >
+                                        <a href={item.route} style={{
+                                            textDecoration: "none",
+                                            color: "inherit"
+                                        }} className={'list__item__label'}>
+                                            {item.label.toUpperCase()}
+                                        </a>
+                                    </IonItem>
+                                    :
+                                    <IonItem
                                     key={index}
                                     className={'list__item'}
                                     style={
                                         item.color ? {color: item.color} : {}
                                     }
-                                    routerLink={`/user/${item.route}`}
+                                    routerLink={`${item.route}`}
                                     routerDirection={"forward"}
                                     disabled={item.disabled}
                                 >
                                     <IonLabel className={'list__item__label'}>
                                         {item.label.toUpperCase()}
                                     </IonLabel>
-
                                 </IonItem>
                             ))
                         }

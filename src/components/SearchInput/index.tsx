@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import {setWhere} from "../../store/actions/annonceActions";
 
 import {IonIcon, IonInput, IonItem} from "@ionic/react";
+import {Keyboard} from "@capacitor/keyboard";
 import {search} from "ionicons/icons";
 
 const SearchInput: FC = () => {
@@ -13,8 +14,8 @@ const SearchInput: FC = () => {
         dispatch(setWhere({motscles: value}))
     }
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
 
+        e.preventDefault()
     }
 
     return (

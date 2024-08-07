@@ -82,7 +82,7 @@ export const FormFields: IUserState = {
             minLength: 3,
             maxLength: 15,
             required: true,
-            pattern: /^[a-zA-Z\\-]+$/
+            pattern: /^[a-zA-Z\\ -]+$/
         }
     },
     phone: {
