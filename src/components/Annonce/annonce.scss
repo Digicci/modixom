@@ -81,13 +81,18 @@
         gap: 5px;
 
         &__old {
-          color: red;
+          color: black;
           text-decoration: line-through;
           font-size: 1rem;
+
+          @media screen and (prefers-color-scheme: dark) {
+            color: #a0a0a0;
+          }
         }
 
         &__new {
           font-size: 1.1rem;
+          color: #D82E9F;
         }
       }
     }

@@ -1,4 +1,3 @@
-import ReduxActionInterface from "../../interface/reduxActionInterface";
 import {
     CONNECT_USER,
     DISCONNECT_USER, RESET_NEW_USER,

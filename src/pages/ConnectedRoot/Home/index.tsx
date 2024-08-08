@@ -3,7 +3,7 @@ import {useApi} from "../../../services/ApiService";
 import {useSelector, useDispatch} from "react-redux";
 
 import './home.scss';
-import {IonButton, IonContent, IonHeader, IonIcon, IonList, IonPage} from "@ionic/react";
+import {IonButton, IonContent, IonHeader, IonIcon, IonList, IonPage, useIonToast} from "@ionic/react";
 import {optionsOutline} from "ionicons/icons";
 
 import Annonce from "../../../components/Annonce";
@@ -17,7 +17,7 @@ import {endpoints} from "../../../constants";
 import topToBottomAnimation from "../../../utils/tools/topToBottomAnimation";
 import {UserState} from "../../../store/reducers/UserReducer";
 import {apiUserDataAdapter} from "../../../utils/tools/apiDataAdapter";
-import {setNewUserField, setUser} from "../../../store/actions/userActions";
+import {disconnectUser, setNewUserField, setUser} from "../../../store/actions/userActions";
 import {getUserToken} from "../../../store/selectors/UserSelectors";
 
 const Home: React.FC = () => {
@@ -28,22 +28,36 @@ const Home: React.FC = () => {
     const isLoading = useSelector(isLoadingAnnonces)
     const where = useSelector(getWhereClause);
     const token = useSelector(getUserToken)
+    const [present] = useIonToast()
 
-    const fetchUser = () =>{
-        api.get(endpoints.profilDetail, {token}).then((res) => {
-            console.log(res);
-            const apiUser: UserState = apiUserDataAdapter(res);
-            dispatch(setUser(apiUser));
-            dispatch(setNewUserField("id", apiUser.id!));
-            dispatch(setNewUserField('isPro', apiUser.isPro!));
-        })
+    const fetchUser = () => {
+        api.get(endpoints.profilDetail, {token}).then(async(res) => {
+                console.log(res);
+                if (res.response && res.response.status !== 200) {
+                    await present({
+                        message: "Vous avez été déconnecté.",
+                        duration: 3000,
+                        color: "warning"
+                    })
+                    dispatch(disconnectUser())
+                    return
+                }
+                const apiUser: UserState = apiUserDataAdapter(res);
+                dispatch(setUser(apiUser));
+                dispatch(setNewUserField("id", apiUser.id!));
+                dispatch(setNewUserField('isPro', apiUser.isPro!));
+            },
+            (reason) => {
+                console.log(reason)
+            }
+        )
     }
 
     useEffect(() => {
         fetchUser()
         dispatch(setIsLoadingAnnonces(true));
         let data = {};
-        if(where.motscles.length < 3) {
+        if (where.motscles.length < 3) {
             const {motscles, ...rest} = where;
             data = {...rest};
         } else {
@@ -60,7 +74,7 @@ const Home: React.FC = () => {
     return (
         <IonPage className={'home'}>
             <IonHeader className={'home__header'}>
-                <SearchInput />
+                <SearchInput/>
             </IonHeader>
             <IonContent>
                 <div className={'home__content'}>
@@ -89,7 +103,7 @@ const Home: React.FC = () => {
                     </div>
                     {
                         isLoading ? (
-                            <Loader />
+                            <Loader/>
                         ) : (
                             annonces?.length > 0 ? (
                                 <IonList>

@@ -46,7 +46,7 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                                             </>
                                         ) : (
                                             <div className={'price__new'}>
-                                                {props.prix + ' €'}
+                                                {props.prix ? props.prix.toFixed(2) : 0 } €
                                             </div>
                                         )
                                     }

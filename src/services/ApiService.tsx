@@ -44,7 +44,7 @@ function useProvideApi(): IApiContext{
             const response = await Api.get(url, {params});
             return response.data;
         } catch (e) {
-            console.log(e);
+            return e
         }
     }
 
