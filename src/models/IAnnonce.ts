@@ -21,4 +21,5 @@ export interface IAnnonce {
     quantite?: number;
     telephone?: string;
     nbNoteAnnonce?: number;
+    favoris?: boolean;
 }

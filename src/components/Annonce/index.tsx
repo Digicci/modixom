@@ -4,6 +4,7 @@ import {IonImg, IonItem} from "@ionic/react";
 import {IAnnonce} from "../../models/IAnnonce"
 
 import Notation from "./Notation";
+import Favorite from "./Favorite";
 
 const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
 
@@ -51,14 +52,9 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                                         )
                                     }
                                 </div>
-                                {/*<div className={'vendor'}>*/}
-                                {/*    {*/}
-                                {/*        props.logo &&*/}
-                                {/*        <IonImg className={'vendor__img'} src={props.logo} alt={'logo de l\'enseigne'}/>*/}
-                                {/*    }*/}
-                                {/*</div>*/}
                             </div>
                         </div>
+                        <Favorite isFavorite={false} />
                     </div>
                 </div>
             </IonItem>
