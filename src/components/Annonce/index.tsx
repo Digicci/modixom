@@ -54,7 +54,7 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                                 </div>
                             </div>
                         </div>
-                        <Favorite isFavorite={false} />
+                        <Favorite {...props} />
                     </div>
                 </div>
             </IonItem>

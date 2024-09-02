@@ -6,7 +6,8 @@ import {
     IS_LOADING,
     SET_WHERE,
     RESET_WHERE,
-    TOGGLE_CATEGORY_FILTER
+    TOGGLE_CATEGORY_FILTER,
+    UPDATE_ANNONCE
 } from "../actions/annonceActions";
 
 interface IWhere {
@@ -100,6 +101,19 @@ const AnnonceReducer = (state = initialState, action: any) => {
                     ...state.where,
                     categories
                 }
+            }
+
+        case UPDATE_ANNONCE:
+            const items = state.items.map((a) => {
+                if (a.id === action.payload.id) {
+                    return action.payload
+                }
+                return a;
+            })
+            return {
+                ...state,
+                isLoading: false,
+                items
             }
 
         default:

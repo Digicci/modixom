@@ -6,6 +6,8 @@ export const SET_ANNONCE = 'SET_ANNONCE';
 
 export const IS_LOADING = 'IS_LOADING';
 
+export const UPDATE_ANNONCE = "UPDATE_ANNONCE";
+
 export const SET_WHERE = 'SET_WHERE';
 
 export const RESET_WHERE = "RESET_WHERE";
@@ -56,5 +58,12 @@ export const toggleCategoryFilter = (category: number) => {
     return {
         type: TOGGLE_CATEGORY_FILTER,
         payload: category
+    }
+}
+
+export const updateAnnonce = (annonce: IAnnonce) => {
+    return {
+        type: UPDATE_ANNONCE,
+        payload: annonce
     }
 }
