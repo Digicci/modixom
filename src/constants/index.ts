@@ -28,7 +28,8 @@ export const endpoints = {
     deleteProfil: "deleteProfil",
     addNote: "noteProduit",
     notificationTokenUpdate: "token",
-    addAlerte: 'addAlertes'
+    addAlerte: 'addAlertes',
+    updateFavoris: "updateFavoris"
 }
 
 export const clientTypes = {
