@@ -1,3 +1,8 @@
+.ion-page {
+    justify-content: flex-start;
+    gap: 25px;
+}
+
 .header__container {
     display: flex;
     justify-content: center;
@@ -11,8 +16,6 @@
     margin-bottom: 20px;
     width: 100%;
     padding: 0 10px;
-    position: relative;
-    top: -15%;
 }
 
 .signinButton {

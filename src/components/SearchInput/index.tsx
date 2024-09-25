@@ -15,7 +15,9 @@ const SearchInput: FC = () => {
     }
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
+        Keyboard.hide().then()
         e.preventDefault()
+        console.log(e.target)
     }
 
     return (

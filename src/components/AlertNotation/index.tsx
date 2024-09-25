@@ -41,11 +41,14 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                     {
                         token: userToken
                     }
-                ).then(() => {
+                ).then((res) => {
+                    console.log(res)
+                    const message : string = res === "ok" ? "Votre note à été prise en compte." : "Vous avez déjà noté ce produit."
+                    const color : string = res === "ok" ? "success" : "warning"
                     present({
-                        message: "Votre note à été prise en compte.",
+                        message,
                         duration: 3000,
-                        color: 'success'
+                        color
                     }).then(() => {
                         props.onDidDismiss()
                         setHighlightedLabel(null)
@@ -62,7 +65,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                 })
 
             } else {
-                setError("veuillez selectionner une note ")
+                setError("Veuillez sélectionner une note ")
             }
     };
 

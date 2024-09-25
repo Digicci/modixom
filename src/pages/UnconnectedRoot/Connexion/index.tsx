@@ -1,6 +1,6 @@
 import React from 'react';
 import './Connexion.scss';
-import {IonPage, IonButton, IonHeader, IonFooter} from "@ionic/react";
+import {IonPage, IonButton, IonHeader} from "@ionic/react";
 import ConnexionForm from "./ConnexionForm";
 
 const Connexion: React.FC = () => {
