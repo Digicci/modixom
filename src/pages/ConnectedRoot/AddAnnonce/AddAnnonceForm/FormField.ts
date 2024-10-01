@@ -66,7 +66,8 @@ export const FormField: IAddAnnonceFormConfig = {
     prix:{
         name:"prix",
         type:"number",
-        label:'Prix avant réduction (en €)',
+        label:'Prix (TTC) avant réduction (en €) ',
+        errorMessage: "Le champ Prix est obligatoire.",
         rules:{
             required:true,
             quantite:true,

@@ -75,7 +75,7 @@ export const FormFieldConfig: IAddAnnonceFormConfig = {
     prix:{
         name:"prix",
         type:"number",
-        label:'Prix :',
+        label:'Prix (TTC) :',
         rules:{
             required:true,
             quantite:true,
