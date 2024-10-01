@@ -33,6 +33,6 @@ export const endpoints = {
 }
 
 export const clientTypes = {
-    part: "particulier",
-    pro: "proféssionnels"
+    part: "part",
+    pro: "pro"
 }

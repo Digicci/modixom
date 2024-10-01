@@ -3,11 +3,11 @@ import {FormField} from "./FormField";
 import {IonActionSheet, IonButton, IonFooter, useIonRouter} from "@ionic/react";
 import ContactFormInput from "../../../../components/ContactFormInput";
 import {useDispatch, useSelector} from "react-redux";
-import {setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
+import {resetAddAnnonceForm, setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
 import validator from "../../../../utils/tools/validator";
 import {
     getAddAnnonceError,
-    getAddAnnonceValues,
+    getAddAnnonceValues, isBoosted,
     isSelectedClientCheckbox
 } from "../../../../store/selectors/AddAnnonceSelectors";
 import {getCategoryCollection} from "../../../../store/selectors/CategorySelectors";
@@ -18,7 +18,6 @@ import {setCategoryCollection} from "../../../../store/actions/categoryActions";
 import {useImageService} from "../../../../services/ImageService";
 import {getUserToken} from "../../../../store/selectors/UserSelectors";
 import {useIonToast} from "@ionic/react";
-import Input from "../../../../components/Input";
 
 interface IImgMessage {
     message: string;
@@ -33,10 +32,18 @@ const AddAnnonceForm: React.FC = () => {
     const categoryCollection = useSelector(getCategoryCollection);
     const imgService = useImageService();
     const {push} = useIonRouter();
-    const [imgMessage, setImgMessage] = React.useState<IImgMessage>({
+    const initialImgMessage = {
         message: "Aucune image sélectionnée",
         errored: true
-    });
+    }
+    const imgMessages : {initial: IImgMessage, success: IImgMessage} = {
+        initial: initialImgMessage,
+        success: {
+            message: "Image sélectionnée",
+            errored: false
+        }
+    }
+    const [imgMessage, setImgMessage] = React.useState<IImgMessage>(initialImgMessage);
     const [showActionSheet, setShowActionSheet] = React.useState(false);
     const api = useApi()
     const [present] = useIonToast();
@@ -45,8 +52,11 @@ const AddAnnonceForm: React.FC = () => {
         categoryCollection.length === 0 && api.get(endpoints.categories).then((res: ICategory[]) => {
             dispatch(setCategoryCollection(res))
         })
-
     }, [])
+
+    useEffect(() => {
+        data.logo ? setImgMessage(imgMessages.success) : setImgMessage(imgMessages.initial)
+    }, [data.logo]);
 
     const userToken = useSelector(getUserToken)
 
@@ -149,11 +159,25 @@ const AddAnnonceForm: React.FC = () => {
                                 />
                             )
                         }
+                        if (item === "booster") {
+                            return (
+                                <ContactFormInput
+                                    key={index}
+                                    //@ts-ignore
+                                    {...FormField[item]}
+                                    handleChange={handleChange}
+                                    errorSelector={getAddAnnonceError}
+                                    classPrefix={"addAnnonce__container_form_wrapper"}
+                                    isSelectedCheckbox={isBoosted}
+                                />
+                            )
+                        }
                         return (
                             <ContactFormInput
                                 key={index}
                                 //@ts-ignore
                                 {...FormField[item]}
+                                value={data[item]}
                                 handleChange={handleChange}
                                 errorSelector={getAddAnnonceError}
                                 classPrefix={"addAnnonce__container__form__wrapper"}

@@ -43,7 +43,7 @@ const MyAnnonceDetail: React.FC = () => {
             dateHeureDebut: "",
             dateHeureFin: "",
             norme: false,
-            quantite: 0,
+            quantite: annoncefind.quantity,
             logo: annoncefind.images,
             prix: annoncefind.prix,
             pourcent: annoncefind.pourcentRemise,

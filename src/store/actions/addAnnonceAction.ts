@@ -15,3 +15,8 @@ export const setAddAnnonceError = (name: string, error: string) => ({
         error
     }
 })
+
+export const RESET_ADD_ANNONCE_FORM = "RESET_ADD_ANNONCE_FORM";
+export const resetAddAnnonceForm = () => ({
+    type: RESET_ADD_ANNONCE_FORM
+})

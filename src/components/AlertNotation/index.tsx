@@ -65,7 +65,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                 })
 
             } else {
-                setError("Veuillez sélectionner une note ")
+                setError("Veuillez sélectionner une note.")
             }
     };
 

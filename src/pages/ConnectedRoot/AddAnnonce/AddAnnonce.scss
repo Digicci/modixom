@@ -1,11 +1,14 @@
 .addAnnonce {
+  .label::first-letter {
+    text-transform: uppercase;
+  }
   &__container {
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 1.3rem;
     font-size: 1.2rem;
-    text-transform: capitalize;
+
 
     &__credit {
       display: flex;

@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./addAnnonceValidate.scss";
 import {IonButton, IonContent, IonPage, useIonRouter} from "@ionic/react";
 import Header from "../../../components/Header";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getAddAnnonceValues} from "../../../store/selectors/AddAnnonceSelectors";
+import {resetAddAnnonceForm} from "../../../store/actions/addAnnonceAction";
 
 
 const AddAnnonceValidate: React.FC=()=>{
@@ -15,6 +16,13 @@ const AddAnnonceValidate: React.FC=()=>{
     const  dateHeureFin = addAnnonce.dateHeureFin.split('T');
     dateHeureFin[0]= new Date(dateHeureFin[0]).toLocaleDateString("fr")
     dateHeureFin[1] =dateHeureFin[1].replace(":","H")
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetAddAnnonceForm())
+        }
+    }, []);
 
 
 
@@ -27,7 +35,7 @@ const AddAnnonceValidate: React.FC=()=>{
                     <h2>Merci pour votre confiance</h2>
                     <p>Votre annonce a bien été prise en compte et sera diffusée à partir du
                         <span>{` ${dateHeureDebut[0]} à ${dateHeureDebut[1]} `}</span>
-                         jusqu'au
+                         jusqu&apos;au
                         <span>{` ${dateHeureFin[0]} à ${dateHeureFin[1]} `}</span>
                         .
                     </p>

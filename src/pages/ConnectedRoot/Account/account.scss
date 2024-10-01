@@ -18,7 +18,9 @@
     }
 
     p {
-      text-transform: uppercase;
+      &::first-letter {
+        text-transform: uppercase;
+      }
       margin-right: 5px;
     }
 

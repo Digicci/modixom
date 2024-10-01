@@ -1,5 +1,5 @@
 import ReduxActionInterface from "../../interface/reduxActionInterface";
-import {SET_ADDANNONCE_ERROR, SET_ADDANNONCE_FIELD} from "../actions/addAnnonceAction";
+import {SET_ADDANNONCE_ERROR, SET_ADDANNONCE_FIELD, RESET_ADD_ANNONCE_FORM} from "../actions/addAnnonceAction";
 
 export interface IAddAnnonceForm {
     titre: string | Object;
@@ -9,10 +9,11 @@ export interface IAddAnnonceForm {
     dateHeureFin: boolean | Object;
     norme: boolean | Object;
     client: Array<string>;
-    quantite: number;
+    quantite: string;
     logo: string;
     prix: string | Object;
     pourcent: number | Object;
+    booster: boolean | Object;
 }
 
 interface AddAnnonceErrorState {
@@ -44,10 +45,11 @@ const initialState: AddAnnonceState = {
         dateHeureFin: "",
         norme: false,
         client: [],
-        quantite: 0,
+        quantite: "",
         logo: "",
-        prix: "79.99",
-        pourcent: 25
+        prix: "",
+        pourcent: "",
+        booster: false
     },
     addAnnonceErrors: {
         titre: "",
@@ -67,6 +69,8 @@ const addOrRemove = (array: Array<string>, value: string) => {
     return array.includes(value) ? array.filter((item: string) => item !== value) : array.concat([value])
 
 }
+
+const toggleBoolean = (value: boolean | Object) => !value
 const AddAnnonceReducer = (state = initialState, action: ReduxActionInterface) => {
     switch (action.type) {
         case SET_ADDANNONCE_FIELD:
@@ -76,7 +80,8 @@ const AddAnnonceReducer = (state = initialState, action: ReduxActionInterface) =
                 addAnnonce: {
                     ...state.addAnnonce,
                     [name]: name === "client" ?
-                        addOrRemove(state.addAnnonce.client, value) : value,
+                        addOrRemove(state.addAnnonce.client, value) :
+                        name === "booster" ? toggleBoolean(state.addAnnonce.booster) : value,
                 }
             };
 
@@ -90,6 +95,9 @@ const AddAnnonceReducer = (state = initialState, action: ReduxActionInterface) =
                 ...state,
                 addAnnonceErrors: newError
             }
+
+        case RESET_ADD_ANNONCE_FORM:
+            return initialState;
 
         default:
             return initialState;

@@ -4,6 +4,7 @@ import {clientTypes} from "../../../../constants";
 interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"|"logo"|"norme"> {
     quantite: Object;
     client: Object;
+    booster: Object;
 }
 
 export const FormField: IAddAnnonceFormConfig = {
@@ -96,6 +97,7 @@ export const FormField: IAddAnnonceFormConfig = {
     // },
 
     client: {
+        name: "client",
         type: "client",
         errorMessage: "veuillez choisir au moins un type de client",
         label: "je souhaite diffuser mon annonce auprés :",
@@ -113,6 +115,18 @@ export const FormField: IAddAnnonceFormConfig = {
         },
         rules: {
             required: true,
+        }
+    },
+    booster: {
+        type: "client",
+        errorMessage: "",
+        label: "booster mon annonce ?",
+        input: {
+            booster: {
+                name: "booster",
+                label: "",
+                value: true
+            }
         }
     }
 }

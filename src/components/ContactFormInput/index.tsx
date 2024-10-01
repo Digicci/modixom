@@ -23,7 +23,7 @@ interface IContactFormInputProps {
 }
 
 const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormInputProps) => {
-    const error = props.errorSelector ? props.type==="client"? useSelector(props.errorSelector)["client"]:useSelector(props.errorSelector)[props.name] : null;
+    const error = props.errorSelector ? useSelector(props.errorSelector)[props.name] : null;
 
     const dispatch = useDispatch();
 

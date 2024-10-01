@@ -203,7 +203,7 @@ const Account: React.FC = () => {
                             </div>
                             <AccountUpdatableInput
                                 actualValue={user.mail}
-                                label={'adresse mail :'}
+                                label={'adresse e-mail :'}
                                 type={'email'}
                                 name={'mail'}
                                 isUpdating={false}
@@ -211,16 +211,18 @@ const Account: React.FC = () => {
                                 handleChange={handleChange}
                                 newValue={newUser.mail}
                             />
-                            <AccountUpdatableInput
-                                actualValue={user.phone}
-                                label={'numéro de téléphone :'}
-                                type={'text'}
-                                name={'phone'}
-                                isUpdating={modif}
-                                classPrefix={"account__container__infoWrapper"}
-                                handleChange={handleChange}
-                                newValue={newUser.phone}
-                            />
+                            <div className="account__container__infoWrapper">
+                                <AccountUpdatableInput
+                                    actualValue={user.phone}
+                                    label={'numéro de téléphone :'}
+                                    type={'text'}
+                                    name={'phone'}
+                                    isUpdating={modif}
+                                    classPrefix={"account__container__infoWrapper__name"}
+                                    handleChange={handleChange}
+                                    newValue={newUser.phone}
+                                />
+                            </div>
                             <AccountUpdatableInput
                                 actualValue={user.address}
                                 label={'adresse postale :'}

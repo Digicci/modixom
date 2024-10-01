@@ -2,7 +2,7 @@ import {IAddAnnonceForm} from "../../../store/reducers/AddAnnonceReducer";
 import {clientTypes} from "../../../constants";
 
 
-interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"|"logo"|"norme"> {
+interface IAddAnnonceFormConfig extends Omit<IAddAnnonceForm, "client"|"quantite"|"logo"|"norme"|"booster"> {
     quantite: Object;
     client: Object;
     logo:Object;
