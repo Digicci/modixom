@@ -6,6 +6,7 @@ import {useApi} from "../../../services/ApiService";
 import {useSelector} from "react-redux";
 import {getUserToken} from "../../../store/selectors/UserSelectors";
 import {endpoints, IFacture} from "../../../constants";
+import "./facture.scss";
 
 
 
@@ -27,7 +28,7 @@ const Facture: React.FC = () => {
                 }
                 setIsLoading(false)
             })
-            .catch(err => {
+            .catch(() => {
                 setIsLoading(false)
                 setFactures([])
             })
@@ -44,7 +45,21 @@ const Facture: React.FC = () => {
                                 factures.length ? (
                                     factures.map(facture => {
                                         return (
-                                            <IonItem key={facture.id}>{facture.date}</IonItem>
+                                            <IonItem
+                                                key={facture.id}
+                                                className={"facture-container-list-item"}
+                                                routerDirection={"forward"}
+                                            >
+                                                <a
+                                                    href={facture.fichier}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        color: "inherit"
+                                                    }}
+                                                >
+                                                    Facture en date du {facture.date}
+                                                </a>
+                                            </IonItem>
                                         )
                                     })
                                 ) : (
