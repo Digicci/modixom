@@ -16,6 +16,13 @@ export interface IStorageUser {
     mail: string;
 }
 
+//represente une facture d'achat de crédit
+export interface IFacture {
+    id: number;
+    date: string;
+    fichier: string;
+}
+
 export const endpoints = {
     annonces: 'searchAnnonces',
     annonceDetail: 'annonceDetail',
@@ -29,7 +36,8 @@ export const endpoints = {
     addNote: "noteProduit",
     notificationTokenUpdate: "token",
     addAlerte: 'addAlertes',
-    updateFavoris: "updateFavoris"
+    updateFavoris: "updateFavoris",
+    getFactures: "getFactures"
 }
 
 export const clientTypes = {

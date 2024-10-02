@@ -50,7 +50,6 @@ const User: React.FC = () => {
             {
                 route: '/user/facture',
                 label: "factures",
-                disabled: true
             },
             {
                 route: 'https://modixom.fr/achatCredit',

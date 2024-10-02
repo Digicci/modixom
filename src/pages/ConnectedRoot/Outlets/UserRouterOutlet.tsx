@@ -8,6 +8,7 @@ import Account from "../Account";
 import ContactClient from "../ContactClient";
 import MyAnnonce from "../MyAnnonce";
 import MyAnnonceDetail from "../MyAnnonceDetail";
+import Facture from "../Facture";
 
 
 
@@ -32,6 +33,9 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/myAnnonces/:id`}>
                 <MyAnnonceDetail/>
+            </Route>
+            <Route exact={true} path={`/user/facture`}>
+                <Facture />
             </Route>
         </IonRouterOutlet>
     )
