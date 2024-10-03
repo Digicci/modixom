@@ -9,6 +9,7 @@ import ContactClient from "../ContactClient";
 import MyAnnonce from "../MyAnnonce";
 import MyAnnonceDetail from "../MyAnnonceDetail";
 import Facture from "../Facture";
+import Favoris from "../Favoris";
 
 
 
@@ -36,6 +37,9 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/facture`}>
                 <Facture />
+            </Route>
+            <Route exact={true} path={`/user/favoris`}>
+                <Favoris />
             </Route>
         </IonRouterOutlet>
     )

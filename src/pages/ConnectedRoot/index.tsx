@@ -129,8 +129,7 @@ const ConnectedRoot: React.FC = () => {
                     <HomeRouterOutlet/>
                 </Route>
                 <Route exact path="/alerte">
-                    {/* <Redirect to={"/home"}/> */}<Alerte/>
-
+                    <Alerte/>
                 </Route>
                 {
                     isPro ? (

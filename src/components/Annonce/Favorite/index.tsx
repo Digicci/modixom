@@ -27,6 +27,9 @@ const Favorite: React.FC<IAnnonce> = (props: IAnnonce) => {
                 .then((data) => {
                     console.log(data)
                 })
+        } else {
+            api.post(endpoints.updateFavoris, {favorisId: props.favorisId})
+                .then(console.log)
         }
 
         const annonce = {...props, favoris: !props.favoris}

@@ -37,7 +37,8 @@ export const endpoints = {
     notificationTokenUpdate: "token",
     addAlerte: 'addAlertes',
     updateFavoris: "updateFavoris",
-    getFactures: "getFactures"
+    getFactures: "getFactures",
+    getFavoris: "getFavoris"
 }
 
 export const clientTypes = {

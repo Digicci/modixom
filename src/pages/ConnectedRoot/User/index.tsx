@@ -42,6 +42,10 @@ const User: React.FC = () => {
         {
             route: "https://modixom.fr/protection-des-donnees",
             label: "politique de confidentialité",
+        },
+        {
+            route: "/user/favoris",
+            label: "Mes favoris"
         }
     ];
     // On ajoute les routes dont seuls les pro peuvent avoir access
@@ -52,7 +56,7 @@ const User: React.FC = () => {
                 label: "factures",
             },
             {
-                route: 'https://modixom.fr/achatCredit',
+                route: `https://modixom.fr/achatCredit?token=${user.token}`,
                 label: "acheter du crédit",
             },
             {
