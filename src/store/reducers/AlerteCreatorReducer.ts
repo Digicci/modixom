@@ -2,7 +2,7 @@ import ICategory from "../../models/ICategory";
 import {
     TOGGLE_ALERTE_CATEGORY,
     SET_ALERTE_VILLE,
-    SET_ALERTE_FIELDS
+    SET_ALERTE_FIELDS, RESET_ALERTE_FIELDS
 } from "../actions/alerteActions";
 
 interface IAlerte {
@@ -50,6 +50,12 @@ const alerteCreatorReducer = (state = initialState, action: any) => {
                 ...state,
                 ...action.payload
             }
+
+        case RESET_ALERTE_FIELDS:
+            return {
+                ...initialState,
+                category: []
+            };
 
         default:
             return state;

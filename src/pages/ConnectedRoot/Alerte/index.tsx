@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCategoryCollection} from "../../../store/selectors/CategorySelectors";
 import {setCategoryCollection} from "../../../store/actions/categoryActions";
 import {getAlerte, getAlerteRayon, isSelectedAlerteCategory} from "../../../store/selectors/AlerteSelectors";
-import {setAlerteFields, toggleAlerteCategory} from "../../../store/actions/alerteActions";
+import {resetAlerteFields, setAlerteFields, toggleAlerteCategory} from "../../../store/actions/alerteActions";
 import {useApi} from "../../../services/ApiService";
 import {endpoints, storageKeys} from "../../../constants";
 import ICategory from "../../../models/ICategory";
@@ -53,6 +53,7 @@ const Alerte: React.FC = () => {
                 color: 'success',
                 duration: 5000,
             })
+            dispatch(resetAlerteFields())
             router.goBack()
         })
     }
