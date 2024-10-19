@@ -10,6 +10,7 @@ import MyAnnonce from "../MyAnnonce";
 import MyAnnonceDetail from "../MyAnnonceDetail";
 import Facture from "../Facture";
 import Favoris from "../Favoris";
+import MyAlertes from "../MyAlertes";
 
 
 
@@ -40,6 +41,9 @@ const UserRouterOutlet: React.FC = () => {
             </Route>
             <Route exact={true} path={`/user/favoris`}>
                 <Favoris />
+            </Route>
+            <Route exact={true} path={`/user/alertes`}>
+                <MyAlertes />
             </Route>
         </IonRouterOutlet>
     )

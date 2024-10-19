@@ -1,0 +1,35 @@
+
+
+ion-item.alert {
+  position: relative;
+  left: 100%;
+  animation: enter .2s ease-out forwards;
+  animation-delay: var(--i);
+}
+
+.alert-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem 1rem;
+
+  &-content {
+    &-body {
+      display: flex;
+      justify-content: flex-start;
+      align-items: baseline;
+      gap: 1rem;
+    }
+  }
+
+  & .delete {
+    aspect-ratio: 1/1;
+  }
+}
+
+@keyframes enter {
+  to {
+    left: 0;
+  }
+}

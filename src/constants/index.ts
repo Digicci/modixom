@@ -38,7 +38,8 @@ export const endpoints = {
     addAlerte: 'addAlertes',
     updateFavoris: "updateFavoris",
     getFactures: "getFactures",
-    getFavoris: "getFavoris"
+    getFavoris: "getFavoris",
+    getAlert: "getAlertes"
 }
 
 export const clientTypes = {
