@@ -30,4 +30,14 @@
       color: green;
     }
   }
+
+  &__button {
+    background: var(--pro-primary-bg-color);
+    border-radius: 5px;
+
+    &-danger {
+      @extend .logo__wrapper__button;
+      background: var(--ion-color-danger);
+    }
+  }
 }

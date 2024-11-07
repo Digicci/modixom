@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './inscriptionForm.scss';
 import {useIonToast, useIonRouter, IonButton, IonActionSheet} from "@ionic/react";
 import Input from "../../../../components/Input";
@@ -36,6 +36,8 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
         message: "Aucune image sélectionnée",
         errored: true
     });
+    const [localImg, setLocalImg] = useState<string>('')
+
     // La methode "push" permet de naviguer vers une autre page,
     // elle s'attend à recevoir un string qui correspond au chemin de la page en premier paramètre
     // un second string qui correspond au sens de navigation (forward, back, root)
@@ -88,6 +90,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                 imgService.pickImage().then((res) => {
                     if(typeof res?.dataUrl==="string") {
                         dispatch(setInscriptionField("logo", res.dataUrl!))
+                        setLocalImg(res.dataUrl)
                         setImgMessage({
                             message: "Image sélectionnée",
                             errored: false
@@ -98,8 +101,18 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
         }
     ]
 
+    const deleteImg = () => {
+        dispatch(setInscriptionField("logo", ""))
+        setLocalImg("")
+        setImgMessage({
+            message: "Aucune image sélectionnée",
+            errored: true
+        })
+    }
+
+
     // eslint-disable-next-line no-undef
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         const errors = validateAll();
         if (Object.keys(errors).length === 0) {
@@ -168,7 +181,7 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             {
                 props.type === clientTypes.pro && (
                     <>
@@ -193,8 +206,20 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                             />
                         </div>
                         <div className={'logo__wrapper'}>
-                            <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
-                            <IonButton onClick={() => setShowActionSheet(true)}>importer un logo</IonButton>
+                            {
+                                localImg === "" ?
+                                    <>
+                                        <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
+                                        <IonButton className={"logo__wrapper__button"} color={"transparent"} onClick={() => setShowActionSheet(true)}>importer un logo</IonButton>
+                                    </>
+                                    :
+                                    <>
+                                        <div>
+                                            <img src={localImg} alt={"logo"}/>
+                                        </div>
+                                        <IonButton className={"logo__wrapper__button-danger"} color={"transparent"} onClick={deleteImg}>supprimer le logo</IonButton>
+                                    </>
+                            }
                         </div>
                     </>
                 )
@@ -221,9 +246,10 @@ const InscriptionForm: React.FC<InscriptionFormProps> = (props: InscriptionFormP
                 <div className={'inputGroup'}>
                     <div className={"inputGroup__wrapper"}>
                         <input
-                            type="submit"
+                            type="button"
                             value={"Je m'inscris"}
                             className={"inputGroup__wrapper__input"}
+                            onClick={handleSubmit}
                         />
                     </div>
                 </div>

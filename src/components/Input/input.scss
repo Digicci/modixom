@@ -139,7 +139,7 @@
   }
 }
 
-.inputGroup__wrapper:has(input[type="submit"]) {
+.inputGroup__wrapper:has(input[type="submit"], input[type="button"]) {
   position: unset;
   padding: 0;
   & input {
