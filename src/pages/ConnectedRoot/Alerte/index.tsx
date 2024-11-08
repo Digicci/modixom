@@ -21,11 +21,12 @@ import Item from "../../../components/Category/Item";
 import RayonFilter from "../../../components/RayonFilter";
 import Header from "../../../components/Header";
 import {getUser} from "../../../store/selectors/UserSelectors";
+import IAlerte from "../../../models/IAlerte";
 
 const Alerte: React.FC = () => {
 
     const categoryCollection = useSelector(getCategoryCollection)
-    const alerte = useSelector(getAlerte)
+    const alerte: IAlerte = useSelector(getAlerte)
     const [present] = useIonToast()
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -45,6 +46,30 @@ const Alerte: React.FC = () => {
     }, [])
 
     const handleValidate = () => {
+        //Si aucune ville n'est renseigné et qu'il manque lat ou lng,
+        // ou s'il manque le rayon ou qu'il est inférieur ou égale à 0,
+        // ou si aucune catégory n'a été sélectionnée.
+        if (alerte.ville === null && (alerte.lng === null || alerte.lat === null)
+            || (alerte.rayon === null || alerte.rayon <= 0)
+            || alerte.category.length === 0) {
+            let errors = [];
+            if (alerte.category.length === 0) {
+                errors.push("au moins une catégorie")
+            }
+            if (alerte.ville === null && (alerte.lng === null || alerte.lat === null)) {
+                errors.push("un épicentre")
+            }
+            if (alerte.rayon === null || alerte.rayon <= 0) {
+                errors.push("un rayon valide")
+            }
+            present({
+                message: `Merci de renseigner ${errors.join(", ")} pour votre alerte.`,
+                color: "danger",
+                duration: 5000
+            })
+                .then()
+            return;
+        }
 
         api.post(endpoints.addAlerte, {...alerte, mail: user.mail}).then(async (data) => {
             console.log(data)
