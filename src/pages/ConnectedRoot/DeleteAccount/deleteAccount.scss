@@ -7,31 +7,36 @@
 
 
     &__textContainer {
-      height: 72vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       gap: 3rem;
-      text-align: justify;
 
       h2 {
         font-size: 1.2rem;
         margin: 0;
-        text-transform: uppercase;
+        &::first-letter {
+          text-transform: uppercase;
+        }
       }
 
 
       &__checkbox {
 
+        display: flex;
+        align-items: center;
+        gap: .3rem;
+
         input {
-          width: 20px;
-          height: 20px;
+          width: 30px;
+          height: 30px;
         }
 
         label{
           margin-left: 5px;
-          font-size: 1rem;
-          text-transform: uppercase;
+          &::first-letter {
+            text-transform: uppercase;
+          }
         }
 
         & .inputGroup__error{

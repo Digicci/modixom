@@ -3,7 +3,7 @@ import {
     DISCONNECT_USER, RESET_NEW_USER,
     SET_NEW_USER_CITIES,
     SET_NEW_USER_CITY, SET_NEW_USER_ERROR,
-    SET_NEW_USER_FIELD,
+    SET_NEW_USER_FIELD, SET_NEW_USER_HAS_USER,
     SET_USER
 } from "../actions/userActions";
 import ICityProposal from "../../models/ICityProposal";
@@ -152,6 +152,18 @@ const userReducer = (state: UserReducerInterface = initialState, action: any): U
                     ...action.payload
                 }
             };
+
+        case SET_NEW_USER_HAS_USER:
+            return {
+                ...state,
+                newUser: {
+                    ...action.payload,
+                    cityId: null,
+                    password: '',
+                    newPassword: '',
+                    confirmNewPassword: ''
+                }
+            }
 
         default:
             return state;

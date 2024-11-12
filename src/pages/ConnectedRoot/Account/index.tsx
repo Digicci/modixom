@@ -26,7 +26,7 @@ import {
     setNewUserField,
     setNewUserCities,
     setNewUserError,
-    resetNewUser
+    resetNewUser, setNewUserHasUser
 } from "../../../store/actions/userActions";
 import Loader from "../../../components/Loader";
 
@@ -55,11 +55,11 @@ const Account: React.FC = () => {
     const fetchUser = () =>{
         setIsLoading(true);
         api.get(endpoints.profilDetail, {token}).then((res) => {
-            console.log(res);
             const apiUser: UserState = apiUserDataAdapter(res);
             dispatch(setUser(apiUser));
             dispatch(setNewUserField("id", apiUser.id!));
             dispatch(setNewUserField('isPro', apiUser.isPro!));
+            dispatch(setNewUserHasUser(apiUser));
             setIsLoading(false);
         })
     }
@@ -68,7 +68,6 @@ const Account: React.FC = () => {
         fetchUser();
 
         return () => {
-            dispatch(resetNewUser());
             setModif(false);
         }
     }, []);
@@ -92,7 +91,7 @@ const Account: React.FC = () => {
         }
     }
     const toggleModif = () => {
-        dispatch(resetNewUser());
+        fetchUser();
         setModif(!modif);
     }
 
@@ -179,7 +178,6 @@ const Account: React.FC = () => {
                                 />
                             </div>
                             }
-                            <div className={"account__container__infoWrapper"}>
                                 <AccountUpdatableInput
                                     actualValue={user.name}
                                     label={'nom'}
@@ -200,14 +198,13 @@ const Account: React.FC = () => {
                                     handleChange={handleChange}
                                     newValue={newUser.surname}
                                 />
-                            </div>
                             <AccountUpdatableInput
                                 actualValue={user.mail}
                                 label={'adresse e-mail :'}
                                 type={'email'}
                                 name={'mail'}
-                                isUpdating={false}
-                                classPrefix={"account__container__infoWrapper"}
+                                isUpdating={modif}
+                                classPrefix={"account__container__infoWrapper__name"}
                                 handleChange={handleChange}
                                 newValue={newUser.mail}
                             />
@@ -234,7 +231,6 @@ const Account: React.FC = () => {
                                 newValue={newUser.address}
                             />
 
-                            <div className={"account__container__infoWrapper"}>
                                 <AccountUpdatableInput
                                     actualValue={user.postalCode}
                                     label={'code postal :'}
@@ -267,7 +263,6 @@ const Account: React.FC = () => {
                                     handleChange={handleChange}
                                     newValue={newUser.country}
                                 />
-                            </div>
                             {
                                 modif && (
                                     <>

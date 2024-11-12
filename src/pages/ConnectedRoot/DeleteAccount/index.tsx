@@ -89,7 +89,7 @@ const DeleteAccount: React.FC = () => {
 
             <IonFooter className={'deleteAccount__footer'}>
                 <IonButton expand={'full'} className={'validateButton'} onClick={deleteUser}>
-                    FERMER MON COMPTE
+                    SUPPRIMER MON COMPTE
                 </IonButton>
             </IonFooter>
 

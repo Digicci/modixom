@@ -78,8 +78,7 @@ const User: React.FC = () => {
     availableRoutes.push(
         {
             route: "/user/delete",
-            label: "supprimer mon compte",
-            color: "red"
+            label: "supprimer mon compte"
         }
     );
 
@@ -113,19 +112,21 @@ const User: React.FC = () => {
                                         }
                                         disabled={item.disabled}
                                     >
-                                        <a href={item.route} style={{
-                                            textDecoration: "none",
-                                            color: "inherit"
-                                        }} className={'list__item__label'}>
-                                            {item.label.toUpperCase()}
-                                        </a>
+                                        <IonLabel className={'list__item__label'}>
+                                            <a href={item.route} style={{
+                                                textDecoration: "none",
+                                                color: "inherit"
+                                            }}>
+                                                {item.label.toUpperCase()}
+                                            </a>
+                                        </IonLabel>
                                     </IonItem>
                                     :
                                     <IonItem
-                                    key={index}
-                                    className={'list__item'}
-                                    style={
-                                        item.color ? {color: item.color} : {}
+                                        key={index}
+                                        className={'list__item'}
+                                        style={
+                                            item.color ? {color: item.color} : {}
                                     }
                                     routerLink={`${item.route}`}
                                     routerDirection={"forward"}

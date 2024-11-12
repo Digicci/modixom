@@ -50,7 +50,7 @@ const AccountUpdatableInput: React.FC<IAccountUpdatableInputProps> = (props:IAcc
         <div className={props.classPrefix || ''} style={{
             transition: "all 0.5s ease-in-out"
         }}>
-            <p>{props.label}</p>
+            <p className={"label"}>{props.label}</p>
             {
                 props.isUpdating ? (
                     <Input

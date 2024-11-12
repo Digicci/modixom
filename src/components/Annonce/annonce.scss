@@ -19,7 +19,8 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      max-width: 180px;
+      width: 420px;
+      max-width: 220px; // Do not touch
 
       & .img {
         width: 100%;

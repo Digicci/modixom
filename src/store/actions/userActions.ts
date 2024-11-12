@@ -74,3 +74,6 @@ export const resetNewUser = () => {
         type: RESET_NEW_USER
     }
 }
+
+export const SET_NEW_USER_HAS_USER: string = "SET_NEW_USER_HAS_USER";
+export const setNewUserHasUser = (payload: any) => ({type: SET_NEW_USER_HAS_USER, payload})
