@@ -134,3 +134,7 @@
     font-size: 24px !important;
   }
 }
+
+ion-tab-bar {
+  --color-selected: var(--pro-primary-bg-color);
+}

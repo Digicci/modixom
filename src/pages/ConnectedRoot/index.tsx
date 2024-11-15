@@ -3,12 +3,10 @@ import {IonIcon, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, useIonToast}
 import {Redirect, Route} from "react-router-dom";
 import {megaphone, at, home, personOutline} from "ionicons/icons";
 import Alerte from "./Alerte";
-import ContactPro from "./ContactPro";
 import UserRouterOutlet from "./Outlets/UserRouterOutlet";
 import HomeRouterOutlet from "./Outlets/HomeRouterOutlet";
 import {useSelector} from "react-redux";
 import {getUser, isUserPro} from "../../store/selectors/UserSelectors";
-import AddAnnonce from "./AddAnnonce";
 import AnnonceRouterOutlet from "./Outlets/AnnonceRouterOutlet";
 import {
     PushNotificationSchema,

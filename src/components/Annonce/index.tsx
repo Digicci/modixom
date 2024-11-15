@@ -5,8 +5,12 @@ import {IAnnonce} from "../../models/IAnnonce"
 
 import Notation from "./Notation";
 import Favorite from "./Favorite";
+import {useSelector} from "react-redux";
+import {isUserPro} from "../../store/selectors/UserSelectors";
 
 const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
+
+    const userIsPro = useSelector(isUserPro);
 
     return (
         <div>
@@ -42,12 +46,12 @@ const Annonce: React.FC<IAnnonce> = (props: IAnnonce): ReactNode => {
                                                     {props.prix.toFixed(2) + ' €'}
                                                 </div>
                                                 <div className={'price__new'}>
-                                                    {props.newprix.toFixed(2) + ' €'}
+                                                    {Math.abs(props.newprix).toFixed(2) + ' €'} {userIsPro && " TTC"}
                                                 </div>
                                             </>
                                         ) : (
                                             <div className={'price__new'}>
-                                                {props.prix ? props.prix.toFixed(2) : 0 } €
+                                                {props.prix ? props.prix.toFixed(2) : 0 } € {userIsPro && " TTC"}
                                             </div>
                                         )
                                     }

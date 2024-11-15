@@ -16,16 +16,6 @@ const AddAnnonceValidate: React.FC=()=>{
     const  dateHeureFin = addAnnonce.dateHeureFin.split('T');
     dateHeureFin[0]= new Date(dateHeureFin[0]).toLocaleDateString("fr")
     dateHeureFin[1] =dateHeureFin[1].replace(":","H")
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        return () => {
-            dispatch(resetAddAnnonceForm())
-        }
-    }, []);
-
-
-
 
     return(
         <IonPage className={"addAnnonceValide"}>
@@ -34,15 +24,15 @@ const AddAnnonceValidate: React.FC=()=>{
                 <div className={"addAnnonceValide__container"}>
                     <h2>Merci pour votre confiance</h2>
                     <p>Votre annonce a bien été prise en compte et sera diffusée à partir du
-                        <span>{` ${dateHeureDebut[0]} à ${dateHeureDebut[1]} `}</span>
+                        <span>{`${dateHeureDebut[0]} à ${dateHeureDebut[1]}`}</span>
                          jusqu&apos;au
-                        <span>{` ${dateHeureFin[0]} à ${dateHeureFin[1]} `}</span>
+                        <span>{`${dateHeureFin[0]} à ${dateHeureFin[1]}`}</span>
                         .
                     </p>
-                    <IonButton onClick={()=>{push("/addAnnonce","back")}}>Passer une nouvelle annonces</IonButton>
+                    <IonButton onClick={()=>{push("/addAnnonce","back")}}>Passer une nouvelle annonce</IonButton>
 
-                    <p>crédit restant : <span>........</span></p>
-                    <IonButton>charger mon crédit</IonButton>
+                    <p>Crédit restant : <span>........</span></p>
+                    <IonButton>Recharger mon crédit</IonButton>
 
                 </div>
             </IonContent>

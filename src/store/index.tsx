@@ -14,6 +14,8 @@ import ContactFormReducer from "./reducers/ContactReducer";
 import AddAnnonceReducer from "./reducers/AddAnnonceReducer";
 import MyAnnonceReducer from "./reducers/MyAnnonceReducer";
 
+const storeEnhancer = composeWithDevTools({trace: true, traceLimit: 25})
+
 const store: Store = createStore(
     combineReducers({
         user: userReducer,
@@ -26,7 +28,7 @@ const store: Store = createStore(
         contact:ContactFormReducer,
         myAnnonce:MyAnnonceReducer
     }),
-    composeWithDevTools(applyMiddleware(
+    storeEnhancer(applyMiddleware(
         thunk,
         connexionMiddleware,
         disconnectMiddleware

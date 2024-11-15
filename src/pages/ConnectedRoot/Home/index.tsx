@@ -12,7 +12,7 @@ import SearchInput from "../../../components/SearchInput";
 import {IAnnonce} from "../../../models/IAnnonce";
 import Loader from "../../../components/Loader";
 import {getAnnonces, getWhereClause, isLoadingAnnonces} from "../../../store/selectors/AnnonceSelectors";
-import {setAnnonce, setIsLoadingAnnonces} from "../../../store/actions/annonceActions";
+import {setAnnonce, setIsLoadingAnnonces, setWhere} from "../../../store/actions/annonceActions";
 import {endpoints} from "../../../constants";
 import topToBottomAnimation from "../../../utils/tools/topToBottomAnimation";
 import {UserState} from "../../../store/reducers/UserReducer";
@@ -29,6 +29,7 @@ const Home: React.FC = () => {
     const where = useSelector(getWhereClause);
     const token = useSelector(getUserToken)
     const [present] = useIonToast()
+    const axiosController = new AbortController()
 
     const fetchUser = () => {
         api.get(endpoints.profilDetail, {token}).then(async(res) => {
@@ -52,23 +53,39 @@ const Home: React.FC = () => {
             }
         )
     }
+    useEffect(() => {
+        dispatch(setWhere( {motscles: ""}))
+    }, []);
 
     useEffect(() => {
         fetchUser()
         dispatch(setIsLoadingAnnonces(true));
-        let data = {};
+        let data: any = {};
         if (where.motscles.length < 3) {
             const {motscles, ...rest} = where;
             data = {...rest};
         } else {
             data = {...where};
         }
-
-        api.get(endpoints.annonces, {...data, token}).then((res: IAnnonce[]) => {
-            dispatch(setAnnonce(res));
-            console.log(res)
-        });
+        //Aucune requête envoyée entre 0 et 3 caractères de recherche
+        if (where.motscles.length === 0 || where.motscles.length > 3) {
+            api.get(endpoints.annonces, {...data, token, signal: axiosController.signal}).then((res: IAnnonce[]) => {
+                // @ts-ignore
+                if((where.motscles === data.motscles || !data.motscles) && !res.message) {
+                    console.log("resultat de recherche : ", res, data)
+                    dispatch(setAnnonce(res));
+                }
+            });
+        } else {
+            dispatch(setIsLoadingAnnonces(false))
+        }
     }, [where]);
+
+    useEffect(() => {
+        // Permet d'annuler les requêtes en cours.
+        axiosController.abort();
+    }, [annonces]);
+
 
 
     return (

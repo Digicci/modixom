@@ -1,4 +1,4 @@
-import React, {FormEventHandler, useEffect, useState} from "react";
+import React, {FormEventHandler, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {IonDatetime, IonDatetimeButton, IonItem, IonModal, IonSelect, IonSelectOption, IonTextarea} from "@ionic/react";
 import {endpoints} from "../../constants";
@@ -46,7 +46,7 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
             <>
                 <IonItem className={props.classPrefix+" categorie"||""}>
                     {/*@ts-ignore*/}
-                    <IonSelect label={props.label} required={props.required} name={"categorie"} onIonChange={props.handleChange}>
+                    <IonSelect cancelText={"Annuler"} okText={"Valider"} label={props.label} required={props.required} name={"categorie"} onIonChange={props.handleChange}>
                         {
 
                             Object.keys(categorie).map((item:any,index:number)=>{
@@ -141,15 +141,30 @@ const ContactFormInput: React.FC<IContactFormInputProps> = (props: IContactFormI
         )
     }
 
-    // if(props.type === "datetime-local") {
-    //     return <>
-    //         <p className="label">{props.label}</p>
-    //         <IonDatetimeButton datetime={props.name}></IonDatetimeButton>
-    //         <IonModal keepContentsMounted={true}>
-    //             <IonDatetime showDefaultButtons={true} onIonChange={(e) => console.log(e)} doneText={"Valider"} cancelText={'Annuler'} value={props.value} locale={"fr-FR"} id={props.name}><span slot={'title'}>{props.label}</span></IonDatetime>
-    //         </IonModal>
-    //     </>
-    // }
+    if(props.type === "datetime-local") {
+        return <div>
+            <p className="label">{props.label}</p>
+            <IonDatetimeButton datetime={props.name}></IonDatetimeButton>
+            <IonModal keepContentsMounted={true}>
+                <IonDatetime
+                    id={props.name}
+                    min={(new Date()).toISOString()}
+                    showDefaultButtons={true}
+                    //@ts-ignore
+                    onIonChange={props.handleChange}
+                    doneText={"Valider"}
+                    cancelText={'Annuler'}
+                    value={props.value ||(new Date()).toISOString()}
+                    locale={"fr-FR"}
+                    name={props.name}
+                >
+                    <span slot={'title'}>
+                        {props.label}
+                    </span>
+                </IonDatetime>
+            </IonModal>
+        </div>
+    }
     return (
         <>
             <div className={props.classPrefix || ""}>

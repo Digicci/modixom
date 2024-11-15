@@ -39,9 +39,11 @@ export function ProvideApi({ children }: IProviderProps) {
 
 //ToDo : Ajouter des fonctions pour chaque requête necesaire, les endpoints doivent être définis dans un fichier à part
 function useProvideApi(): IApiContext{
-    const get = async (url: string, params = {}) => {
+    const get = async (url: string, params: any = {}) => {
         try {
-            const response = await Api.get(url, {params});
+            const signal = params?.signal ?? "";
+            delete params?.signal;
+            const response = await Api.get(url, {params, signal: signal ?? ""});
             return response.data;
         } catch (e) {
             return e

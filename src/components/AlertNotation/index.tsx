@@ -43,7 +43,7 @@ const AlertNotation: React.FC<IAlertNotationProps> = (props: IAlertNotationProps
                     }
                 ).then((res) => {
                     console.log(res)
-                    const message : string = res === "ok" ? "Votre note à été prise en compte." : "Vous avez déjà noté ce produit."
+                    const message : string = res === "ok" ? "Votre note a été prise en compte." : "Vous avez déjà noté ce produit."
                     const color : string = res === "ok" ? "success" : "warning"
                     present({
                         message,

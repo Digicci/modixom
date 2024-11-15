@@ -52,6 +52,9 @@ const AddAnnonceForm: React.FC = () => {
         categoryCollection.length === 0 && api.get(endpoints.categories).then((res: ICategory[]) => {
             dispatch(setCategoryCollection(res))
         })
+        return () => {
+            dispatch(resetAddAnnonceForm())
+        }
     }, [])
 
     useEffect(() => {
@@ -96,6 +99,10 @@ const AddAnnonceForm: React.FC = () => {
         dispatch(setAddAnnonceField(name, fieldValue))
         validate(name, fieldValue)
     }
+
+    useEffect(() => {
+        validate("client", data.client)
+    }, [data.client]);
     const handleSubmit = () : void => {
         const errors : string[] = validateAll()
         if (errors.length === 0) {
@@ -117,10 +124,6 @@ const AddAnnonceForm: React.FC = () => {
             })
         }
     }
-
-    useEffect(() : void => {
-        validateAll()
-    }, [data])
     return (
         <>
             <div className={"addAnnonce__container__form"}>
@@ -140,7 +143,7 @@ const AddAnnonceForm: React.FC = () => {
                                     />
                                     <div className={'logo__wrapper'}>
                                         <p className={`logo__wrapper__text ${imgMessage.errored ? 'error' : 'success'}`}>{imgMessage.message}</p>
-                                        <IonButton onClick={() => setShowActionSheet(true)}>ajouter une photo
+                                        <IonButton expand={"block"} onClick={() => setShowActionSheet(true)}>Ajouter une photo du
                                             produit</IonButton>
                                     </div>
                                 </div>
@@ -167,7 +170,7 @@ const AddAnnonceForm: React.FC = () => {
                                     {...FormField[item]}
                                     handleChange={handleChange}
                                     errorSelector={getAddAnnonceError}
-                                    classPrefix={"addAnnonce__container_form_wrapper"}
+                                    classPrefix={"addAnnonce__container__form__wrapper"}
                                     isSelectedCheckbox={isBoosted}
                                 />
                             )
