@@ -10,6 +10,8 @@ import {endpoints} from "../../../constants";
 
 import Header from "../../../components/Header";
 import {getLocation} from "../../../services/LocationService";
+import {useSelector} from "react-redux";
+import {isUserPro} from "../../../store/selectors/UserSelectors";
 
 
 
@@ -18,6 +20,7 @@ const AnnonceDetail: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const params = useParams<{ id: string }>();
     const api = useApi();
+    const userIsPro = useSelector(isUserPro);
 
     useEffect(() => {
         api.get(endpoints.annonceDetail, {id: params.id}).then((res: IAnnonce) => {
@@ -50,8 +53,30 @@ const AnnonceDetail: React.FC = () => {
                                     <div className={'annonceDetail__part1__img'}>
                                         <img src={annonce?.images!} alt={'image annonce'}/>
                                     </div>
-                                    <div className={'annonceDetail__part1__description'}>
-                                        {annonce?.description}
+                                    <div>
+                                        <div className={'annonceDetail__part1__description'}>
+                                            {annonce?.description}
+                                        </div>
+                                        <div className={'annonce__wrapper__information__price'}>
+                                            <div className={'price'}>
+                                                {
+                                                    annonce?.newprix ? (
+                                                        <>
+                                                            <div className={'price__old'}>
+                                                                {annonce?.prix.toFixed(2) + ' €'}
+                                                            </div>
+                                                            <div className={'price__new'}>
+                                                                {Math.abs(annonce?.newprix).toFixed(2) + ' €'} {userIsPro && " TTC"}
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                        <div className={'price__new'}>
+                                                            {annonce?.prix ? annonce?.prix.toFixed(2) : 0} € {userIsPro && " TTC"}
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -61,7 +86,8 @@ const AnnonceDetail: React.FC = () => {
                                             annonce?.debut && annonce?.fin && (
                                                 <>
                                                     Annonce valable de
-                                                    <span className={'start'}>{annonce?.debut.split(' ')[1].replace(':', 'h')}</span>
+                                                    <span
+                                                        className={'start'}>{annonce?.debut.split(' ')[1].replace(':', 'h')}</span>
                                                     à
                                                     <span className={'end'}>
                                                         {annonce?.fin.split(' ')[1].replace(":", "h")}

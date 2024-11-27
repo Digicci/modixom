@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {FormField} from "./FormField";
-import {IonActionSheet, IonButton, IonFooter, useIonRouter} from "@ionic/react";
+import {IonActionSheet, IonButton, IonFooter, IonToast, useIonRouter} from "@ionic/react";
 import ContactFormInput from "../../../../components/ContactFormInput";
 import {useDispatch, useSelector} from "react-redux";
 import {resetAddAnnonceForm, setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
@@ -32,6 +32,10 @@ const AddAnnonceForm: React.FC = () => {
     const categoryCollection = useSelector(getCategoryCollection);
     const imgService = useImageService();
     const {push} = useIonRouter();
+
+    // contrôle du toast d'envoi en cours, si true le toast est ouvert et le bouton de soumission est bloqué
+    const [isOpenToast, setIsOpenToast] = useState(false)
+
     const initialImgMessage = {
         message: "Aucune image sélectionnée",
         errored: true
@@ -83,7 +87,7 @@ const AddAnnonceForm: React.FC = () => {
                         await present({
                             message: "Une erreur est survenue lors du chargement de l'image",
                             duration: 2000,
-                            color: "danger"
+                            color: "danger",
                         })
                     }
                 })
@@ -106,7 +110,9 @@ const AddAnnonceForm: React.FC = () => {
     const handleSubmit = () : void => {
         const errors : string[] = validateAll()
         if (errors.length === 0) {
+            setIsOpenToast(true)
             api.post(endpoints.postAnnonce, data, {token: userToken}).then(async (res) : Promise<void> => {
+                setIsOpenToast(false)
                 if (res.message === "Annonce ajoutée") {
                     await present({
                         message: "Annonce ajoutée",
@@ -197,8 +203,13 @@ const AddAnnonceForm: React.FC = () => {
                 header={'Ajouter une photo produit'}
                 buttons={imgActionSheetButtons}
             />
+            <IonToast
+                isOpen={isOpenToast}
+                message={"Annonce en cours d'ajout."}
+                color={"light"}
+            />
             <IonFooter>
-                <IonButton className={'validateButton'} onClick={handleSubmit}>valider</IonButton>
+                <IonButton className={'validateButton'} disabled={isOpenToast} onClick={handleSubmit}>valider</IonButton>
             </IonFooter>
         </>
 

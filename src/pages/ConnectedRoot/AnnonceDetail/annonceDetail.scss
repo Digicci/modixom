@@ -27,6 +27,28 @@
       height: 15rem;
       border-radius: 1rem
     }
+
+    .price {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 2rem;
+
+      &__old {
+        color: black;
+        text-decoration: line-through;
+        font-size: 1rem;
+
+        @media screen and (prefers-color-scheme: dark) {
+          color: #a0a0a0;
+        }
+      }
+
+      &__new {
+        font-size: 1.1rem;
+        color: #D82E9F;
+      }
+    }
   }
 
   &__part2 {

@@ -33,7 +33,6 @@ const Home: React.FC = () => {
 
     const fetchUser = () => {
         api.get(endpoints.profilDetail, {token}).then(async(res) => {
-                console.log(res);
                 if (res.response && res.response.status !== 200) {
                     await present({
                         message: "Vous avez été déconnecté.",
@@ -72,7 +71,6 @@ const Home: React.FC = () => {
             api.get(endpoints.annonces, {...data, token, signal: axiosController.signal}).then((res: IAnnonce[]) => {
                 // @ts-ignore
                 if((where.motscles === data.motscles || !data.motscles) && !res.message) {
-                    console.log("resultat de recherche : ", res, data)
                     dispatch(setAnnonce(res));
                 }
             });
