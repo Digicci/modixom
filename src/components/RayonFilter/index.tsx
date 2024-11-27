@@ -2,13 +2,14 @@ import React, {useState, useEffect} from "react";
 import './rayonFilter.scss';
 import {useApi} from "../../services/ApiService";
 import {endpoints} from "../../constants";
-import {IonButton, IonIcon} from "@ionic/react";
+import {IonButton, IonIcon, useIonAlert} from "@ionic/react";
 import {locationOutline} from "ionicons/icons";
 import {useSelector, useDispatch} from "react-redux";
 import {getLocation} from "../../services/LocationService";
 
 import Loader from "../Loader";
 import CityProposal from "./CityProposal";
+import {Position} from "@capacitor/geolocation";
 interface IRayonFilterProps {
     storageKey: string;
     reducerSelector: (state: any) => any;
@@ -32,6 +33,7 @@ const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, re
     const whereVille = where.ville;
     const position = {lng: where.lng, lat: where.lat};
     const positionLabel: string = 'Ma position';
+    const [presentAlert] = useIonAlert();
 
     const changeVille = (ville: string) => {
         //Change uniquement la chaine de caractère affichée, n'a aucun effet sur le store
@@ -103,10 +105,20 @@ const RayonFilter: React.FC<IRayonFilterProps> = ({storageKey, rayonSelector, re
     }
 
     const handleLocationClick = () => {
-        getLocation().then((res: any) => {
-            console.log(res)
-            res && dispatch(dispatchFn({lat: res.coords.latitude, lng: res.coords.longitude, rayon: rayon ?? 50, ville: null}));
-            res && changeVille(positionLabel);
+        const alertContent = {
+            header: "Localisation désactivée.",
+            subHeader: "Votre localisation est désactivée.",
+            message: "Activez la localisation dans les réglages de votre appareil ou utilisez le champs de saisie pour choisir une ville.",
+            buttons: ["Ok"]
+        }
+        getLocation().then((res: boolean | Position) => {
+            console.log(res);
+            const resIsPosition = typeof res !== "boolean";
+            resIsPosition && dispatch(dispatchFn({lat: res.coords.latitude, lng: res.coords.longitude, rayon: rayon ?? 50, ville: null}));
+            resIsPosition && changeVille(positionLabel);
+            (!resIsPosition && !res) && presentAlert(alertContent);
+        }).catch(() => {
+            presentAlert(alertContent);
         })
     }
 

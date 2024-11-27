@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {FormField} from "./FormField";
-import {IonActionSheet, IonButton, IonFooter, IonToast, useIonRouter} from "@ionic/react";
+import {IonActionSheet, IonButton, IonFooter, IonToast, useIonAlert, useIonRouter} from "@ionic/react";
 import ContactFormInput from "../../../../components/ContactFormInput";
 import {useDispatch, useSelector} from "react-redux";
 import {resetAddAnnonceForm, setAddAnnonceError, setAddAnnonceField} from "../../../../store/actions/addAnnonceAction";
@@ -32,6 +32,8 @@ const AddAnnonceForm: React.FC = () => {
     const categoryCollection = useSelector(getCategoryCollection);
     const imgService = useImageService();
     const {push} = useIonRouter();
+
+    const priceSolded = (data.prix - (data.prix / 100) * data.pourcent) || 0;
 
     // contrôle du toast d'envoi en cours, si true le toast est ouvert et le bouton de soumission est bloqué
     const [isOpenToast, setIsOpenToast] = useState(false)
@@ -67,6 +69,8 @@ const AddAnnonceForm: React.FC = () => {
 
     const userToken = useSelector(getUserToken)
 
+    const [presentAlert] = useIonAlert();
+
     const imgActionSheetButtons : {
         text: string;
         handler: () => void;
@@ -75,7 +79,7 @@ const AddAnnonceForm: React.FC = () => {
             text: 'Ouvrir la galerie',
             handler: () : void => {
                 imgService.pickImage().then(async (res) : Promise<void> => {
-                    if (res) {
+                    if (res && typeof res !== "boolean") {
                         if (typeof res.dataUrl === "string") {
                             dispatch(setAddAnnonceField("logo", res.dataUrl))
                             setImgMessage({
@@ -84,10 +88,16 @@ const AddAnnonceForm: React.FC = () => {
                             })
                         }
                     } else {
-                        await present({
-                            message: "Une erreur est survenue lors du chargement de l'image",
-                            duration: 2000,
-                            color: "danger",
+                        await presentAlert({
+                            header: "Une erreur est survenu",
+                            subHeader: "Impossible de charger une image.",
+                            message: "Vérifiez que vous avez autorisé Modixom a accéder à la gallerie dans les paramètres de votre appareil et recommencez.",
+                            buttons: ["Ok"],
+                            onDidDismiss: async () => await present({
+                                message: "Une erreur est survenue lors du chargement de l'image",
+                                duration: 2000,
+                                color: "danger",
+                            })
                         })
                     }
                 })
@@ -180,6 +190,19 @@ const AddAnnonceForm: React.FC = () => {
                                     isSelectedCheckbox={isBoosted}
                                 />
                             )
+                        }
+                        if (item === "pourcent") {
+                            return <div key={index} className={"addAnnonce__container__form__wrapper"}>
+                                <ContactFormInput
+                                    //@ts-ignore
+                                    {...FormField[item]}
+                                    value={data[item]}
+                                    handleChange={handleChange}
+                                    errorSelector={getAddAnnonceError}
+                                    classPrefix={"addAnnonce__container__form__wrapper"}
+                                    />
+                                <div className="price">Prix (TTC) après réduction : {priceSolded.toFixed(2).replace(".00", "").replace(".", ",")} €</div>
+                            </div>
                         }
                         return (
                             <ContactFormInput

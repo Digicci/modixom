@@ -1,22 +1,20 @@
-import {Geolocation} from "@capacitor/geolocation";
+import {Geolocation, Position} from "@capacitor/geolocation";
 
-export const getLocation = async () => {
-    ensureAuthorization()
-
+export const getLocation = async (): Promise<Position | boolean> => {
+    const isActivated = await ensureAuthorization();
    try {
-       return await Geolocation.getCurrentPosition()
+       return await Geolocation.getCurrentPosition();
    } catch(e: any) {
-       console.log(e.message)
+       return isActivated;
    }
 }
 
-const ensureAuthorization = () => {
-    Geolocation.checkPermissions().then((permissionStatus) => {
-        console.log(permissionStatus)
-        permissionStatus.location !== 'granted' && Geolocation.requestPermissions({
+const ensureAuthorization = async (): Promise<boolean> => {
+    return Geolocation.checkPermissions().then((permissionStatus): Promise<boolean> | boolean => {
+        return permissionStatus.location !== 'granted' ? Geolocation.requestPermissions({
             permissions: ['location']
         }).then((permissionStatus) => {
-            console.log(permissionStatus)
-        })
+            return permissionStatus.location === "granted";
+        }) : true
     })
 }

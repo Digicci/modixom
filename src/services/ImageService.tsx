@@ -7,7 +7,7 @@ export const useImageService = () => {
 
     // Todo : On aimerait récupérer plus d'infos sur l'image, comme sa taille, son nom, etc...
     const pickImage = async () => {
-        ensureGranted()
+        const isGranted = await ensureGranted()
         try {
             const image = await Camera.getPhoto({
                 resultType: CameraResultType.DataUrl,
@@ -19,16 +19,20 @@ export const useImageService = () => {
             console.log(image)
             return image
         } catch(e) {
-            console.log(e)
+            return isGranted;
         }
     }
 
-    const ensureGranted = () => {
-        Camera.checkPermissions().then((permissionStatus) => {
+    const ensureGranted = async () => {
+        return Camera.checkPermissions().then((permissionStatus) => {
             console.log(permissionStatus)
-            permissionStatus.photos !== 'granted' && Camera.requestPermissions({
+            return permissionStatus.photos !== 'granted' ? Camera.requestPermissions({
                 permissions: ['photos']
-            })
+            }).then((permissionStatus) => {
+                return permissionStatus.photos === "granted";
+            }).catch(() => false)
+                :
+                false
         })
     }
 

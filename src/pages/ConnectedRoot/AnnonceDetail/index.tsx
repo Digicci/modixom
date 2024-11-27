@@ -31,12 +31,9 @@ const AnnonceDetail: React.FC = () => {
     }, [params.id]);
 
     const runGoogleMaps = () => {
-        getLocation().then((res) => {
-            const destination = res && encodeURIComponent(`${annonce?.adresse},${annonce?.ville?.toLowerCase()}`)
-            console.log(destination)
-            destination && window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`)
-        })
-
+        const destination = encodeURIComponent(`${annonce?.adresse},${annonce?.ville?.toLowerCase()}`)
+        console.log(destination)
+        destination && window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`)
     }
 
     return (
